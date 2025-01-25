@@ -1,0 +1,37 @@
+---
+import { tv } from "tailwind-variants";
+
+const styles = tv({
+  base: [
+    "inline-block text-black/75 decoration-black/15 transition-colors duration-300 ease-in-out",
+    "hover:text-black hover:decoration-black/50",
+  ],
+  variants: {
+    underline: {
+      true: "underline decoration-wavy underline-offset-2",
+    },
+    active: {
+      true: "decoration-black/75 text-black",
+    },
+  },
+});
+
+export type Props = {
+  href: string;
+  external?: boolean;
+  underline?: boolean;
+};
+
+const { href, external, underline = true, ...rest } = Astro.props;
+const active = Astro.url.pathname.includes(href);
+---
+
+<a
+  href={href}
+  rel={external ? "noopener noreferrer" : undefined}
+  target={external ? "_blank" : "_self"}
+  class={styles({ underline, active })}
+  {...rest}
+>
+  <slot />
+</a>

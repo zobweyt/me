@@ -1,0 +1,22 @@
+---
+type Props = {
+  date: Date;
+  locales?: Intl.LocalesArgument;
+  options?: Intl.DateTimeFormatOptions;
+};
+
+const {
+  date,
+  locales = "en-us",
+  options = {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  },
+} = Astro.props;
+---
+
+<time datetime={Astro.props.date.toISOString()}>
+  {date.toLocaleDateString(locales, options)}
+</time>

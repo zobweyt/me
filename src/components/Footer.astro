@@ -1,0 +1,27 @@
+---
+import Container from "@components/Container.astro";
+import { SITE, SOCIALS } from "@constants";
+import Link from "./Link.astro";
+import Nav from "./Nav.astro";
+---
+
+<footer class="py-6">
+  <Container>
+    <div class="flex justify-between items-center max-sm:flex-col-reverse gap-2">
+      <Link href="/" underline={false}>
+        <span class="font-semibold">
+          {SITE.name}
+        </span>
+      </Link>
+
+      <Nav
+        items={SOCIALS.map((social) => ({
+          name: social.name,
+          href: social.href,
+          external: true,
+          "aria-label": `${SITE.name} on ${social.name}`,
+        }))}
+      />
+    </div>
+  </Container>
+</footer>

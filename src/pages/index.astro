@@ -1,0 +1,58 @@
+---
+import Link from "@components/Link.astro";
+import PostCard from "@components/PostCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import {
+  HOME,
+  RECENT_BLOG_ENTRIES_COUNT,
+  RECENT_PROJECTS_ENTRIES_COUNT,
+} from "@constants";
+import { getBlogEntries, getProjectsEntries } from "@content/entries";
+import PageLayout from "@layouts/PageLayout.astro";
+
+const blog = await getBlogEntries(RECENT_BLOG_ENTRIES_COUNT);
+const projects = await getProjectsEntries(RECENT_PROJECTS_ENTRIES_COUNT);
+---
+
+<PageLayout title={HOME.title} description={HOME.description}>
+  <div class="space-y-10">
+    <section>
+      <hgroup>
+        <h1 class="font-semibold text-3xl mb-3">{HOME.title}</h1>
+        <p class="font-serif text-justify">{HOME.description}</p>
+      </hgroup>
+    </section>
+
+    <section class="space-y-6">
+      <div class="flex flex-wrap gap-2 items-center justify-between">
+        <h2 class="font-semibold text-lg">Latest posts</h2>
+        <Link href="/blog">See all posts</Link>
+      </div>
+      <ul class="space-y-4">
+        {
+          blog.map((entry) => (
+            <li>
+              <PostCard entry={entry} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="space-y-6">
+      <div class="flex flex-wrap gap-2 items-center justify-between">
+        <h2 class="font-semibold text-lg">Recent projects</h2>
+        <Link href="/projects">See all projects</Link>
+      </div>
+      <ul class="space-y-4">
+        {
+          projects.map((entry) => (
+            <li>
+              <ProjectCard entry={entry} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</PageLayout>

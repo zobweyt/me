@@ -1,0 +1,46 @@
+---
+import { dateRange } from "@lib/utils";
+import type { CollectionEntry } from "astro:content";
+import { tv } from "tailwind-variants";
+
+const styles = tv({
+  slots: {
+    root: [
+      "block cursor-pointer rounded-lg bg-opacity-5 p-4 outline-none ring-1 ring-inset ring-opacity-15",
+      "transition duration-300 ease-in-out",
+      "hover:bg-opacity-15 focus-visible:ring-opacity-50 active:ring-opacity-30",
+    ],
+    wrapper: "mb-1 flex items-center gap-2",
+    logo: "size-6 rounded-full shadow ring-1 ring-black/10",
+    title: "text-xl font-semibold leading-normal",
+    description: "mb-2 opacity-75",
+    range: "font-mono text-sm",
+  },
+});
+
+type Props = {
+  entry: CollectionEntry<"projects">;
+};
+
+const { entry } = Astro.props;
+---
+
+<a
+  href={entry.data.href}
+  class={styles().root()}
+  style={{
+    background: `rgba(${entry.data.rgb}, var(--tw-bg-opacity))`,
+    "--tw-ring-color": `rgba(${entry.data.rgb}, var(--tw-ring-opacity))`,
+  }}
+>
+  <div class={styles().wrapper()}>
+    <img src={entry.data.logo} alt={entry.data.title} draggable="false" class={styles().logo()} />
+    <h3 class={styles().title()}>{entry.data.title}</h3>
+  </div>
+  <p class={styles().description()}>
+    {entry.data.description}
+  </p>
+  <p class={styles().range()} style={{ color: `rgb(${entry.data.rgb})` }}>
+    {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+  </p>
+</a>

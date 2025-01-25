@@ -1,0 +1,32 @@
+---
+import Link, { type Props as LinkProps } from "./Link.astro";
+
+type Props = {
+  items: ({
+    name: string;
+    href: string;
+  } & LinkProps)[];
+  separator?: string;
+};
+
+const { items, separator = "/", ...rest } = Astro.props;
+---
+
+<nav {...rest}>
+  <ul class="flex gap-1">
+    {
+      items.map((item, index) => {
+        const { href, name, ...rest } = item;
+
+        return (
+          <li class="flex gap-1 text-nowrap">
+            <Link href={href} {...rest}>
+              {name}
+            </Link>
+            {index + 1 !== items.length && separator}
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>

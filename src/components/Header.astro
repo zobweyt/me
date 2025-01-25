@@ -1,0 +1,31 @@
+---
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+import { SITE } from "@constants";
+import Nav from "./Nav.astro";
+---
+
+<header class="py-6">
+  <Container>
+    <div class="flex flex-wrap gap-y-2 justify-between items-center">
+      <Link href="/" underline={false}>
+        <span class="font-semibold">
+          {SITE.name}
+        </span>
+      </Link>
+
+      <Nav
+        items={[
+          {
+            name: "blog",
+            href: "/blog",
+          },
+          {
+            name: "projects",
+            href: "/projects",
+          },
+        ]}
+      />
+    </div>
+  </Container>
+</header>
