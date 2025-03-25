@@ -32,6 +32,8 @@ const { entry } = Astro.props;
     background: `rgba(${entry.data.rgb}, var(--tw-bg-opacity))`,
     "--tw-ring-color": `rgba(${entry.data.rgb}, var(--tw-ring-opacity))`,
   }}
+  rel="noopener noreferrer"
+  target="_blank"
 >
   <div class={styles().wrapper()}>
     <img src={entry.data.logo} alt={entry.data.title} draggable="false" class={styles().logo()} />
@@ -41,6 +43,6 @@ const { entry } = Astro.props;
     {entry.data.description}
   </p>
   <p class={styles().range()} style={{ color: `rgb(${entry.data.rgb})` }}>
-    {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+    {dateRange(entry.data.dateStart, entry.data.dateEnd, Astro.currentLocale)}
   </p>
 </a>

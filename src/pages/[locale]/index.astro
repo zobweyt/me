@@ -1,0 +1,63 @@
+---
+import Link from "@components/Link.astro";
+import PostCard from "@components/PostCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import { RECENT_BLOG_ENTRIES_COUNT, RECENT_PROJECTS_ENTRIES_COUNT } from "@constants";
+import { getBlogEntries, getProjectsEntries } from "@content/entries";
+import { LOCALES, useTranslations } from "@i18n";
+import PageLayout from "@layouts/PageLayout.astro";
+
+const blog = await getBlogEntries({ count: RECENT_BLOG_ENTRIES_COUNT, locale: Astro.currentLocale });
+const projects = await getProjectsEntries({ count: RECENT_PROJECTS_ENTRIES_COUNT, locale: Astro.currentLocale });
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+
+const t = useTranslations(Astro.currentLocale)
+---
+
+<PageLayout title={t("home.title")} description={t("home.description")}>
+  <div class="space-y-10">
+    <section>
+      <hgroup>
+        <h1 class="font-semibold text-3xl mb-3">{t("home.title")}</h1>
+        <p class="font-serif text-justify">{t("home.description")}</p>
+      </hgroup>
+    </section>
+
+    <section class="space-y-6">
+      <div class="flex flex-wrap gap-2 items-center justify-between">
+        <h2 class="font-semibold text-lg">{t("blog.latest")}</h2>
+        <Link href={`/${Astro.currentLocale}/blog`}>{t("blog.all")}</Link>
+      </div>
+      <ul class="space-y-4">
+        {
+          blog.map((entry) => (
+            <li>
+              <PostCard entry={entry} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="space-y-6">
+      <div class="flex flex-wrap gap-2 items-center justify-between">
+        <h2 class="font-semibold text-lg">{t("projects.recent")}</h2>
+        <Link href={`/${Astro.currentLocale}/projects`}>{t("projects.all")}</Link>
+      </div>
+      <ul class="space-y-4">
+        {
+          projects.map((entry) => (
+            <li>
+              <ProjectCard entry={entry} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</PageLayout>

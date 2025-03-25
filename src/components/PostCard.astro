@@ -22,7 +22,7 @@ type Props = {
 const { entry } = Astro.props;
 ---
 
-<a href={`/${entry.collection}/${entry.slug}`} class={styles().base()}>
+<a href={`/${Astro.currentLocale}/${entry.collection}/${entry.slug.replace(`${Astro.currentLocale}/`, "")}`} class={styles().base()}>
   <hgroup class={styles().wrapper()}>
     <h3 class={styles().title()}>
       {entry.data.title}

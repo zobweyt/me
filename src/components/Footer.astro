@@ -1,27 +1,40 @@
 ---
 import Container from "@components/Container.astro";
-import { SITE, SOCIALS } from "@constants";
+import { SOCIALS } from "@constants";
 import Link from "./Link.astro";
 import Nav from "./Nav.astro";
+import { LOCALES, useTranslations } from "@i18n";
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <footer class="py-6">
   <Container>
     <div class="flex justify-between items-center max-sm:flex-col-reverse gap-2">
-      <Link href="/" underline={false}>
+      <Link href={`/${Astro.currentLocale}`} underline={false}>
         <span class="font-semibold">
-          {SITE.name}
+          {t("name")}
         </span>
       </Link>
 
-      <Nav
-        items={SOCIALS.map((social) => ({
-          name: social.name,
-          href: social.href,
-          external: true,
-          "aria-label": `${SITE.name} on ${social.name}`,
-        }))}
-      />
+      <div class="flex sm:gap-4 sm:ms-auto max-sm:flex-col items-center">
+        <Nav
+          items={LOCALES.map((locale) => ({
+            name: locale,
+            href: Astro.currentLocale ? Astro.url.pathname.replace(Astro.currentLocale, locale) : `/${locale}`,
+            active: locale === Astro.currentLocale,
+          }))}
+        />
+
+        <Nav
+          items={SOCIALS.map((social) => ({
+            name: social.name,
+            href: social.href,
+            external: true,
+            "aria-label": `${t("name")} — ${social.name}`,
+          }))}
+        />
+      </div>
     </div>
   </Container>
 </footer>

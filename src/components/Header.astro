@@ -1,28 +1,30 @@
 ---
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
-import { SITE } from "@constants";
 import Nav from "./Nav.astro";
+import { useTranslations } from "@i18n";
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <header class="py-6">
   <Container>
     <div class="flex flex-wrap gap-y-2 justify-between items-center">
-      <Link href="/" underline={false}>
+      <Link href={`/${Astro.currentLocale}`} underline={false}>
         <span class="font-semibold">
-          {SITE.name}
+          {t("name")}
         </span>
       </Link>
 
       <Nav
         items={[
           {
-            name: "blog",
-            href: "/blog",
+            name: t("blog.title"),
+            href: `/${Astro.currentLocale}/blog`,
           },
           {
-            name: "projects",
-            href: "/projects",
+            name: t("projects.title"),
+            href: `/${Astro.currentLocale}/projects`,
           },
         ]}
       />

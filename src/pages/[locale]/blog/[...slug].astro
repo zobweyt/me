@@ -2,18 +2,28 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Time from "@components/Time.astro";
-import { readingTime } from "@lib/utils";
+import { readingTime as getReadingMinutes } from "@lib/utils";
 import Article from "@components/Article.astro";
+import { useTranslations } from "@i18n";
+
+const t = useTranslations(Astro.currentLocale);
+
+export const prerender = true;
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-  );
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  const collection = await getCollection("blog");
+  const posts = collection.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+  return posts.map(function (post) {
+    const locale = post.id.split("/")[0];
+
+    return {
+      params: { locale, slug: `${post.slug.replace(`${locale}/`, "")}` },
+      props: post,
+    };
+  });
 }
+
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
@@ -29,7 +39,7 @@ const { Content } = await post.render();
         </div>
         ·
         <div class="font-base text-sm">
-          {readingTime(post.body)}
+          {getReadingMinutes(post.body)} {t("minread")}
         </div>
       </div>
       <hgroup>

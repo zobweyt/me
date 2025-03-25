@@ -18,12 +18,13 @@ const styles = tv({
 
 export type Props = {
   href: string;
+  active?: boolean;
   external?: boolean;
   underline?: boolean;
 };
 
-const { href, external, underline = true, ...rest } = Astro.props;
-const active = Astro.url.pathname.includes(href);
+const { href, active: _active, external, underline = true, ...rest } = Astro.props;
+const active = _active || Astro.url.pathname.includes(href);
 ---
 
 <a
