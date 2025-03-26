@@ -1,0 +1,12 @@
+---
+import Anchor from "./Anchor.astro";
+
+const props = Astro.props;
+---
+
+<h3 {...props} class="group flex items-center space-x-1 relative">
+  <span>
+    <slot />
+  </span>
+  <Anchor id={props.id} />
+</h3>
