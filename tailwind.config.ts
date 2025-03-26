@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Karla Variable", ...defaultTheme.fontFamily.sans],
+        sans: ["Rubik Variable", ...defaultTheme.fontFamily.sans],
         serif: ["Lora Variable", ...defaultTheme.fontFamily.serif],
-        mono: ["Geist Mono Variable", ...defaultTheme.fontFamily.mono],
+        mono: ["Fira Code Variable", ...defaultTheme.fontFamily.mono],
       },
     },
   },
