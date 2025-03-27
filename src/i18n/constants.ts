@@ -7,7 +7,7 @@ export type Locale = (typeof LOCALES)[number];
 export const ui = {
   en: {
     name: "Nikita Gaziev",
-    minread: "min read",
+    back: "Back",
     "home.title": "Hey There! 👋",
     "home.description":
       "'sup? I'm zobweyt! I'm engaged into software engineering, optimization, design, moderation, and building thriving online communities. In my free time, I work on various projects, many of which involve discord.",
@@ -22,7 +22,7 @@ export const ui = {
   },
   ru: {
     name: "Никита Газиев",
-    minread: "мин чтения",
+    back: "Назад",
     "home.title": "Всем привет! 👋",
     "home.description":
       "'Привет! Я zobweyt! Я занимаюсь программной инженерией, оптимизацией, дизайном, модерацией и созданием процветающих онлайн-сообществ. В свободное время я работаю над различными проектами, многие из которых связаны с Discord.",
