@@ -9,6 +9,7 @@ const styles = tv({
   variants: {
     underline: {
       true: "underline decoration-wavy underline-offset-2",
+      false: "no-underline",
     },
     active: {
       true: "decoration-black/75 text-black",
@@ -24,7 +25,7 @@ export type Props = {
 };
 
 const { href, active: _active, external, underline = true, ...rest } = Astro.props;
-const active = _active || Astro.url.pathname.includes(href);
+const active = _active != null ? _active : Astro.url.pathname.includes(href);
 ---
 
 <a
