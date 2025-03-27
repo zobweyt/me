@@ -28,7 +28,7 @@ const t = useTranslations(Astro.currentLocale)
       </hgroup>
     </section>
 
-    <section class="space-y-6">
+    <section class="space-y-4">
       <div class="flex flex-wrap gap-2 items-center justify-between">
         <h2 class="font-semibold text-lg">{t("blog.latest")}</h2>
         <Link href={`/${Astro.currentLocale}/blog`}>{t("blog.all")}</Link>
@@ -44,12 +44,12 @@ const t = useTranslations(Astro.currentLocale)
       </ul>
     </section>
 
-    <section class="space-y-6">
+    <section class="space-y-4">
       <div class="flex flex-wrap gap-2 items-center justify-between">
         <h2 class="font-semibold text-lg">{t("projects.recent")}</h2>
         <Link href={`/${Astro.currentLocale}/projects`}>{t("projects.all")}</Link>
       </div>
-      <ul class="space-y-4">
+      <ul class="grid gap-4 sm:grid-cols-2">
         {
           projects.map((entry) => (
             <li>

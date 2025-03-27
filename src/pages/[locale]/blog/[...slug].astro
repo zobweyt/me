@@ -1,26 +1,28 @@
 ---
-import { readingTime as getReadingMinutes } from "@lib/utils";
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 import { useTranslations } from "@i18n";
+import { getBlogEntries } from "@content/entries";
 import Article from "@components/content/Article.astro";
 import H2 from "@components/content/H2.astro";
 import H3 from "@components/content/H3.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Time from "@components/Time.astro";
+import PostTags from "@components/PostTags.astro";
+import MaterialSymbolsArrowBackRounded from "~icons/material-symbols/arrow-back-rounded";
 
 const t = useTranslations(Astro.currentLocale);
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const collection = await getCollection("blog");
-  const posts = collection.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  const posts = await getBlogEntries();
 
   return posts.map(function (post) {
     const locale = post.id.split("/")[0];
+    const slug = `${post.slug.replace(`${locale}/`, "")}`;
 
     return {
-      params: { locale, slug: `${post.slug.replace(`${locale}/`, "")}` },
+      params: { locale, slug },
       props: post,
     };
   });
@@ -35,22 +37,28 @@ const components = { h2: H2, h3: H3 };
 ---
 
 <PageLayout title={post.data.title} description={post.data.description}>
+  <a
+    href={`/${Astro.currentLocale}/blog`}
+    class="flex items-center gap-1 no-underline opacity-75 transition-opacity hover:opacity-100 py-4"
+  >
+    <MaterialSymbolsArrowBackRounded class="size-5" />
+    {t("back")}
+  </a>
+
   <Article>
-    <div class="space-y-1 my-10">
-      <div class="flex items-center gap-1.5">
-        <div class="font-base text-sm">
-          <Time date={post.data.date} />
-        </div>
-        ·
-        <div class="font-base text-sm">
-          {getReadingMinutes(post.body)} {t("minread")}
-        </div>
-      </div>
-      <hgroup>
-        <h1>{post.data.title}</h1>
-        <p>{post.data.description}</p>
-      </hgroup>
-    </div>
+    <hgroup>
+      <h1 class="m-0">{post.data.title}</h1>
+      <p class="my-3">{post.data.description}</p>
+    </hgroup>
+
+    <p class="font-base text-sm first-letter:uppercase">
+      <Time date={post.data.date} />
+    </p>
+
+    {post.data.tags && <PostTags tags={post.data.tags} />}
+
+    <hr class="border-dashed my-8" />
+
     <Content components={components} />
   </Article>
 </PageLayout>
