@@ -2,16 +2,19 @@
 import type { CollectionEntry } from "astro:content";
 import { tv } from "tailwind-variants";
 import Time from "./Time.astro";
+import PostTags from "./PostTags.astro";
+import MaterialSymbolsArrowRightAltRounded from "~icons/material-symbols/arrow-right-alt-rounded";
 
 const styles = tv({
   slots: {
-    base: [
-      "flex flex-nowrap p-4 pr-10 rounded-lg border border-black/15 hover:bg-black/5 hover:text-black",
+    root: [
+      "group relative flex flex-nowrap items-center rounded-lg border border-black/15 p-4 hover:bg-black/5",
       "transition-colors duration-300 ease-in-out",
     ],
-    wrapper: "flex grow flex-col",
-    title: "font-semibold text-xl",
-    description: "opacity-75",
+    wrapper: "flex flex-col flex-nowrap grow",
+    title: "text-xl font-semibold leading-normal after:absolute after:inset-0 after:z-10",
+    date: "mb-2 mt-1 font-mono text-sm opacity-75 first-letter:uppercase",
+    icon: "size-6 opacity-75 transition-opacity duration-300 ease-in-out group-hover:opacity-100",
   },
 });
 
@@ -22,13 +25,21 @@ type Props = {
 const { entry } = Astro.props;
 ---
 
-<a href={`/${Astro.currentLocale}/${entry.collection}/${entry.slug.replace(`${Astro.currentLocale}/`, "")}`} class={styles().base()}>
-  <hgroup class={styles().wrapper()}>
-    <h3 class={styles().title()}>
+<div class={styles().root()}>
+  <div class={styles().wrapper()}>
+    <a
+      href={`/${Astro.currentLocale}/${entry.collection}/${entry.slug.replace(`${Astro.currentLocale}/`, "")}`}
+      class={styles().title()}
+    >
       {entry.data.title}
-    </h3>
-    <p class={styles().description()}>
+    </a>
+
+    <p class={styles().date()}>
       <Time date={entry.data.date} />
     </p>
-  </hgroup>
-</a>
+
+    {entry.data.tags && <PostTags tags={entry.data.tags} />}
+  </div>
+
+  <MaterialSymbolsArrowRightAltRounded class={styles().icon()} />
+</div>
