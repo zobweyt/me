@@ -3,6 +3,7 @@ import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
+import icons from "unplugin-icons/vite";
 import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
 
 export default defineConfig({
@@ -28,4 +29,16 @@ export default defineConfig({
     }),
     tailwind(),
   ],
+  vite: {
+    plugins: [
+      icons({
+        compiler: "astro",
+        iconCustomizer(collection, icon, props) {
+          props.width = "100%";
+          props.height = "100%";
+          props["aria-hidden"] = "true";
+        },
+      }),
+    ],
+  },
 });
