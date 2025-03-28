@@ -4,5 +4,5 @@ description: "Библиотека вдохновения, которую вы �
 dateStart: "Aug 29 2024"
 href: "https://quotepedia.vercel.app"
 logo: "https://i.ibb.co/39KHj4zh/quotepedia-24.png"
-rgb: "128, 115, 86"
+rgb: "106, 95, 73"
 ---
