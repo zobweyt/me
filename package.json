@@ -2,6 +2,7 @@
   "name": "zobweyt",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "author": {
     "name": "Nikita Gaziev",
     "email": "zobweyt@gmail.com",
