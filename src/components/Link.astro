@@ -30,8 +30,8 @@ const active = _active != null ? _active : Astro.url.pathname.includes(href);
 
 <a
   href={href}
-  rel={external ? "noopener noreferrer" : undefined}
-  target={external ? "_blank" : "_self"}
+  rel={external === true ? "noopener noreferrer" : undefined}
+  target={external === true ? "_blank" : "_self"}
   class={styles({ underline, active })}
   {...rest}
 >

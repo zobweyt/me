@@ -1,10 +1,10 @@
-import mdx from "@astrojs/mdx";
-import vercel from "@astrojs/vercel";
-import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
 import { defineConfig } from "astro/config";
 import icons from "unplugin-icons/vite";
-import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import vercel from "@astrojs/vercel";
 
 export default defineConfig({
   site: "https://zobweyt.vercel.app",

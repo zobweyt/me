@@ -1,8 +1,8 @@
 ---
-import ProjectCard from "@components/ProjectCard.astro";
-import { getProjectsEntries } from "@content/entries";
 import { LOCALES, useTranslations } from "@i18n";
+import { getProjectsEntries } from "@content/entries";
 import PageLayout from "@layouts/PageLayout.astro";
+import ProjectCard from "@components/ProjectCard.astro";
 
 const t = useTranslations(Astro.currentLocale);
 
@@ -18,8 +18,8 @@ export async function getStaticPaths() {
 <PageLayout title={t("projects.title")} description={t("projects.description")}>
   <div class="space-y-10">
     <hgroup>
-      <h1 class="font-semibold text-3xl mb-3">{t("projects.title")}</h1>
-      <p class="font-serif text-justify">{t("projects.description")}</p>
+      <h1 class="mb-3 text-3xl font-semibold">{t("projects.title")}</h1>
+      <p class="text-justify font-serif">{t("projects.description")}</p>
     </hgroup>
 
     <ul class="space-y-4">

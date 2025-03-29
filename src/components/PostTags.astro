@@ -9,7 +9,9 @@ const { tags } = Astro.props;
 <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
   {
     tags.map((tag) => (
-      <li class="cursor-default rounded-full bg-white px-2 py-0.5 !font-mono text-sm text-black/75 ring-1 ring-black/15">{tag}</li>
+      <li class="cursor-default rounded-full bg-white px-2 py-0.5 !font-mono text-sm text-black/75 ring-1 ring-black/15">
+        {tag}
+      </li>
     ))
   }
 </ul>

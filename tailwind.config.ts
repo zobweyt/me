@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
@@ -17,6 +18,7 @@ export default {
     },
   },
   plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     require("@tailwindcss/typography"),
     plugin(function ({ addBase }) {
       addBase({

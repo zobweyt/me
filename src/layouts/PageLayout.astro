@@ -1,8 +1,8 @@
 ---
+import Container from "@components/Container.astro";
+import Footer from "@components/Footer.astro";
 import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import Container from "@components/Container.astro";
 
 type Props = {
   title: string;
@@ -17,12 +17,9 @@ const { title, description } = Astro.props;
   <head>
     <Head title={title} description={description} />
   </head>
-  <body
-    class="flex flex-col min-h-dvh bg-stone-100"
-    transition:animate="none"
-  >
+  <body class="flex min-h-dvh flex-col bg-stone-100" transition:animate="none">
     <Header />
-    <main class="py-8 grow">
+    <main class="grow py-8">
       <Container>
         <slot />
       </Container>
