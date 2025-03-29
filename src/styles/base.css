@@ -1,0 +1,10 @@
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    overflow-x: clip;
+    touch-action: manipulation;
+  }
+}

@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config";
 import icons from "unplugin-icons/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
@@ -27,7 +27,6 @@ export default defineConfig({
         defaultLocale: DEFAULT_LOCALE,
       },
     }),
-    tailwind(),
   ],
   vite: {
     plugins: [
@@ -39,6 +38,7 @@ export default defineConfig({
           props["aria-hidden"] = "true";
         },
       }),
+      tailwindcss(),
     ],
   },
 });

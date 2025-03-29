@@ -19,7 +19,7 @@ const projects = defineCollection({
     dateEnd: z.coerce.date().optional(),
     href: z.string().optional(),
     logo: z.string(),
-    rgb: z.string(),
+    color: z.string(),
   }),
 });
 

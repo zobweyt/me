@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@import "@fontsource-variable/fira-code/wght.css";
+@import "@fontsource-variable/rubik/wght.css";
+@import "@fontsource-variable/lora/wght.css";
+
+@import "./base.css";
+@import "./theme.css";
+
+@import "./variants/prose.css";
