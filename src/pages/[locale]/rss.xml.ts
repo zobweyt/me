@@ -30,6 +30,7 @@ export async function GET(context: Context) {
       title: item.data.title,
       description: item.data.description,
       pubDate: item.data.date,
+      categories: item.data.tags,
       link: `/${locale}/${item.collection}/${item.slug.replace(`${locale}/`, "")}`,
     })),
   });
