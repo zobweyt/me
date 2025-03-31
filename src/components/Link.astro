@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 const styles = tv({
   base: [
     "inline-block text-black/75 decoration-black/15 transition-colors duration-300 ease-in-out",
-    "hover:text-black hover:decoration-black/50",
+    "hover:text-(--link-color) hover:decoration-(--link-color)/50",
   ],
   variants: {
     underline: {
@@ -12,7 +12,7 @@ const styles = tv({
       false: "no-underline",
     },
     active: {
-      true: "decoration-black/75 text-black",
+      true: "text-black decoration-black/75",
     },
   },
 });
@@ -22,9 +22,10 @@ export type Props = {
   active?: boolean;
   external?: boolean;
   underline?: boolean;
+  color?: string;
 };
 
-const { href, active: _active, external, underline = true, ...rest } = Astro.props;
+const { href, active: _active, external, underline = true, color = "#000000", ...rest } = Astro.props;
 const active = _active != null ? _active : Astro.url.pathname.includes(href);
 ---
 
@@ -33,6 +34,7 @@ const active = _active != null ? _active : Astro.url.pathname.includes(href);
   rel={external === true ? "noopener noreferrer" : undefined}
   target={external === true ? "_blank" : "_self"}
   class={styles({ underline, active })}
+  style={{ "--link-color": color }}
   {...rest}
 >
   <slot />

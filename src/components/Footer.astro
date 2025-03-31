@@ -10,14 +10,13 @@ const t = useTranslations(Astro.currentLocale);
 
 <footer class="py-6">
   <Container>
-    <div class="flex items-center justify-between gap-2 max-sm:flex-col-reverse">
-      <Link href={`/${Astro.currentLocale}`} underline={false}>
-        <span class="font-semibold">
-          {t("name")}
-        </span>
-      </Link>
-
-      <div class="flex items-center max-sm:flex-col sm:ms-auto sm:gap-4">
+    <div class="flex items-center justify-between gap-2 max-sm:flex-col-reverse sm:gap-4">
+      <div class="flex w-full grow items-center justify-between">
+        <Link href={`/${Astro.currentLocale}`} underline={false}>
+          <span class="font-semibold">
+            {t("name")}
+          </span>
+        </Link>
         <Nav
           items={LOCALES.map((locale) => ({
             name: locale,
@@ -25,16 +24,26 @@ const t = useTranslations(Astro.currentLocale);
             active: locale === Astro.currentLocale,
           }))}
         />
+      </div>
 
-        <Nav
-          items={SOCIALS.map((social) => ({
+      <Nav
+        items={[
+          {
+            name: "rss",
+            href: `${Astro.site}${Astro.currentLocale}/rss.xml`,
+            color: "#FF6600",
+            external: true,
+            "aria-label": `${t("name")} — RSS ${t("blog.title")}`,
+          },
+          ...SOCIALS.map((social) => ({
             name: social.name,
             href: social.href,
+            color: social.color,
             external: true,
             "aria-label": `${t("name")} — ${social.name}`,
-          }))}
-        />
-      </div>
+          })),
+        ]}
+      />
     </div>
   </Container>
 </footer>
