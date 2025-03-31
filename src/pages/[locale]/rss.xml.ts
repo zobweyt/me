@@ -26,6 +26,13 @@ export async function GET(context: Context) {
     title: t("home.title"),
     description: t("home.description"),
     site: context.site,
+    xmlns: {
+      atom: "http://www.w3.org/2005/Atom",
+    },
+    customData: [
+      `<language>${locale}</language>`,
+      `<atom:link href="${context.site}${locale}/rss.xml" rel="self" type="application/rss+xml" />`,
+    ].join(""),
     items: items.map((item) => ({
       title: item.data.title,
       description: item.data.description,
