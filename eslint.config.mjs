@@ -23,8 +23,6 @@ export default [
       parser: typescriptParser,
     },
     rules: {
-      "no-console": "warn",
-
       "sort-imports": [
         "warn",
         {
