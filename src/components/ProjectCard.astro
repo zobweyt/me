@@ -1,8 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
-
 import { Image } from "astro:assets";
+import ProjectCardStars from "./ProjectCardStars.astro";
+import ProjectCardStarsSkeleton from "./ProjectCardStarsSkeleton.astro";
 import { tv } from "tailwind-variants";
+
+type Props = {
+  entry: CollectionEntry<"projects">;
+};
 
 const styles = tv({
   slots: {
@@ -10,23 +15,21 @@ const styles = tv({
       "relative rounded-lg p-4",
       "transition duration-300 ease-in-out",
       "bg-(--project-card-color)/5 hover:bg-(--project-card-color)/15 active:ring-(--project-card-color)/30",
-      "ring ring-inset ring-(--project-card-color)/15 hover:ring-(--project-card-color)/30 active:hover:ring-(--project-card-color)/50",
+      "ring ring-(--project-card-color)/15 ring-inset hover:ring-(--project-card-color)/30 active:hover:ring-(--project-card-color)/50",
     ],
     wrapper: "mb-1 flex items-center gap-2",
     logo: "size-6 rounded-full shadow ring ring-black/15",
-    title: "text-xl font-semibold leading-normal after:absolute after:inset-0 after:z-10",
+    title: "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
     description: "mb-2 font-serif opacity-75",
-    date: "font-mono text-sm first-letter:uppercase text-(--project-card-color)",
+    date: "first-letter:uppercase",
+    stars: "flex items-center gap-1",
+    footer: "flex items-center gap-3 font-mono text-sm text-(--project-card-color)",
   },
 });
 
-const formatter = new Intl.DateTimeFormat(Astro.currentLocale, { year: "numeric", month: "short" });
-
-type Props = {
-  entry: CollectionEntry<"projects">;
-};
-
 const { entry } = Astro.props;
+
+const formatter = new Intl.DateTimeFormat(Astro.currentLocale, { year: "numeric", month: "short" });
 ---
 
 <div
@@ -51,11 +54,16 @@ const { entry } = Astro.props;
   <p class={styles().description()}>
     {entry.data.description}
   </p>
-  <p class={styles().date()}>
-    {
-      entry.data.dateEnd
-        ? formatter.formatRange(entry.data.dateStart, entry.data.dateEnd)
-        : formatter.format(entry.data.dateStart)
-    }
-  </p>
+  <div class={styles().footer()}>
+    <p class={styles().date()}>
+      {
+        entry.data.dateEnd
+          ? formatter.formatRange(entry.data.dateStart, entry.data.dateEnd)
+          : formatter.format(entry.data.dateStart)
+      }
+    </p>
+    <ProjectCardStars project={entry.data} server:defer>
+      <ProjectCardStarsSkeleton slot="fallback" />
+    </ProjectCardStars>
+  </div>
 </div>

@@ -1,0 +1,22 @@
+---
+import { getProjectStars } from "@content/stars";
+import type { InferEntrySchema } from "astro:content";
+import OcticonStar16 from "~icons/octicon/star-16";
+
+type Props = {
+  project: InferEntrySchema<"projects">;
+};
+
+const { project } = Astro.props;
+
+const stars = await getProjectStars(project);
+---
+
+{
+  stars !== null && (
+    <p class="flex items-center gap-1">
+      <OcticonStar16 class="size-4" />
+      {stars}
+    </p>
+  )
+}

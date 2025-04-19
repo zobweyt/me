@@ -1,0 +1,8 @@
+---
+const { ...props } = Astro.props;
+---
+
+<div class="flex items-center gap-1" {...props}>
+  <div class="size-4 animate-pulse rounded-full bg-(--project-card-color)/25"></div>
+  <div class="h-4 w-6 animate-pulse rounded-md bg-(--project-card-color)/25"></div>
+</div>
