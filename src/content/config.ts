@@ -18,6 +18,7 @@ const projects = defineCollection({
     dateStart: z.coerce.date(),
     dateEnd: z.coerce.date().optional(),
     href: z.string().optional(),
+    repo: z.string().optional(),
     logo: z.string(),
     color: z.string(),
   }),
