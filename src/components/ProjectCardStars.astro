@@ -7,14 +7,14 @@ type Props = {
   project: InferEntrySchema<"projects">;
 };
 
-const { project } = Astro.props;
+const { project, ...props } = Astro.props;
 
 const stars = await getProjectStars(project);
 ---
 
 {
   stars !== null && (
-    <p class="flex items-center gap-1">
+    <p class="flex items-center gap-1" {...props}>
       <OcticonStar16 class="size-4" />
       {stars}
     </p>

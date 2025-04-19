@@ -1,8 +1,18 @@
 import type { InferEntrySchema } from "astro:content";
 
+const cache: Map<string, { stars: number; timestamp: number }> = new Map();
+const CACHE_DURATION = 60 * 60 * 1000;
+
 export const getProjectStars = async (project: InferEntrySchema<"projects">): Promise<number | null> => {
   if (project.repo === undefined) {
     return null;
+  }
+
+  const now = Date.now();
+  const cached = cache.get(project.repo);
+
+  if (cached && now - cached.timestamp < CACHE_DURATION) {
+    return cached.stars;
   }
 
   try {
@@ -18,6 +28,8 @@ export const getProjectStars = async (project: InferEntrySchema<"projects">): Pr
       console.warn(message);
       return null;
     }
+
+    cache.set(project.repo, { stars, timestamp: now });
 
     return stars;
   } catch (error) {
