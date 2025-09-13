@@ -7,11 +7,11 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/Command";
+import { DialogClose, DialogTrigger } from "./Dialog";
 import { LOCALES, useTranslations } from "@i18n";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@lib/cn";
 import type { CollectionEntry } from "astro:content";
-import { DialogTrigger } from "./Dialog";
 import Highlighter from "react-highlight-words";
 import { navigate } from "astro:transitions/client";
 import { SOCIALS } from "@constants";
@@ -37,6 +37,7 @@ export default function Search({
   const t = useTranslations(currentLocale);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
@@ -78,7 +79,7 @@ export default function Search({
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              className="opacity-50"
+              className="shrink-0 opacity-50"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
@@ -99,7 +100,7 @@ export default function Search({
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              className="opacity-50"
+              className="shrink-0 opacity-50"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
@@ -120,7 +121,7 @@ export default function Search({
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              className="opacity-50"
+              className="shrink-0 opacity-50"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
@@ -145,7 +146,7 @@ export default function Search({
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            className="opacity-50"
+            className="shrink-0 opacity-50"
           >
             <path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z" />
             <path d="M15 3v4a2 2 0 0 0 2 2h4" />
@@ -164,7 +165,7 @@ export default function Search({
             alt={project.data.title}
             width={24}
             height={24}
-            className="rounded-full shadow ring ring-black/15"
+            className="shrink-0 rounded-full shadow ring ring-black/15"
           />
         ),
         name: project.data.title,
@@ -178,7 +179,7 @@ export default function Search({
         ...SOCIALS.map((social) => ({
           icon: (
             <div
-              className="size-6 rounded-full bg-(--icon-color)/75 shadow ring ring-black/15"
+              className="size-6 shrink-0 rounded-full bg-(--icon-color)/75 shadow ring ring-black/15"
               style={{ "--icon-color": social.color } as React.CSSProperties}
             />
           ),
@@ -203,7 +204,7 @@ export default function Search({
 
   return (
     <>
-      <CommandDialog title={t("search.title")} description={t("search.description")} open={open} onOpenChange={setOpen}>
+      <CommandDialog open={open} onOpenChange={setOpen}>
         <DialogTrigger
           className={cn(
             "flex w-fit items-center justify-center gap-0.5 rounded-full border border-black/15 px-2 py-1 text-xs leading-none transition outline-none hover:bg-black/5 focus-visible:bg-black/5",
@@ -226,12 +227,51 @@ export default function Search({
           </svg>
           <span>Ctrl K</span>
         </DialogTrigger>
-        <CommandDialogContent>
-          <CommandInput
-            value={query}
-            onInput={(e) => setQuery(e.currentTarget.value)}
-            placeholder={t("search.input.placeholder")}
-          />
+        <CommandDialogContent title={t("search.title")} description={t("search.description")}>
+          <div className="m-2 flex items-center justify-center gap-2">
+            <CommandInput
+              value={query}
+              ref={inputRef}
+              onInput={(e) => setQuery(e.currentTarget.value)}
+              placeholder={t("search.input.placeholder")}
+              className={query && "pe-10"}
+              after={
+                query && (
+                  <button
+                    type="button"
+                    className="absolute right-0 flex size-9 cursor-pointer items-center justify-center opacity-50 hover:opacity-75 focus-visible:opacity-75 active:opacity-100"
+                    onClick={() => {
+                      setQuery("");
+                      inputRef.current?.focus();
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="size-5 stroke-current"
+                      strokeWidth={2.5}
+                    >
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
+                  </button>
+                )
+              }
+            />
+
+            {!query && (
+              <DialogClose className="flex items-center gap-1 px-2 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
+                {t("search.footer.exit")}
+              </DialogClose>
+            )}
+          </div>
 
           <CommandList>
             <CommandEmpty>{t("search.empty")}</CommandEmpty>
@@ -242,9 +282,10 @@ export default function Search({
                   <CommandItem
                     key={item.href}
                     onSelect={() => {
+                      setOpen(false);
+
                       if (item.external === true) {
                         window.open(item.href, "_blank")?.focus();
-                        setOpen(false);
                       } else {
                         navigate(item.href);
                       }
@@ -262,7 +303,7 @@ export default function Search({
                         autoEscape
                         searchWords={[query]}
                         textToHighlight={item.href}
-                        className="opacity-50"
+                        className="min-w-0 truncate opacity-50"
                         highlightClassName="bg-amber-400 rounded-sm"
                       />
                     )}
