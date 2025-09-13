@@ -1,13 +1,17 @@
 ---
+import { getBlogEntries, getProjectsEntries } from "@content/entries";
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
 import Nav from "./Nav.astro";
+import Search from "./Search";
 import { useTranslations } from "@i18n";
 
 const t = useTranslations(Astro.currentLocale);
+const posts = await getBlogEntries({ locale: Astro.currentLocale });
+const projects = await getProjectsEntries({ locale: Astro.currentLocale });
 ---
 
-<header class="py-6">
+<header class="sticky top-0 z-10 bg-stone-100 py-6">
   <Container>
     <div class="flex flex-wrap items-center justify-between gap-y-2">
       <Link href={`/${Astro.currentLocale}`} underline={false}>
@@ -15,6 +19,15 @@ const t = useTranslations(Astro.currentLocale);
           {t("name")}
         </span>
       </Link>
+
+      <Search
+        client:idle
+        posts={posts}
+        projects={projects}
+        url={Astro.url}
+        currentLocale={Astro.currentLocale}
+        className="ms-auto me-3"
+      />
 
       <Nav
         items={[

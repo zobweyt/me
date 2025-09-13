@@ -1,6 +1,7 @@
 @layer base {
   html {
     color-scheme: light;
+    scrollbar-color: theme(colors.stone.400) transparent;
   }
 
   body {

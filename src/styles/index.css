@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+@import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
 @import "@fontsource-variable/fira-code/wght.css";
@@ -10,3 +11,4 @@
 @import "./theme.css";
 
 @import "./variants/prose.css";
+@import "./utilities/scrollbar.css";
