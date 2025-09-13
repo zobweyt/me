@@ -47,8 +47,9 @@ export const CommandInput = ({
   ...props
 }: React.ComponentProps<typeof Command.Input> & { before?: React.ReactNode; after?: React.ReactNode }) => {
   return (
-    <div className="relative flex w-full items-center justify-center rounded-lg bg-stone-200 ring ring-black/15 select-none">
+    <div className="relative flex h-9 w-full items-center justify-center rounded-lg bg-stone-200 ring ring-black/15 select-none">
       {before}
+
       <Command.Input className={cn("size-full p-2 outline-hidden placeholder:text-black/75", className)} {...props} />
 
       {after}
