@@ -43,7 +43,7 @@ export async function getStaticPaths() {
       {
         years.map((year) => (
           <section class="space-y-2">
-            <div class="sticky top-0 z-10 bg-stone-100 py-2 text-lg font-semibold">{year}</div>
+            <div class="sticky top-18.5 z-10 bg-stone-100 py-2 text-lg font-semibold sm:top-14.5">{year}</div>
             <div>
               <ul class="flex flex-col gap-4">
                 {posts[year].map((post) => (
