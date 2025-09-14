@@ -1,0 +1,7 @@
+---
+import Code from "@components/Code";
+
+const props = Astro.props;
+---
+
+<Code client:idle currentLocale={Astro.currentLocale} {...props}><slot /></Code>

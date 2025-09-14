@@ -37,7 +37,7 @@ export default function Search({
   const t = useTranslations(currentLocale);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
