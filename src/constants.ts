@@ -1,4 +1,4 @@
-export const RECENT_BLOG_ENTRIES_COUNT = 3;
+export const RECENT_BLOG_ENTRIES_COUNT = 2;
 export const RECENT_PROJECTS_ENTRIES_COUNT = 2;
 
 export const SOCIALS: {

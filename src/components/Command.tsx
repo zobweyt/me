@@ -31,7 +31,12 @@ export const CommandDialogContent = ({
 
       <Command
         className={cn("flex size-full flex-col overflow-hidden p-0", className)}
-        filter={(value, search) => (value.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ? 1 : 0)}
+        filter={(value, search, keywords) =>
+          value.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
+          (keywords?.some((word) => word.toLocaleLowerCase().includes(search.toLocaleLowerCase())) ?? false)
+            ? 1
+            : 0
+        }
         loop
       >
         {children}

@@ -62,6 +62,7 @@ export default function Search({
       icon: React.ReactNode;
       name: string;
       href: string;
+      keywords?: string[];
       action?: boolean;
       external?: boolean;
     }[];
@@ -155,6 +156,7 @@ export default function Search({
           </svg>
         ),
         name: post.data.title,
+        keywords: [...(post.data.tags ?? []), ...post.data.description.replace(".", "").split(" ")],
         href: `/${currentLocale}/blog/${post.id.split("/")[1]}`,
       })),
     },
@@ -210,6 +212,7 @@ export default function Search({
           name: t(`search.groups.locales.items.${locale}`),
           href: currentLocale != null ? url.pathname.replace(currentLocale, locale) : `/${locale}`,
           action: true,
+          keywords: [locale],
         })),
       ],
     },
@@ -302,6 +305,7 @@ export default function Search({
                         navigate(item.href);
                       }
                     }}
+                    keywords={item.keywords}
                   >
                     {item.icon}
                     <Highlighter
