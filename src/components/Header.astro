@@ -25,6 +25,7 @@ const projects = await getProjectsEntries({ locale: Astro.currentLocale });
         posts={posts}
         projects={projects}
         url={Astro.url}
+        site={Astro.site}
         currentLocale={Astro.currentLocale}
         className="ms-auto me-3"
       />

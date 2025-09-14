@@ -26,12 +26,14 @@ export default function Search({
   projects,
   className,
   url,
+  site,
   currentLocale,
   ...props
 }: {
   posts: CollectionEntry<"blog">[];
   projects: CollectionEntry<"projects">[];
   url: URL;
+  site: URL | undefined;
   currentLocale: string | undefined;
 } & React.ComponentProps<typeof DialogTrigger>) {
   const t = useTranslations(currentLocale);
@@ -176,6 +178,17 @@ export default function Search({
     {
       name: t("search.groups.socials.title"),
       items: [
+        {
+          name: `RSS ${t("blog.title")}`,
+          icon: (
+            <div
+              className="size-6 shrink-0 rounded-full bg-(--icon-color)/75 shadow ring ring-black/15"
+              style={{ "--icon-color": "#FF6600" } as React.CSSProperties}
+            />
+          ),
+          href: `${site}${currentLocale}/rss.xml`,
+          external: true,
+        },
         ...SOCIALS.map((social) => ({
           icon: (
             <div
