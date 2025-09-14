@@ -280,11 +280,9 @@ export default function Search({
               }
             />
 
-            {!query && (
-              <DialogClose className="flex items-center gap-1 px-2 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
-                {t("search.footer.exit")}
-              </DialogClose>
-            )}
+            <DialogClose className="flex items-center gap-1 px-2 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
+              {t("search.footer.exit")}
+            </DialogClose>
           </div>
 
           <CommandList>
