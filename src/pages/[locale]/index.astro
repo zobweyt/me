@@ -6,7 +6,6 @@ import Link from "@components/Link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import PostCard from "@components/PostCard.astro";
 import ProjectCard from "@components/ProjectCard.astro";
-import Skills from "@components/Skills.astro";
 
 const blog = await getBlogEntries({ count: RECENT_BLOG_ENTRIES_COUNT, locale: Astro.currentLocale });
 const projects = await getProjectsEntries({ count: RECENT_PROJECTS_ENTRIES_COUNT, locale: Astro.currentLocale });
@@ -27,12 +26,6 @@ const t = useTranslations(Astro.currentLocale);
         <h1 class="mb-3 text-3xl font-semibold">{t("home.title")}</h1>
         <p class="text-justify font-serif">{t("home.description")}</p>
       </hgroup>
-    </section>
-
-    <section class="space-y-2">
-      <h2 class="text-lg font-semibold">{t("skills")}</h2>
-
-      <Skills />
     </section>
 
     <section class="space-y-2">

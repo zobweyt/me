@@ -9,7 +9,7 @@ export const ui = {
     name: "Nikita Gaziev",
     back: "Back",
     skills: "Skills",
-    "home.title": "Hey There! 👋",
+    "home.title": "Home",
     "home.description":
       "'sup? I'm zobweyt! I'm engaged into software engineering, optimization, design, moderation, and building thriving online communities. In my free time, I work on various projects, many of which involve discord.",
     "blog.all": "See all posts",
@@ -42,7 +42,7 @@ export const ui = {
     name: "Никита Газиев",
     back: "Назад",
     skills: "Навыки",
-    "home.title": "Всем привет! 👋",
+    "home.title": "Главная",
     "home.description":
       "'Привет! Я zobweyt! Я занимаюсь программной инженерией, оптимизацией, дизайном, модерацией и созданием процветающих онлайн-сообществ. В свободное время я работаю над различными проектами, многие из которых связаны с Discord.",
     "blog.all": "Все посты",
