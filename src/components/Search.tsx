@@ -220,9 +220,10 @@ export default function Search({
       <CommandDialog open={open} onOpenChange={setOpen}>
         <DialogTrigger
           className={cn(
-            "flex w-fit items-center justify-center gap-0.5 rounded-full border border-black/15 px-2 py-1 text-xs leading-none transition outline-none hover:bg-black/5 focus-visible:bg-black/5",
+            "flex w-fit items-center justify-center gap-0.5 rounded-full border border-black/15 px-2 py-1 text-sm leading-none transition outline-none hover:bg-black/5 focus-visible:bg-black/5",
             className,
           )}
+          title={`${t("search.title")} (Ctrl+K)`}
           {...props}
         >
           <svg
@@ -238,7 +239,7 @@ export default function Search({
               clip-rule="evenodd"
             />
           </svg>
-          <span>Ctrl K</span>
+          <span>{t("search.title")}</span>
         </DialogTrigger>
         <CommandDialogContent title={t("search.title")} description={t("search.description")}>
           <div className="m-2 flex items-center justify-center gap-2">
