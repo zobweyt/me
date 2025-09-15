@@ -1,4 +1,6 @@
 ---
+import type { CollectionEntry } from "astro:content";
+
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getProjectsEntries } from "@/content/entries";
 import { LOCALES, getTranslator } from "@/i18n";
@@ -6,7 +8,22 @@ import PageLayout from "@/layouts/PageLayout.astro";
 
 const t = getTranslator(Astro.currentLocale);
 
-const entries = await getProjectsEntries({ locale: Astro.currentLocale });
+const data = await getProjectsEntries({ locale: Astro.currentLocale });
+
+type Acc = {
+  [year: string]: CollectionEntry<"projects">[];
+};
+
+const projects = data.reduce((acc: Acc, project) => {
+  const year = project.data.dateStart.getFullYear().toString();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(project);
+  return acc;
+}, {});
+
+const years = Object.keys(projects).sort((a, b) => parseInt(b) - parseInt(a));
 
 export const prerender = true;
 
@@ -22,14 +39,23 @@ export async function getStaticPaths() {
       <p class="text-justify font-serif">{t("projects.description")}</p>
     </hgroup>
 
-    <ul class="space-y-4">
+    <div class="space-y-4">
       {
-        entries.map((entry) => (
-          <li>
-            <ProjectCard entry={entry} />
-          </li>
+        years.map((year) => (
+          <section class="space-y-2">
+            <div class="sticky top-0 z-10 bg-stone-100 py-2 text-lg font-semibold">{year}</div>
+            <div>
+              <ul class="flex flex-col gap-4">
+                {projects[year].map((project) => (
+                  <li>
+                    <ProjectCard entry={project} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
         ))
       }
-    </ul>
+    </div>
   </div>
 </PageLayout>

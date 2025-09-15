@@ -111,11 +111,14 @@ export default function Search({
           <img
             src={project.data.logo}
             alt={project.data.title}
-            className="size-6 shrink-0 rounded-full shadow ring ring-black/15"
+            className={cn(
+              "size-6 shrink-0",
+              project.data.logoShape === "circle" && "rounded-full shadow ring ring-black/15",
+            )}
           />
         ),
         name: project.data.title,
-        href: project.data.repo ?? "#",
+        href: project.data.href ?? project.data.repo ?? "#",
         external: true,
       })),
     },

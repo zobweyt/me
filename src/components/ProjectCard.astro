@@ -19,18 +19,28 @@ const styles = tv({
       "ring ring-(--project-card-color)/15 ring-inset hover:ring-(--project-card-color)/30 active:hover:ring-(--project-card-color)/50",
     ],
     wrapper: "mb-1 flex items-center gap-2",
-    logo: "size-6 rounded-full shadow ring ring-black/15",
+    logo: "size-6",
     title: "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
     description: "mb-2 font-serif opacity-75",
     date: "first-letter:uppercase",
     stars: "flex items-center gap-1",
     footer: "flex items-center gap-3 font-mono text-sm text-(--project-card-color)",
   },
+  variants: {
+    logoShape: {
+      square: {
+        logo: "",
+      },
+      circle: {
+        logo: "rounded-full shadow ring ring-black/15",
+      },
+    },
+  },
 });
 
 const { entry } = Astro.props;
 
-const formatter = new Intl.DateTimeFormat(Astro.currentLocale, { year: "numeric", month: "short" });
+const formatter = new Intl.DateTimeFormat(Astro.currentLocale, { year: "numeric", month: "short", day: "numeric" });
 ---
 
 <div
@@ -46,7 +56,7 @@ const formatter = new Intl.DateTimeFormat(Astro.currentLocale, { year: "numeric"
       draggable="false"
       width={24}
       height={24}
-      class={styles().logo()}
+      class={styles().logo({ logoShape: entry.data.logoShape })}
     />
     <a href={entry.data.href} target="_blank" rel="noopener noreferrer" class={styles().title()}>
       {entry.data.title}
