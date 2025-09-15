@@ -66,7 +66,10 @@ export const CommandInput = ({
 export const CommandList = ({ className, ...props }: React.ComponentProps<typeof Command.List>) => {
   return (
     <Command.List
-      className={cn("scroll-py-2 overflow-x-hidden overflow-y-auto outline-none sm:h-80", className)}
+      className={cn(
+        "scroll-pt-[calc(1.5rem+1px)] scroll-pb-2 overflow-x-hidden overflow-y-auto outline-none sm:h-80",
+        className,
+      )}
       {...props}
     />
   );
@@ -80,7 +83,7 @@ export const CommandGroup = ({ className, ...props }: React.ComponentProps<typeo
   return (
     <Command.Group
       className={cn(
-        "p-2 [&_[cmdk-group-heading]]:mb-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:opacity-75 [&_[cmdk-group-heading]]:select-none",
+        "relative isolate pb-2 [&_[cmdk-group-heading]]:sticky [&_[cmdk-group-heading]]:top-0 [&_[cmdk-group-heading]]:z-10 [&_[cmdk-group-heading]]:block [&_[cmdk-group-heading]]:w-full [&_[cmdk-group-heading]]:bg-stone-100 [&_[cmdk-group-heading]]:px-4 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-black/75 [&_[cmdk-group-heading]]:select-none [&_[cmdk-group-items]]:px-2 [&_[cmdk-group-items]]:pt-px",
         className,
       )}
       {...props}
