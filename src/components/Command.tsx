@@ -20,7 +20,7 @@ export const CommandDialogContent = ({
   return (
     <DialogContent
       className={cn(
-        "overflow-hidden p-0 max-sm:size-full max-sm:max-w-full max-sm:rounded-none sm:top-1/7 sm:-translate-y-1/7",
+        "overflow-hidden p-0 max-sm:size-full max-sm:max-w-full max-sm:rounded-none sm:top-16 sm:translate-y-0",
         className,
       )}
       {...props}
@@ -67,7 +67,7 @@ export const CommandList = ({ className, ...props }: React.ComponentProps<typeof
   return (
     <Command.List
       className={cn(
-        "scroll-pt-[calc(1.5rem+1px)] scroll-pb-2 overflow-x-hidden overflow-y-auto outline-none sm:h-80",
+        "scroll-pt-[calc(1.5rem+1px)] scroll-pb-2 overflow-x-hidden overflow-y-auto outline-none sm:max-h-106",
         className,
       )}
       {...props}
