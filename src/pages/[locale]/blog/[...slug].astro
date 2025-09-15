@@ -8,10 +8,10 @@ import H2 from "@/components/content/H2.astro";
 import H3 from "@/components/content/H3.astro";
 import Pre from "@/components/content/Pre.astro";
 import { getBlogEntries } from "@/content/entries";
-import { getTranslations } from "@/i18n";
+import { getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
 
-const t = getTranslations(Astro.currentLocale);
+const t = getTranslator(Astro.currentLocale);
 
 export const prerender = true;
 

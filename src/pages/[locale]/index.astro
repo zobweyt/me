@@ -4,7 +4,7 @@ import PostCard from "@/components/PostCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { RECENT_BLOG_ENTRIES_COUNT, RECENT_PROJECTS_ENTRIES_COUNT } from "@/constants";
 import { getBlogEntries, getProjectsEntries } from "@/content/entries";
-import { LOCALES, getTranslations } from "@/i18n";
+import { LOCALES, getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
 
 const blog = await getBlogEntries({ count: RECENT_BLOG_ENTRIES_COUNT, locale: Astro.currentLocale });
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { locale } }));
 }
 
-const t = getTranslations(Astro.currentLocale);
+const t = getTranslator(Astro.currentLocale);
 ---
 
 <PageLayout title={t("home.title")} description={t("home.description")}>

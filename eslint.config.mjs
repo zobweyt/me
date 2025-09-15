@@ -13,8 +13,10 @@ export default defineConfig([
   pluginImport.flatConfigs.recommended,
   pluginImport.flatConfigs.typescript,
   typescript.configs.recommended,
-  pluginReactHooks.configs["recommended-latest"],
-  pluginReactRefresh.configs.vite,
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [pluginReactHooks.configs["recommended-latest"], pluginReactRefresh.configs.vite],
+  },
   {
     rules: {
       "import-x/default": "off",

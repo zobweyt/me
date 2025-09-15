@@ -1,7 +1,14 @@
-import { DEFAULT_LOCALE, ui } from "./constants";
+import { DEFAULT_LOCALE } from "./constants";
+import en from "./locales/en.json";
+import ru from "./locales/ru.json";
 
-export function getTranslations(locale: string | undefined) {
-  return function t(key: keyof (typeof ui)[typeof DEFAULT_LOCALE]) {
-    return ui[locale as keyof typeof ui][key] || ui[DEFAULT_LOCALE][key];
+export const translations = {
+  en,
+  ru,
+} as const;
+
+export const getTranslator = (locale: string | undefined) => {
+  return (key: keyof (typeof translations)[typeof DEFAULT_LOCALE]) => {
+    return translations[locale as keyof typeof translations][key] || translations[DEFAULT_LOCALE][key];
   };
-}
+};

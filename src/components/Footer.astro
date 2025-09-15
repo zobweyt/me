@@ -1,12 +1,12 @@
 ---
 import Container from "@/components/Container.astro";
 import { SOCIALS } from "@/constants";
-import { LOCALES, getTranslations } from "@/i18n";
+import { LOCALES, getTranslator } from "@/i18n";
 
 import Link from "./Link.astro";
 import Nav from "./Nav.astro";
 
-const t = getTranslations(Astro.currentLocale);
+const t = getTranslator(Astro.currentLocale);
 ---
 
 <footer class="py-6">

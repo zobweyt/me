@@ -1,7 +1,7 @@
 import rss from "@astrojs/rss";
 
 import { getBlogEntries } from "@/content/entries";
-import { type Locale, LOCALES, getTranslations } from "@/i18n";
+import { type Locale, LOCALES, getTranslator } from "@/i18n";
 
 type Context = {
   site: string;
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 export async function GET(context: Context) {
   const { locale } = context.params;
 
-  const t = getTranslations(locale);
+  const t = getTranslator(locale);
 
   const items = await getBlogEntries({ locale });
 

@@ -13,7 +13,7 @@ import {
   CommandList,
 } from "@/components/Command";
 import { SOCIALS, type Social } from "@/constants";
-import { LOCALES, getTranslations, type Locale } from "@/i18n";
+import { LOCALES, getTranslator, type Locale } from "@/i18n";
 import { cn } from "@/lib/cn";
 
 import { DialogClose, DialogTrigger } from "./Dialog";
@@ -44,7 +44,7 @@ export default function Search({
   site: URL | undefined;
   currentLocale: string | undefined;
 } & React.ComponentProps<typeof DialogTrigger>) {
-  const t = getTranslations(currentLocale);
+  const t = getTranslator(currentLocale);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);

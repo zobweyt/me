@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { getTranslations } from "@/i18n";
+import { getTranslator } from "@/i18n";
 
 export type CodeProps = React.ComponentProps<"pre"> & {
   tabindex?: number | undefined;
@@ -17,7 +17,7 @@ export default function Code({
   ...props
 }: CodeProps) {
   const ref = useRef<HTMLPreElement>(null);
-  const t = getTranslations(currentLocale);
+  const t = getTranslator(currentLocale);
   const [copied, setCopied] = useState(false);
 
   const handleCopyButtonClick = async () => {

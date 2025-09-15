@@ -2,17 +2,17 @@
 import Container from "@/components/Container.astro";
 import Link from "@/components/Link.astro";
 import { getBlogEntries, getProjectsEntries } from "@/content/entries";
-import { getTranslations } from "@/i18n";
+import { getTranslator } from "@/i18n";
 
 import Nav from "./Nav.astro";
 import Search from "./Search";
 
-const t = getTranslations(Astro.currentLocale);
+const t = getTranslator(Astro.currentLocale);
 const posts = await getBlogEntries({ locale: Astro.currentLocale });
 const projects = await getProjectsEntries({ locale: Astro.currentLocale });
 ---
 
-<header class="sticky top-0 z-10 bg-stone-100 py-4 sm:py-6">
+<header class="bg-stone-100 py-4 sm:py-6">
   <Container>
     <div class="flex flex-wrap items-center justify-between gap-y-2">
       <Link href={`/${Astro.currentLocale}`} underline={false}>

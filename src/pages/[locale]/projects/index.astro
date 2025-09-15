@@ -1,10 +1,10 @@
 ---
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getProjectsEntries } from "@/content/entries";
-import { LOCALES, getTranslations } from "@/i18n";
+import { LOCALES, getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
 
-const t = getTranslations(Astro.currentLocale);
+const t = getTranslator(Astro.currentLocale);
 
 const entries = await getProjectsEntries({ locale: Astro.currentLocale });
 
