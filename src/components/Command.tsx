@@ -67,7 +67,7 @@ export const CommandList = ({ className, ...props }: React.ComponentProps<typeof
   return (
     <Command.List
       className={cn(
-        "scroll-pt-[calc(1.5rem+1px)] scroll-pb-2 overflow-x-hidden overflow-y-auto outline-none sm:max-h-106",
+        "scroll-pt-[calc(1.5rem+1px)] scroll-pb-2 overflow-x-hidden overflow-y-auto outline-none sm:h-106",
         className,
       )}
       {...props}
