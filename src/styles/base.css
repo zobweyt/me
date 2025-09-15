@@ -2,7 +2,16 @@
   html {
     color-scheme: light;
     scrollbar-color: theme(colors.stone.400) transparent;
-    scrollbar-gutter: stable;
+  }
+
+  html {
+    margin-left: calc(100vw - 100%);
+    margin-right: 0;
+  }
+
+  body[data-scroll-locked] {
+    margin: 0 !important;
+    padding: 0px !important;
   }
 
   body {
