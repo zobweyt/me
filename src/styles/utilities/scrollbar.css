@@ -1,5 +1,5 @@
 @utility scrollbar-* {
-  scrollbar-color: --value(--color- *) transparent;
+  scrollbar-color: --value(--color-*) transparent;
 }
 
 @utility scrollbar-thin {

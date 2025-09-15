@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import MaterialSymbolsArrowRightAltRounded from "~icons/material-symbols/arrow-right-alt-rounded";
+import { tv } from "tailwind-variants";
+
 import PostTags from "./PostTags.astro";
 import Time from "./Time.astro";
-import { tv } from "tailwind-variants";
 
 const styles = tv({
   slots: {
@@ -41,5 +41,5 @@ const { entry } = Astro.props;
     {entry.data.tags && <PostTags tags={entry.data.tags} />}
   </div>
 
-  <MaterialSymbolsArrowRightAltRounded class={styles().icon()} />
+  <IconMaterialSymbolsArrowRightAltRounded className={styles().icon()} />
 </div>

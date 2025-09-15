@@ -8,6 +8,9 @@ dist
 .vinxi
 .turbo
 
+# Auto imports
+auto-imports.d.ts
+
 # Environment
 .env
 .env*.local

@@ -1,9 +1,10 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { tv } from "tailwind-variants";
+
 import ProjectCardStars from "./ProjectCardStars.astro";
 import ProjectCardStarsSkeleton from "./ProjectCardStarsSkeleton.astro";
-import { tv } from "tailwind-variants";
 
 type Props = {
   entry: CollectionEntry<"projects">;

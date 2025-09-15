@@ -1,11 +1,12 @@
 ---
-import { LOCALES, useTranslations } from "@i18n";
-import Container from "@components/Container.astro";
+import Container from "@/components/Container.astro";
+import { SOCIALS } from "@/constants";
+import { LOCALES, getTranslations } from "@/i18n";
+
 import Link from "./Link.astro";
 import Nav from "./Nav.astro";
-import { SOCIALS } from "@constants";
 
-const t = useTranslations(Astro.currentLocale);
+const t = getTranslations(Astro.currentLocale);
 ---
 
 <footer class="py-6">
@@ -29,7 +30,7 @@ const t = useTranslations(Astro.currentLocale);
       <Nav
         items={[
           {
-            name: "rss",
+            name: "RSS",
             href: `${Astro.site}${Astro.currentLocale}/rss.xml`,
             color: "#FF6600",
             external: true,

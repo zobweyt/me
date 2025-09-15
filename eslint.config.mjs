@@ -1,77 +1,49 @@
-import astroParser from "astro-eslint-parser";
-import astroPlugin from "eslint-plugin-astro";
-import typescriptParser from "@typescript-eslint/parser";
-import typescriptPlugin from "typescript-eslint";
+import parserTypescript from "@typescript-eslint/parser";
+import parserAstro from "astro-eslint-parser";
+import { defineConfig } from "eslint/config";
+import pluginImport from "eslint-plugin-import-x";
+import pluginReactHooks from "eslint-plugin-react-hooks";
+import pluginReactRefresh from "eslint-plugin-react-refresh";
+import typescript from "typescript-eslint";
 
-export default [
+export default defineConfig([
   {
-    ignores: ["dist/", ".astro/", ".vercel/"],
+    ignores: [".astro", ".vercel", "dist"],
   },
-  ...typescriptPlugin.configs.recommended,
-  ...astroPlugin.configs.recommended,
+  pluginImport.flatConfigs.recommended,
+  pluginImport.flatConfigs.typescript,
+  typescript.configs.recommended,
+  pluginReactHooks.configs["recommended-latest"],
+  pluginReactRefresh.configs.vite,
   {
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      parser: typescriptParser,
-      parserOptions: {
-        project: true,
-      },
-    },
-  },
-  {
-    languageOptions: {
-      parser: typescriptParser,
-    },
     rules: {
-      "sort-imports": [
-        "warn",
-        {
-          ignoreCase: true,
-        },
-      ],
-
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_",
-        },
-      ],
-
-      "@typescript-eslint/method-signature-style": "error",
-      "@typescript-eslint/no-empty-object-type": "off",
-      "@typescript-eslint/no-wrapper-object-types": "error",
-      "@typescript-eslint/triple-slash-reference": "off",
-
-      "@typescript-eslint/no-unused-expressions": [
+      "import-x/default": "off",
+      "import-x/no-named-as-default-member": "off",
+      "import-x/no-named-as-default": "off",
+      "import-x/no-unresolved": "off",
+      "import-x/order": [
         "error",
         {
-          allowShortCircuit: true,
+          alphabetize: {
+            order: "asc",
+            orderImportKind: "asc",
+            caseInsensitive: false,
+          },
+          "newlines-between": "always",
+          warnOnUnassignedImports: false,
+          groups: ["builtin", "external", "internal", ["parent", "sibling"], "index"],
         },
       ],
-    },
-  },
-  {
-    files: ["**/*.{ts,tsx,astro}"],
-    languageOptions: {
-      parserOptions: {
-        project: true,
-      },
-    },
-    rules: {
-      "@typescript-eslint/no-unnecessary-condition": "error",
-      "@typescript-eslint/strict-boolean-expressions": "error",
     },
   },
   {
     files: ["**/*.astro"],
     languageOptions: {
-      parser: astroParser,
+      parser: parserAstro,
       parserOptions: {
-        parser: typescriptParser,
+        parser: parserTypescript,
         extraFileExtensions: [".astro"],
       },
     },
   },
-];
+]);

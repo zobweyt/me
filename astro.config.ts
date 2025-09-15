@@ -1,11 +1,14 @@
-import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
-import { defineConfig } from "astro/config";
-import icons from "unplugin-icons/vite";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "astro/config";
+import AutoImport from "unplugin-auto-import/vite";
+import IconsResolver from "unplugin-icons/resolver";
+import icons from "unplugin-icons/vite";
+
+import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
 
 export default defineConfig({
   site: "https://zobweyt.vercel.app",
@@ -35,9 +38,22 @@ export default defineConfig({
       noExternal: ["tw-animate-css"],
     },
     plugins: [
+      AutoImport({
+        resolvers: [
+          IconsResolver({
+            prefix: "Icon",
+            extension: "jsx",
+          }),
+          IconsResolver({
+            prefix: "Icon",
+            extension: "astro",
+          }),
+        ],
+      }),
       icons({
-        compiler: "astro",
-        iconCustomizer(collection, icon, props) {
+        jsx: "react",
+        compiler: "jsx",
+        iconCustomizer: (collection, icon, props) => {
           props.width = "100%";
           props.height = "100%";
           props["aria-hidden"] = "true";

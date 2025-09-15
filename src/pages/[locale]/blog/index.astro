@@ -1,11 +1,12 @@
 ---
-import { LOCALES, useTranslations } from "@i18n";
-import { type CollectionEntry } from "astro:content";
-import { getBlogEntries } from "@content/entries";
-import PageLayout from "@layouts/PageLayout.astro";
-import PostCard from "@components/PostCard.astro";
+import type { CollectionEntry } from "astro:content";
 
-const t = useTranslations(Astro.currentLocale);
+import PostCard from "@/components/PostCard.astro";
+import { getBlogEntries } from "@/content/entries";
+import { LOCALES, getTranslations } from "@/i18n";
+import PageLayout from "@/layouts/PageLayout.astro";
+
+const t = getTranslations(Astro.currentLocale);
 
 const data = await getBlogEntries({ locale: Astro.currentLocale });
 
@@ -15,7 +16,6 @@ type Acc = {
 
 const posts = data.reduce((acc: Acc, post) => {
   const year = post.data.date.getFullYear().toString();
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
   if (!acc[year]) {
     acc[year] = [];
   }

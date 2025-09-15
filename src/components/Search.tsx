@@ -1,3 +1,8 @@
+import type { CollectionEntry } from "astro:content";
+import { navigate } from "astro:transitions/client";
+import React, { useEffect, useRef, useState } from "react";
+import Highlighter from "react-highlight-words";
+
 import {
   CommandDialog,
   CommandDialogContent,
@@ -7,18 +12,21 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/Command";
-import { DialogClose, DialogTrigger } from "./Dialog";
-import { LOCALES, useTranslations } from "@i18n";
-import React, { useEffect, useRef, useState } from "react";
-import { cn } from "@lib/cn";
-import type { CollectionEntry } from "astro:content";
-import Highlighter from "react-highlight-words";
-import { navigate } from "astro:transitions/client";
-import { SOCIALS } from "@constants";
+import { SOCIALS, type Social } from "@/constants";
+import { LOCALES, getTranslations, type Locale } from "@/i18n";
+import { cn } from "@/lib/cn";
 
-const flags = {
+import { DialogClose, DialogTrigger } from "./Dialog";
+
+const LOCALES_FLAGS: Record<Locale, string> = {
   en: "https://emojicdn.elk.sh/🇺🇸?style=apple",
   ru: "https://emojicdn.elk.sh/🇷🇺?style=apple",
+};
+
+const SOCIALS_ICONS: Record<Social["id"], React.ComponentType<React.ComponentProps<"svg">>> = {
+  telegram: IconLogosTelegram,
+  github: IconLogosGithubIcon,
+  mail: IconLucideMail,
 };
 
 export default function Search({
@@ -36,7 +44,7 @@ export default function Search({
   site: URL | undefined;
   currentLocale: string | undefined;
 } & React.ComponentProps<typeof DialogTrigger>) {
-  const t = useTranslations(currentLocale);
+  const t = getTranslations(currentLocale);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -71,65 +79,17 @@ export default function Search({
       name: t("search.groups.pages.title"),
       items: [
         {
-          icon: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="shrink-0 opacity-50"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          ),
+          icon: <IconLucideArrowRight className="size-6 shrink-0 opacity-50" />,
           name: t("search.groups.pages.items.home"),
           href: `/${currentLocale}`,
         },
         {
-          icon: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="shrink-0 opacity-50"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          ),
+          icon: <IconLucideArrowRight className="size-6 shrink-0 opacity-50" />,
           name: t("search.groups.pages.items.blog"),
           href: `/${currentLocale}/blog`,
         },
         {
-          icon: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="shrink-0 opacity-50"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          ),
+          icon: <IconLucideArrowRight className="size-6 shrink-0 opacity-50" />,
           name: t("search.groups.pages.items.projects"),
           href: `/${currentLocale}/projects`,
         },
@@ -138,23 +98,7 @@ export default function Search({
     {
       name: t("search.groups.blog.title"),
       items: posts.map((post) => ({
-        icon: (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            className="shrink-0 opacity-50"
-          >
-            <path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z" />
-            <path d="M15 3v4a2 2 0 0 0 2 2h4" />
-          </svg>
-        ),
+        icon: <IconLucideStickyNote className="size-6 shrink-0 opacity-50" />,
         name: post.data.title,
         keywords: [...(post.data.tags ?? []), ...post.data.description.replace(".", "").split(" ")],
         href: `/${currentLocale}/blog/${post.id.split("/")[1]}`,
@@ -167,9 +111,7 @@ export default function Search({
           <img
             src={project.data.logo}
             alt={project.data.title}
-            width={24}
-            height={24}
-            className="shrink-0 rounded-full shadow ring ring-black/15"
+            className="size-6 shrink-0 rounded-full shadow ring ring-black/15"
           />
         ),
         name: project.data.title,
@@ -181,34 +123,28 @@ export default function Search({
       name: t("search.groups.socials.title"),
       items: [
         {
-          name: `RSS ${t("blog.title")}`,
-          icon: (
-            <div
-              className="size-6 shrink-0 rounded-full bg-(--icon-color)/75 shadow ring ring-black/15"
-              style={{ "--icon-color": "#FF6600" } as React.CSSProperties}
-            />
-          ),
+          name: "RSS",
+          icon: <IconStreamlineLogosRssFeedLogoBlock className="size-6 shrink-0 text-[#FF6600]" />,
           href: `${site}${currentLocale}/rss.xml`,
           external: true,
         },
-        ...SOCIALS.map((social) => ({
-          icon: (
-            <div
-              className="size-6 shrink-0 rounded-full bg-(--icon-color)/75 shadow ring ring-black/15"
-              style={{ "--icon-color": social.color } as React.CSSProperties}
-            />
-          ),
-          name: social.name,
-          href: social.href,
-          external: true,
-        })),
+        ...SOCIALS.map((social) => {
+          const Icon = SOCIALS_ICONS[social.id];
+
+          return {
+            icon: <Icon className="size-6 shrink-0" />,
+            name: social.name,
+            href: social.href,
+            external: true,
+          };
+        }),
       ],
     },
     {
       name: t("search.groups.locales.title"),
       items: [
         ...LOCALES.map((locale) => ({
-          icon: <img src={flags[locale]} alt={locale} width={24} height={24} />,
+          icon: <img src={LOCALES_FLAGS[locale]} alt={locale} width={24} height={24} />,
           name: t(`search.groups.locales.items.${locale}`),
           href: currentLocale != null ? url.pathname.replace(currentLocale, locale) : `/${locale}`,
           action: true,
@@ -229,29 +165,18 @@ export default function Search({
           title={`${t("search.title")} (Ctrl+K)`}
           {...props}
         >
-          <svg
-            data-hk="s200002000001"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="size-4 text-black/75 md:-ml-0.5"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <IconLucideSearch className="size-3.5 text-black/75 md:-ml-0.5" />
           <span>{t("search.title")}</span>
         </DialogTrigger>
         <CommandDialogContent title={t("search.title")} description={t("search.description")}>
-          <div className="m-2 flex items-center justify-center gap-2">
+          <div className="m-2 flex items-center justify-center gap-1">
             <CommandInput
               value={query}
               ref={inputRef}
               onInput={(e) => setQuery(e.currentTarget.value)}
               placeholder={t("search.input.placeholder")}
-              className={query && "pe-10"}
+              className={cn("ps-10", query && "pe-10")}
+              before={<IconLucideSearch className="absolute left-2 size-6 shrink-0 opacity-50" />}
               after={
                 query && (
                   <button
@@ -262,29 +187,14 @@ export default function Search({
                       inputRef.current?.focus();
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      className="size-5 stroke-current"
-                      strokeWidth={2.5}
-                    >
-                      <path d="M18 6 6 18" />
-                      <path d="m6 6 12 12" />
-                    </svg>
+                    <IconLucideX strokeWidth={3} className="size-5 stroke-current" />
                   </button>
                 )
               }
             />
 
             <DialogClose className="flex items-center gap-1 px-2 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
-              {t("search.footer.exit")}
+              {t("cancel")}
             </DialogClose>
           </div>
 
@@ -338,9 +248,15 @@ export default function Search({
             </div>
             <div className="flex items-center gap-2">
               <kbd className="flex min-w-6 justify-center rounded-sm bg-black/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-black/10">
-                ↑/↓
+                ↑
               </kbd>
-              <span>{t("search.footer.prevnext")}</span>
+              <span>{t("search.footer.previous")}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-black/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-black/10">
+                ↓
+              </kbd>
+              <span>{t("search.footer.next")}</span>
             </div>
             <div className="flex items-center gap-2">
               <kbd className="flex min-w-6 justify-center rounded-sm bg-black/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-black/10">

@@ -1,6 +1,7 @@
+import { Command } from "cmdk";
+
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/Dialog";
 import { cn } from "@/lib/cn";
-import { Command } from "cmdk";
 
 export const CommandDialog = ({ children, ...props }: React.ComponentProps<typeof Dialog>) => {
   return <Dialog {...props}>{children}</Dialog>;

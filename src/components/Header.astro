@@ -1,12 +1,13 @@
 ---
-import { getBlogEntries, getProjectsEntries } from "@content/entries";
-import Container from "@components/Container.astro";
-import Link from "@components/Link.astro";
+import Container from "@/components/Container.astro";
+import Link from "@/components/Link.astro";
+import { getBlogEntries, getProjectsEntries } from "@/content/entries";
+import { getTranslations } from "@/i18n";
+
 import Nav from "./Nav.astro";
 import Search from "./Search";
-import { useTranslations } from "@i18n";
 
-const t = useTranslations(Astro.currentLocale);
+const t = getTranslations(Astro.currentLocale);
 const posts = await getBlogEntries({ locale: Astro.currentLocale });
 const projects = await getProjectsEntries({ locale: Astro.currentLocale });
 ---
