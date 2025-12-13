@@ -1,4 +1,5 @@
 import type { InferEntrySchema } from "astro:content";
+import { GITHUB_TOKEN } from "astro:env/server";
 
 const cache: Map<string, { stars: number; timestamp: number }> = new Map();
 const CACHE_DURATION = 60 * 60 * 1000;
@@ -18,7 +19,7 @@ export const getProjectStars = async (project: InferEntrySchema<"projects">): Pr
   try {
     const response = await fetch(project.repo.replace("github.com", "api.github.com/repos"), {
       headers: {
-        Authorization: `token ${import.meta.env.GITHUB_TOKEN}`,
+        Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
 
