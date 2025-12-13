@@ -25,7 +25,7 @@
     color: var(--color-body-alt);
   }
 
-  @media (prefers-color-scheme: dark) {
+  [data-theme="dark"] {
     .shiki,
     .shiki span {
       color: var(--shiki-dark) !important;
