@@ -10,5 +10,6 @@
 @import "./base.css";
 @import "./theme.css";
 
+@import "./variants/dark.css";
 @import "./variants/prose.css";
 @import "./utilities/scrollbar.css";
