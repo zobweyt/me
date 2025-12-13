@@ -18,6 +18,12 @@ import { cn } from "@/lib/cn";
 
 import { DialogClose, DialogTrigger } from "./Dialog";
 
+const THEME_ICONS: Record<"light" | "dark" | "system", React.ComponentType<React.ComponentProps<"svg">>> = {
+  light: IconLucideSun,
+  dark: IconLucideMoon,
+  system: IconLucideMonitor,
+};
+
 const LOCALES_FLAGS: Record<Locale, string> = {
   en: "https://emojicdn.elk.sh/🇺🇸?style=apple",
   ru: "https://emojicdn.elk.sh/🇷🇺?style=apple",
@@ -25,7 +31,9 @@ const LOCALES_FLAGS: Record<Locale, string> = {
 
 const SOCIALS_ICONS: Record<Social["id"], React.ComponentType<React.ComponentProps<"svg">>> = {
   telegram: IconLogosTelegram,
-  github: IconLogosGithubIcon,
+  github: ({ className, ...props }: React.ComponentProps<"svg">) => (
+    <IconLogosGithubIcon className={cn("dark:invert", className)} {...props} />
+  ),
   mail: IconLucideMail,
 };
 
@@ -70,6 +78,7 @@ export default function Search({
       icon: React.ReactNode;
       name: string;
       href: string;
+      onClick?: VoidFunction;
       keywords?: string[];
       action?: boolean;
       external?: boolean;
@@ -113,7 +122,7 @@ export default function Search({
             alt={project.data.title}
             className={cn(
               "size-6 shrink-0",
-              project.data.logoShape === "circle" && "rounded-full shadow ring ring-black/15",
+              project.data.logoShape === "circle" && "rounded-full shadow ring ring-foreground/15",
             )}
           />
         ),
@@ -144,6 +153,25 @@ export default function Search({
       ],
     },
     {
+      name: t("search.groups.themes.title"),
+      items: [
+        ...(["light", "dark", "system"] as const).map((theme) => {
+          const Icon = THEME_ICONS[theme];
+
+          return {
+            icon: <Icon className="size-6 shrink-0" />,
+            name: t(`search.groups.themes.items.${theme}`),
+            href: "",
+            action: true,
+            onClick: () => {
+              document.dispatchEvent(new CustomEvent("set-theme", { detail: theme === "system" ? null : theme }));
+            },
+            keywords: [theme],
+          };
+        }),
+      ],
+    },
+    {
       name: t("search.groups.locales.title"),
       items: [
         ...LOCALES.map((locale) => ({
@@ -162,16 +190,22 @@ export default function Search({
       <CommandDialog open={open} onOpenChange={setOpen}>
         <DialogTrigger
           className={cn(
-            "flex w-fit items-center justify-center gap-0.5 rounded-full border border-black/15 px-2 py-1 text-sm leading-none transition outline-none hover:bg-black/5 focus-visible:bg-black/5",
+            "flex w-fit items-center justify-center gap-0.5 rounded-full border border-foreground/15 px-2 py-1 text-sm leading-none transition outline-none hover:bg-foreground/5 focus-visible:bg-foreground/5",
             className,
           )}
           title={`${t("search.title")} (Ctrl+K)`}
           {...props}
         >
-          <IconLucideSearch className="size-3.5 text-black/75 md:-ml-0.5" />
+          <IconLucideSearch className="size-3.5 text-foreground/75 md:-ml-0.5" />
           <span>{t("search.title")}</span>
         </DialogTrigger>
-        <CommandDialogContent title={t("search.title")} description={t("search.description")}>
+        <CommandDialogContent
+          title={t("search.title")}
+          description={t("search.description")}
+          onCloseAutoFocus={() => {
+            setQuery("");
+          }}
+        >
           <div className="m-2 flex items-center justify-center gap-1">
             <CommandInput
               value={query}
@@ -212,6 +246,11 @@ export default function Search({
                     onSelect={() => {
                       setOpen(false);
 
+                      if (!item.href) {
+                        item.onClick?.();
+                        return;
+                      }
+
                       if (item.external === true) {
                         window.open(item.href, "_blank")?.focus();
                       } else {
@@ -242,27 +281,27 @@ export default function Search({
             ))}
           </CommandList>
 
-          <div className="flex gap-4 border-t border-black/10 bg-stone-200 px-4 py-2 text-sm text-black/75 select-none max-sm:hidden">
+          <div className="flex gap-4 border-t border-foreground/10 bg-body-alt px-4 py-2 text-sm text-foreground/75 select-none max-sm:hidden">
             <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-black/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-black/10">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
                 ↩
               </kbd>
               <span>{t("search.footer.select")}</span>
             </div>
             <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-black/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-black/10">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
                 ↑
               </kbd>
               <span>{t("search.footer.previous")}</span>
             </div>
             <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-black/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-black/10">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
                 ↓
               </kbd>
               <span>{t("search.footer.next")}</span>
             </div>
             <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-black/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-black/10">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
                 esc
               </kbd>
               <span>{t("search.footer.exit")}</span>

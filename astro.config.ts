@@ -25,7 +25,10 @@ export default defineConfig({
   adapter: vercel(),
   markdown: {
     shikiConfig: {
-      theme: "github-light-default",
+      themes: {
+        light: "github-light-default",
+        dark: "github-dark-default",
+      },
     },
   },
   integrations: [

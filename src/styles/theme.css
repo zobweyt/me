@@ -2,4 +2,7 @@
   --font-sans: "Rubik Variable", ui-sans-serif, system-ui, sans-serif, "Noto Color Emoji";
   --font-serif: "Lora Variable", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: "Fira Code Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --color-body: light-dark(var(--color-stone-100), var(--color-stone-900));
+  --color-body-alt: light-dark(var(--color-stone-200), var(--color-stone-800));
+  --color-foreground: light-dark(var(--color-stone-900), var(--color-stone-100));
 }

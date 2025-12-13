@@ -19,7 +19,7 @@ export const SOCIALS: Social[] = [
     id: "github",
     name: "GitHub",
     href: "https://github.com/zobweyt",
-    color: "#181717",
+    color: "light-dark(#181717,#FFF)",
   },
   {
     id: "mail",

@@ -1,6 +1,6 @@
 @layer base {
   html {
-    color-scheme: light;
+    color-scheme: light dark;
     scrollbar-color: theme(colors.stone.400) transparent;
   }
 
@@ -17,5 +17,22 @@
   body {
     overflow-x: clip;
     touch-action: manipulation;
+  }
+
+  ::selection {
+    background: var(--color-foreground);
+    color: var(--color-body-alt);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .shiki,
+    .shiki span {
+      color: var(--shiki-dark) !important;
+    }
+  }
+
+  .shiki,
+  .shiki span {
+    background-color: var(--color-body-alt) !important;
   }
 }

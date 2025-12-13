@@ -12,7 +12,7 @@ const posts = await getBlogEntries({ locale: Astro.currentLocale });
 const projects = await getProjectsEntries({ locale: Astro.currentLocale });
 ---
 
-<header class="bg-stone-100 py-4 sm:py-6">
+<header class="sticky top-0 isolate z-20 bg-body py-4 sm:py-6">
   <Container>
     <div class="flex flex-wrap items-center justify-between gap-y-2">
       <Link href={`/${Astro.currentLocale}`} underline={false}>

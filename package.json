@@ -47,6 +47,7 @@
     "@typescript-eslint/parser": "^8.43.0",
     "astro": "^5.13.7",
     "astro-eslint-parser": "^1.2.2",
+    "astro-themes": "^0.2.7",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "eslint": "^9.35.0",

@@ -4,6 +4,7 @@ import "@/styles/index.css";
 import geistMono from "@fontsource-variable/fira-code/files/fira-code-latin-wght-normal.woff2";
 import lora from "@fontsource-variable/lora/files/lora-latin-wght-normal.woff2";
 import karla from "@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2";
+import Themes from "astro-themes";
 import { ClientRouter } from "astro:transitions";
 
 type Props = {
@@ -34,4 +35,5 @@ const { title, description } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 
+<Themes />
 <ClientRouter />

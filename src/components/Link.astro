@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 
 const styles = tv({
   base: [
-    "inline-block text-black/75 decoration-black/15 transition-colors duration-300 ease-in-out",
+    "inline-block text-foreground/75 decoration-foreground/15 transition-colors duration-300 ease-in-out",
     "hover:text-(--link-color) hover:decoration-(--link-color)/50",
   ],
   variants: {
@@ -12,7 +12,7 @@ const styles = tv({
       false: "no-underline",
     },
     active: {
-      true: "text-black decoration-black/75",
+      true: "text-foreground decoration-foreground/75",
     },
   },
 });
@@ -25,7 +25,7 @@ export type Props = {
   color?: string;
 };
 
-const { href, active: _active, external, underline = true, color = "#000000", ...rest } = Astro.props;
+const { href, active: _active, external, underline = true, color = "unset", ...rest } = Astro.props;
 const active = _active != null ? _active : Astro.url.pathname.includes(href);
 ---
 
