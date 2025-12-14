@@ -10,6 +10,7 @@ import Pre from "@/components/content/Pre.astro";
 import { getBlogEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
+import { cn } from "@/lib/cn";
 
 const t = getTranslator(Astro.currentLocale);
 
@@ -37,7 +38,7 @@ const { Content } = await post.render();
 const components = { h2: H2, h3: H3, pre: Pre };
 ---
 
-<PageLayout title={post.data.title} description={post.data.description}>
+<PageLayout title={post.data.title} description={post.data.description} publishedAt={post.data.date}>
   <a
     href={`/${Astro.currentLocale}/blog`}
     class="flex items-center gap-1 py-4 no-underline opacity-75 transition-opacity hover:opacity-100"
@@ -46,7 +47,18 @@ const components = { h2: H2, h3: H3, pre: Pre };
     {t("back")}
   </a>
 
-  <Article>
+  <div
+    class={cn(
+      "prose max-w-full prose-stone dark:prose-invert",
+      "prose-p:text-justify prose-p:font-serif",
+      "prose-inline-code:before:hidden prose-inline-code:after:hidden",
+      "prose-inline-code:rounded-md prose-inline-code:bg-body-alt",
+      "prose-inline-code:px-1 prose-inline-code:py-0.5",
+      "prose-inline-code:ring prose-inline-code:ring-foreground/15",
+      "prose-li:text-justify prose-li:font-serif",
+      "prose-img:m-auto",
+    )}
+  >
     <hgroup>
       <h1 class="mt-3 !mb-0">{post.data.title}</h1>
       <p class="mt-3">{post.data.description}</p>
@@ -58,8 +70,12 @@ const components = { h2: H2, h3: H3, pre: Pre };
 
     {post.data.tags && <PostTags tags={post.data.tags} />}
 
-    <hr class="my-8 border-dashed" />
+    <hr class="!my-12 border-dashed" />
+  </div>
 
-    <Content components={components} />
-  </Article>
+  <div class="article">
+    <Article>
+      <Content components={components} />
+    </Article>
+  </div>
 </PageLayout>

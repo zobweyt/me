@@ -7,15 +7,16 @@ import Header from "@/components/Header.astro";
 type Props = {
   title: string;
   description: string;
+  publishedAt?: Date;
 };
 
-const { title, description } = Astro.props;
+const { title, description, publishedAt } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={Astro.currentLocale} transition:animate="none">
   <head>
-    <Head title={title} description={description} />
+    <Head title={title} description={description} publishedAt={publishedAt} />
   </head>
   <body class="flex min-h-dvh flex-col bg-body text-foreground" transition:animate="none">
     <Header />
