@@ -31,7 +31,7 @@ export const CommandDialogContent = ({
       </DialogHeader>
 
       <Command
-        className={cn("flex size-full flex-col overflow-hidden p-0", className)}
+        className={cn("flex size-full flex-col overflow-hidden p-0 sm:max-h-[calc(100dvh-8rem)]", className)}
         filter={(value, search, keywords) =>
           value.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
           (keywords?.some((word) => word.toLocaleLowerCase().includes(search.toLocaleLowerCase())) ?? false)
