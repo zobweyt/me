@@ -31,7 +31,7 @@ export const CommandDialogContent = ({
       </DialogHeader>
 
       <Command
-        className={cn("flex size-full flex-col overflow-hidden p-0 sm:max-h-[calc(100dvh-8rem)]", className)}
+        className={cn("flex size-full flex-col overflow-hidden p-0 sm:max-h-[calc(100dvh-6rem)]", className)}
         filter={(value, search, keywords) =>
           value.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
           (keywords?.some((word) => word.toLocaleLowerCase().includes(search.toLocaleLowerCase())) ?? false)
@@ -53,11 +53,11 @@ export const CommandInput = ({
   ...props
 }: React.ComponentProps<typeof Command.Input> & { before?: React.ReactNode; after?: React.ReactNode }) => {
   return (
-    <div className="relative flex h-9 w-full items-center justify-center rounded-lg bg-body-alt ring ring-foreground/15 select-none">
+    <div className="relative flex h-9 w-full items-center justify-center rounded-lg select-none">
       {before}
 
       <Command.Input
-        className={cn("size-full p-2 outline-hidden placeholder:text-foreground/75", className)}
+        className={cn("size-full p-2 outline-hidden placeholder:text-foreground/50", className)}
         {...props}
       />
 
@@ -70,7 +70,7 @@ export const CommandList = ({ className, ...props }: React.ComponentProps<typeof
   return (
     <Command.List
       className={cn(
-        "scroll-pt-[calc(1.5rem+1px)] scroll-pb-2 overflow-x-hidden overflow-y-auto outline-none sm:h-106",
+        "scroll-pt-10 scroll-pb-1.5 overflow-x-hidden overflow-y-auto pb-1.5 outline-none sm:max-h-92.25",
         className,
       )}
       {...props}
@@ -79,14 +79,14 @@ export const CommandList = ({ className, ...props }: React.ComponentProps<typeof
 };
 
 export const CommandEmpty = ({ ...props }: React.ComponentProps<typeof Command.Empty>) => {
-  return <Command.Empty className="py-6 text-center text-sm" {...props} />;
+  return <Command.Empty className="flex h-18.25 items-end justify-center pb-1.5 text-current/75" {...props} />;
 };
 
 export const CommandGroup = ({ className, ...props }: React.ComponentProps<typeof Command.Group>) => {
   return (
     <Command.Group
       className={cn(
-        "relative isolate pb-2 [&_[cmdk-group-heading]]:sticky [&_[cmdk-group-heading]]:top-0 [&_[cmdk-group-heading]]:z-10 [&_[cmdk-group-heading]]:block [&_[cmdk-group-heading]]:w-full [&_[cmdk-group-heading]]:bg-body [&_[cmdk-group-heading]]:px-4 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-foreground/75 [&_[cmdk-group-heading]]:select-none [&_[cmdk-group-items]]:px-2 [&_[cmdk-group-items]]:pt-px",
+        "relative isolate [&_[cmdk-group-heading]]:sticky [&_[cmdk-group-heading]]:top-0 [&_[cmdk-group-heading]]:z-10 [&_[cmdk-group-heading]]:block [&_[cmdk-group-heading]]:w-full [&_[cmdk-group-heading]]:bg-body [&_[cmdk-group-heading]]:px-5 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-foreground/75 [&_[cmdk-group-heading]]:select-none [&_[cmdk-group-items]]:px-3 [&_[cmdk-group-items]]:pt-px",
         className,
       )}
       {...props}
@@ -98,7 +98,7 @@ export const CommandItem = ({ className, ...props }: React.ComponentProps<typeof
   return (
     <Command.Item
       className={cn(
-        "flex min-w-0 cursor-pointer items-center justify-start gap-2 truncate rounded-lg px-2 py-1.5 outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-body-alt data-[selected=true]:ring data-[selected=true]:ring-foreground/15",
+        "flex min-w-0 cursor-pointer items-center justify-start gap-2 truncate rounded-lg px-2 py-1.5 outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-body-alt",
         className,
       )}
       {...props}

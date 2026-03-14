@@ -34,7 +34,9 @@ const SOCIALS_ICONS: Record<Social["id"], React.ComponentType<React.ComponentPro
   github: ({ className, ...props }: React.ComponentProps<"svg">) => (
     <IconLogosGithubIcon className={cn("dark:invert", className)} {...props} />
   ),
-  mail: IconLucideMail,
+  mail: ({ className, ...props }: React.ComponentProps<"svg">) => (
+    <IconLucideMail className={cn("opacity-50", className)} {...props} />
+  ),
 };
 
 export default function Search({
@@ -120,10 +122,7 @@ export default function Search({
           <img
             src={project.data.logo}
             alt={project.data.title}
-            className={cn(
-              "size-6 shrink-0",
-              project.data.logoShape === "circle" && "rounded-full shadow ring ring-foreground/15",
-            )}
+            className={cn("size-6 shrink-0", project.data.logoShape === "circle" && "rounded-full")}
           />
         ),
         name: project.data.title,
@@ -159,7 +158,7 @@ export default function Search({
           const Icon = THEME_ICONS[theme];
 
           return {
-            icon: <Icon className="size-6 shrink-0" />,
+            icon: <Icon className="size-6 shrink-0 opacity-50" />,
             name: t(`search.groups.themes.items.${theme}`),
             href: "",
             action: true,
@@ -190,13 +189,13 @@ export default function Search({
       <CommandDialog open={open} onOpenChange={setOpen}>
         <DialogTrigger
           className={cn(
-            "flex w-fit items-center justify-center gap-0.5 rounded-full border border-foreground/15 px-2 py-1 text-sm leading-none transition outline-none hover:bg-foreground/5 focus-visible:bg-foreground/5",
+            "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-body-alt/50 px-2.5 py-1.5 text-sm leading-none transition outline-none hover:bg-body-alt focus-visible:bg-body-alt",
             className,
           )}
           title={`${t("search.title")} (Ctrl+K)`}
           {...props}
         >
-          <IconLucideSearch className="size-3.5 text-foreground/75 md:-ml-0.5" />
+          <IconLucideSearch className="size-4 text-foreground/75 opacity-75 md:-ml-0.5" />
           <span>{t("search.title")}</span>
         </DialogTrigger>
         <CommandDialogContent
@@ -206,14 +205,14 @@ export default function Search({
             setQuery("");
           }}
         >
-          <div className="m-2 flex items-center justify-center gap-1">
+          <div className="flex items-center justify-center border-b border-foreground/15 px-3 py-2">
             <CommandInput
               value={query}
               ref={inputRef}
               onInput={(e) => setQuery(e.currentTarget.value)}
               placeholder={t("search.input.placeholder")}
               className={cn("ps-10", query && "pe-10")}
-              before={<IconLucideSearch className="absolute left-2 size-6 shrink-0 opacity-50" />}
+              before={<IconLucideSearch className="absolute left-2.5 size-5 shrink-0 opacity-50" />}
               after={
                 query && (
                   <button
@@ -230,8 +229,8 @@ export default function Search({
               }
             />
 
-            <DialogClose className="flex items-center gap-1 px-2 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
-              {t("cancel")}
+            <DialogClose className="flex cursor-pointer items-center px-3 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
+              {t("search.footer.exit")}
             </DialogClose>
           </div>
 
@@ -240,9 +239,9 @@ export default function Search({
 
             {groups.map((group) => (
               <CommandGroup key={group.name} heading={group.name}>
-                {group.items.map((item) => (
+                {group.items.map((item, index) => (
                   <CommandItem
-                    key={item.href}
+                    key={item.href + "-" + index}
                     onSelect={() => {
                       setOpen(false);
 
@@ -264,15 +263,18 @@ export default function Search({
                       autoEscape
                       searchWords={[query]}
                       textToHighlight={item.name}
-                      highlightClassName="bg-amber-400 rounded-sm"
+                      highlightClassName="bg-yellow-400 rounded-sm"
                     />
                     {item.action !== true && (
                       <Highlighter
                         autoEscape
                         searchWords={[query]}
-                        textToHighlight={item.href}
-                        className="min-w-0 truncate opacity-50"
-                        highlightClassName="bg-amber-400 rounded-sm"
+                        textToHighlight={item.href
+                          .replace("/" + currentLocale, "")
+                          .replace("https://", "")
+                          .replace(/\/+$/, "")}
+                        className="min-w-0 truncate text-current/50"
+                        highlightClassName="bg-yellow-400 rounded-sm"
                       />
                     )}
                   </CommandItem>
@@ -281,27 +283,27 @@ export default function Search({
             ))}
           </CommandList>
 
-          <div className="flex gap-4 border-t border-foreground/10 bg-body-alt px-4 py-2 text-sm text-foreground/75 select-none max-sm:hidden">
+          <div className="flex gap-4 border-t border-foreground/15 px-5 py-2 text-sm text-current/75 select-none max-sm:hidden">
             <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/15">
                 ↩
               </kbd>
               <span>{t("search.footer.select")}</span>
             </div>
             <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/15">
                 ↑
               </kbd>
               <span>{t("search.footer.previous")}</span>
             </div>
             <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/15">
                 ↓
               </kbd>
               <span>{t("search.footer.next")}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/10">
+            <div className="ms-auto flex items-center gap-2">
+              <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/15">
                 esc
               </kbd>
               <span>{t("search.footer.exit")}</span>

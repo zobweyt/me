@@ -1,7 +1,7 @@
 ---
 import Container from "@/components/Container.astro";
 import { SOCIALS } from "@/constants";
-import { LOCALES, getTranslator } from "@/i18n";
+import { getTranslator } from "@/i18n";
 
 import Link from "./Link.astro";
 import Nav from "./Nav.astro";
@@ -12,20 +12,14 @@ const t = getTranslator(Astro.currentLocale);
 <footer class="py-6">
   <Container>
     <div class="flex items-center justify-between gap-2 max-sm:flex-col-reverse sm:gap-4">
-      <div class="flex w-full grow items-center justify-between">
-        <Link href={`/${Astro.currentLocale}`} underline={false}>
-          <span class="font-semibold">
-            {t("name")}
-          </span>
-        </Link>
-        <Nav
-          items={LOCALES.map((locale) => ({
-            name: locale,
-            href: Astro.currentLocale != null ? Astro.url.pathname.replace(Astro.currentLocale, locale) : `/${locale}`,
-            active: locale === Astro.currentLocale,
-          }))}
-        />
-      </div>
+      <Link
+        href={`/${Astro.currentLocale}`}
+        underline={false}
+        class="font-semibold text-current/75"
+        color="light-dark(#000, #fff)"
+      >
+        {t("name")}
+      </Link>
 
       <Nav
         items={[

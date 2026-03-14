@@ -4,7 +4,6 @@ import Link from "@/components/Link.astro";
 import { getBlogEntries, getProjectsEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
 
-import Nav from "./Nav.astro";
 import Search from "./Search";
 
 const t = getTranslator(Astro.currentLocale);
@@ -15,10 +14,13 @@ const projects = await getProjectsEntries({ locale: Astro.currentLocale });
 <header class="sticky top-0 isolate z-20 bg-body py-4 sm:py-6">
   <Container>
     <div class="flex flex-wrap items-center justify-between gap-y-2">
-      <Link href={`/${Astro.currentLocale}`} underline={false}>
-        <span class="font-semibold">
-          {t("name")}
-        </span>
+      <Link
+        href={`/${Astro.currentLocale}`}
+        underline={false}
+        class="font-semibold text-current/75"
+        color="light-dark(#000, #fff)"
+      >
+        {t("name")}
       </Link>
 
       <Search
@@ -28,20 +30,6 @@ const projects = await getProjectsEntries({ locale: Astro.currentLocale });
         url={Astro.url}
         site={Astro.site}
         currentLocale={Astro.currentLocale}
-        className="ms-auto me-3"
-      />
-
-      <Nav
-        items={[
-          {
-            name: t("blog.title"),
-            href: `/${Astro.currentLocale}/blog`,
-          },
-          {
-            name: t("projects.title"),
-            href: `/${Astro.currentLocale}/projects`,
-          },
-        ]}
       />
     </div>
   </Container>

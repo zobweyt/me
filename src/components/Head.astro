@@ -1,9 +1,9 @@
 ---
 import "@/styles/index.css";
 
-import geistMono from "@fontsource-variable/fira-code/files/fira-code-latin-wght-normal.woff2";
+import firaCode from "@fontsource-variable/fira-code/files/fira-code-latin-wght-normal.woff2";
+import inter from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2";
 import lora from "@fontsource-variable/lora/files/lora-latin-wght-normal.woff2";
-import karla from "@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2";
 import Themes from "astro-themes";
 import { ClientRouter } from "astro:transitions";
 
@@ -20,9 +20,9 @@ const { title, description, publishedAt } = Astro.props;
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preload" href={geistMono} as="font" type="font/woff2" crossorigin />
-<link rel="preload" href={karla} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
 <link rel="preload" href={lora} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={firaCode} as="font" type="font/woff2" crossorigin />
 <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 <title>{title}</title>
 <meta name="title" content={title} />

@@ -3,12 +3,13 @@ import { tv } from "tailwind-variants";
 
 const styles = tv({
   base: [
-    "inline-block text-foreground/75 decoration-foreground/15 transition-colors duration-300 ease-in-out",
+    "inline-block text-foreground/75 decoration-foreground/15 transition-colors duration-300 ease-in-out outline-none",
     "hover:text-(--link-color) hover:decoration-(--link-color)/50",
+    "focus-visible:text-(--link-color) focus-visible:decoration-(--link-color)/50",
   ],
   variants: {
     underline: {
-      true: "underline decoration-wavy underline-offset-2",
+      true: "underline underline-offset-6",
       false: "no-underline",
     },
     active: {
@@ -25,7 +26,7 @@ export type Props = {
   color?: string;
 };
 
-const { href, active: _active, external, underline = true, color = "unset", ...rest } = Astro.props;
+const { class: className, href, active: _active, external, underline = true, color = "unset", ...rest } = Astro.props;
 const active = _active != null ? _active : Astro.url.pathname.includes(href);
 ---
 
@@ -33,7 +34,7 @@ const active = _active != null ? _active : Astro.url.pathname.includes(href);
   href={href}
   rel={external === true ? "noopener noreferrer" : undefined}
   target={external === true ? "_blank" : "_self"}
-  class={styles({ underline, active })}
+  class={styles({ underline, active, className })}
   style={{ "--link-color": color }}
   {...rest}
 >

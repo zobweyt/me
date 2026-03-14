@@ -4,7 +4,7 @@
 @plugin "@tailwindcss/typography";
 
 @import "@fontsource-variable/fira-code/wght.css";
-@import "@fontsource-variable/rubik/wght.css";
+@import "@fontsource-variable/inter/wght.css";
 @import "@fontsource-variable/lora/wght.css";
 
 @import "./base.css";
