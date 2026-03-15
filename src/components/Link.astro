@@ -26,7 +26,15 @@ export type Props = {
   color?: string;
 };
 
-const { class: className, href, active: _active, external, underline = true, color = "unset", ...rest } = Astro.props;
+const {
+  class: className,
+  href,
+  active: _active,
+  external,
+  underline = true,
+  color = "unset",
+  ...rest
+} = Astro.props;
 const active = _active != null ? _active : Astro.url.pathname.includes(href);
 ---
 

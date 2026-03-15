@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "types": ["./.astro/types.d.ts", "astro/client", "unplugin-icons/types/react"],
+    "types": ["./.astro/types.d.ts", "astro/client"],
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { tv } from "tailwind-variants";
-
 import ProjectCardStars from "./ProjectCardStars.astro";
 import ProjectCardStarsSkeleton from "./ProjectCardStarsSkeleton.astro";
 
@@ -20,11 +19,13 @@ const styles = tv({
     ],
     wrapper: "mb-1 flex items-center gap-2",
     logo: "size-6",
-    title: "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
+    title:
+      "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
     description: "mb-2 font-serif opacity-75",
     date: "first-letter:uppercase",
     stars: "flex items-center gap-1",
-    footer: "flex items-center gap-3 font-mono text-sm text-(--project-card-color)",
+    footer:
+      "flex items-center gap-3 font-mono text-sm text-(--project-card-color)",
   },
   variants: {
     logoShape: {
@@ -40,7 +41,11 @@ const styles = tv({
 
 const { entry } = Astro.props;
 
-const formatter = new Intl.DateTimeFormat(Astro.currentLocale, { year: "numeric", month: "short", day: "numeric" });
+const formatter = new Intl.DateTimeFormat(Astro.currentLocale, {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
 ---
 
 <div

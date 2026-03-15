@@ -1,24 +1,41 @@
-import { Close, Content, Description, Overlay, Portal, Root, Title, Trigger } from "@radix-ui/react-dialog";
-
+import {
+  Close,
+  Content,
+  Description,
+  Overlay,
+  Portal,
+  Root,
+  Title,
+  Trigger,
+} from "@radix-ui/react-dialog";
 import { cn } from "@/lib/cn";
 
 export const Dialog = ({ ...props }: React.ComponentProps<typeof Root>) => {
   return <Root {...props} />;
 };
 
-export const DialogTrigger = ({ ...props }: React.ComponentProps<typeof Trigger>) => {
+export const DialogTrigger = ({
+  ...props
+}: React.ComponentProps<typeof Trigger>) => {
   return <Trigger {...props} />;
 };
 
-export const DialogPortal = ({ ...props }: React.ComponentProps<typeof Portal>) => {
+export const DialogPortal = ({
+  ...props
+}: React.ComponentProps<typeof Portal>) => {
   return <Portal {...props} />;
 };
 
-export const DialogClose = ({ ...props }: React.ComponentProps<typeof Close>) => {
+export const DialogClose = ({
+  ...props
+}: React.ComponentProps<typeof Close>) => {
   return <Close {...props} />;
 };
 
-export const DialogOverlay = ({ className, ...props }: React.ComponentProps<typeof Overlay>) => {
+export const DialogOverlay = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Overlay>) => {
   return (
     <Overlay
       className={cn(
@@ -30,7 +47,11 @@ export const DialogOverlay = ({ className, ...props }: React.ComponentProps<type
   );
 };
 
-export const DialogContent = ({ className, children, ...props }: React.ComponentProps<typeof Content>) => {
+export const DialogContent = ({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof Content>) => {
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -47,18 +68,50 @@ export const DialogContent = ({ className, children, ...props }: React.Component
   );
 };
 
-export const DialogHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
-  return <div className={cn("flex flex-col gap-2 text-center sm:text-left", className)} {...props} />;
+export const DialogHeader = ({
+  className,
+  ...props
+}: React.ComponentProps<"div">) => {
+  return (
+    <div
+      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
+      {...props}
+    />
+  );
 };
 
-export const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
-  return <div className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)} {...props} />;
+export const DialogFooter = ({
+  className,
+  ...props
+}: React.ComponentProps<"div">) => {
+  return (
+    <div
+      className={cn(
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        className,
+      )}
+      {...props}
+    />
+  );
 };
 
-export const DialogTitle = ({ className, ...props }: React.ComponentProps<typeof Title>) => {
-  return <Title className={cn("text-lg leading-none font-semibold", className)} {...props} />;
+export const DialogTitle = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Title>) => {
+  return (
+    <Title
+      className={cn("text-lg leading-none font-semibold", className)}
+      {...props}
+    />
+  );
 };
 
-export const DialogDescription = ({ className, ...props }: React.ComponentProps<typeof Description>) => {
-  return <Description className={cn("text-sm opacity-75", className)} {...props} />;
+export const DialogDescription = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Description>) => {
+  return (
+    <Description className={cn("text-sm opacity-75", className)} {...props} />
+  );
 };

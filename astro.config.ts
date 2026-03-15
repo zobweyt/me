@@ -5,7 +5,6 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import unocss from "unocss/astro";
-
 import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
 
 export default defineConfig({

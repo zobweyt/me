@@ -1,9 +1,17 @@
 import { Command } from "cmdk";
-
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/Dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/Dialog";
 import { cn } from "@/lib/cn";
 
-export const CommandDialog = ({ children, ...props }: React.ComponentProps<typeof Dialog>) => {
+export const CommandDialog = ({
+  children,
+  ...props
+}: React.ComponentProps<typeof Dialog>) => {
   return <Dialog {...props}>{children}</Dialog>;
 };
 
@@ -31,10 +39,16 @@ export const CommandDialogContent = ({
       </DialogHeader>
 
       <Command
-        className={cn("flex size-full flex-col overflow-hidden p-0 sm:max-h-[calc(100dvh-6rem)]", className)}
+        className={cn(
+          "flex size-full flex-col overflow-hidden p-0 sm:max-h-[calc(100dvh-6rem)]",
+          className,
+        )}
         filter={(value, search, keywords) =>
           value.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-          (keywords?.some((word) => word.toLocaleLowerCase().includes(search.toLocaleLowerCase())) ?? false)
+          (keywords?.some((word) =>
+            word.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+          ) ??
+            false)
             ? 1
             : 0
         }
@@ -51,13 +65,19 @@ export const CommandInput = ({
   after,
   className,
   ...props
-}: React.ComponentProps<typeof Command.Input> & { before?: React.ReactNode; after?: React.ReactNode }) => {
+}: React.ComponentProps<typeof Command.Input> & {
+  before?: React.ReactNode;
+  after?: React.ReactNode;
+}) => {
   return (
     <div className="relative flex h-9 w-full items-center justify-center rounded-lg select-none">
       {before}
 
       <Command.Input
-        className={cn("size-full p-2 outline-hidden placeholder:text-foreground/50", className)}
+        className={cn(
+          "size-full p-2 outline-hidden placeholder:text-foreground/50",
+          className,
+        )}
         {...props}
       />
 
@@ -66,7 +86,10 @@ export const CommandInput = ({
   );
 };
 
-export const CommandList = ({ className, ...props }: React.ComponentProps<typeof Command.List>) => {
+export const CommandList = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Command.List>) => {
   return (
     <Command.List
       className={cn(
@@ -78,11 +101,21 @@ export const CommandList = ({ className, ...props }: React.ComponentProps<typeof
   );
 };
 
-export const CommandEmpty = ({ ...props }: React.ComponentProps<typeof Command.Empty>) => {
-  return <Command.Empty className="flex h-18.25 items-end justify-center pb-1.5 text-current/75" {...props} />;
+export const CommandEmpty = ({
+  ...props
+}: React.ComponentProps<typeof Command.Empty>) => {
+  return (
+    <Command.Empty
+      className="flex h-18.25 items-end justify-center pb-1.5 text-current/75"
+      {...props}
+    />
+  );
 };
 
-export const CommandGroup = ({ className, ...props }: React.ComponentProps<typeof Command.Group>) => {
+export const CommandGroup = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Command.Group>) => {
   return (
     <Command.Group
       className={cn(
@@ -94,7 +127,10 @@ export const CommandGroup = ({ className, ...props }: React.ComponentProps<typeo
   );
 };
 
-export const CommandItem = ({ className, ...props }: React.ComponentProps<typeof Command.Item>) => {
+export const CommandItem = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Command.Item>) => {
   return (
     <Command.Item
       className={cn(

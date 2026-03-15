@@ -9,6 +9,9 @@ export const translations = {
 
 export const getTranslator = (locale: string | undefined) => {
   return (key: keyof (typeof translations)[typeof DEFAULT_LOCALE]) => {
-    return translations[locale as keyof typeof translations][key] || translations[DEFAULT_LOCALE][key];
+    return (
+      translations[locale as keyof typeof translations][key] ||
+      translations[DEFAULT_LOCALE][key]
+    );
   };
 };

@@ -4,7 +4,9 @@ import { GITHUB_TOKEN } from "astro:env/server";
 const cache: Map<string, { stars: number; timestamp: number }> = new Map();
 const CACHE_DURATION = 60 * 60 * 1000;
 
-export const getProjectStars = async (project: InferEntrySchema<"projects">): Promise<number | null> => {
+export const getProjectStars = async (
+  project: InferEntrySchema<"projects">,
+): Promise<number | null> => {
   if (project.repo === undefined) {
     return null;
   }
@@ -17,11 +19,14 @@ export const getProjectStars = async (project: InferEntrySchema<"projects">): Pr
   }
 
   try {
-    const response = await fetch(project.repo.replace("github.com", "api.github.com/repos"), {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
+    const response = await fetch(
+      project.repo.replace("github.com", "api.github.com/repos"),
+      {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+        },
       },
-    });
+    );
 
     const { stargazers_count: stars = 0, message } = await response.json();
 

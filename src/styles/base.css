@@ -1,7 +1,7 @@
 @layer base {
   html {
     color-scheme: light dark;
-    scrollbar-color: light-dark(theme(colors.neutral.400), theme(colors.neutral.500)) transparent;
+    scrollbar-color: light-dark(theme("colors.neutral.400"), theme("colors.neutral.500")) transparent;
   }
 
   html {
@@ -21,8 +21,8 @@
   }
 
   ::selection {
-    background: light-dark(theme(colors.blue.200), theme(colors.blue.900));
-    color: light-dark(theme(colors.neutral.900), theme(colors.neutral.100));
+    background: light-dark(theme("colors.blue.200"), theme("colors.blue.900"));
+    color: light-dark(theme("colors.neutral.900"), theme("colors.neutral.100"));
   }
 
   [data-theme="dark"] {

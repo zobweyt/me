@@ -1,12 +1,11 @@
 ---
-import { render, type CollectionEntry } from "astro:content";
-
-import PostTags from "@/components/PostTags.astro";
-import Time from "@/components/Time.astro";
+import { type CollectionEntry, render } from "astro:content";
 import Article from "@/components/content/Article.astro";
 import H2 from "@/components/content/H2.astro";
 import H3 from "@/components/content/H3.astro";
 import Pre from "@/components/content/Pre.astro";
+import PostTags from "@/components/PostTags.astro";
+import Time from "@/components/Time.astro";
 import { getBlogEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
@@ -19,7 +18,7 @@ export const prerender = true;
 export async function getStaticPaths() {
   const posts = await getBlogEntries();
 
-  return posts.map(function (post) {
+  return posts.map((post) => {
     const locale = post.id.split("/")[0];
     const id = `${post.id.replace(`${locale}/`, "")}`;
 

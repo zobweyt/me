@@ -1,7 +1,11 @@
 ---
-import { DEFAULT_LOCALE, type Locale, LOCALES } from "@/i18n";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/i18n";
 
 export const prerender = false;
 
-return Astro.redirect(LOCALES.includes(Astro.preferredLocale as Locale) ? Astro.preferredLocale : DEFAULT_LOCALE);
+return Astro.redirect(
+  LOCALES.includes(Astro.preferredLocale as Locale)
+    ? Astro.preferredLocale
+    : DEFAULT_LOCALE,
+);
 ---

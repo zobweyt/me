@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getProjectsEntries } from "@/content/entries";
 import { LOCALES, getTranslator } from "@/i18n";
@@ -23,7 +22,9 @@ const projects = data.reduce((acc: Acc, project) => {
   return acc;
 }, {});
 
-const years = Object.keys(projects).sort((a, b) => parseInt(b) - parseInt(a));
+const years = Object.keys(projects).sort(
+  (a, b) => parseInt(b, 10) - parseInt(a, 10),
+);
 
 export const prerender = true;
 

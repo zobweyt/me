@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { tv } from "tailwind-variants";
-
 import PostTags from "./PostTags.astro";
 import Time from "./Time.astro";
 
@@ -12,7 +11,8 @@ const styles = tv({
       "transition-colors duration-300 ease-in-out",
     ],
     wrapper: "flex grow flex-col flex-nowrap",
-    title: "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
+    title:
+      "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
     date: "mt-1 mb-2 font-mono text-sm opacity-75 first-letter:uppercase",
     icon: "i-material-symbols:arrow-right-alt-rounded text-2xl opacity-75 transition-opacity duration-300 ease-in-out group-hover:opacity-100",
   },
