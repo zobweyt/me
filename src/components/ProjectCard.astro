@@ -1,7 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import { cva, cx } from "class-variance-authority";
+import { cx } from "class-variance-authority";
+import { getTranslator } from "@/i18n";
 import ProjectCardStars from "./ProjectCardStars.astro";
 import ProjectCardStarsSkeleton from "./ProjectCardStarsSkeleton.astro";
 
@@ -9,64 +10,54 @@ type Props = {
   entry: CollectionEntry<"projects">;
 };
 
-const logo = cva("size-6", {
-  variants: {
-    shape: {
-      square: "",
-      circle: "rounded-full shadow ring ring-black/15",
-    },
-  },
-});
-
 const { entry } = Astro.props;
 
 const formatter = new Intl.DateTimeFormat(Astro.currentLocale, {
   year: "numeric",
   month: "short",
-  day: "numeric",
 });
 
 const cardClass = cx([
-  "relative cursor-pointer rounded-lg p-4",
+  "relative cursor-pointer rounded-xl p-4",
   "transition duration-300 ease-in-out",
-  "bg-[var(--project-card-color)]/5 hover:bg-[var(--project-card-color)]/15 active:ring-[var(--project-card-color)]/30",
+  "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 hover:bg-[var(--project-card-color)]/15 active:ring-[var(--project-card-color)]/30",
   "ring ring-[var(--project-card-color)]/15 ring-inset hover:ring-[var(--project-card-color)]/30 active:hover:ring-[var(--project-card-color)]/50",
 ]);
 
 const cardStyle = { "--project-card-color": entry.data.color };
+
+const t = getTranslator(Astro.currentLocale);
 ---
 
 <div class={cardClass} style={cardStyle}>
-  <div class={"mb-1 flex items-center gap-2"}>
+  <div class="mb-1 flex items-center gap-2">
     <Image
       src={entry.data.logo}
       alt={entry.data.title}
-      draggable="false"
-      loading="eager"
       width={24}
       height={24}
-      class={logo({ shape: entry.data.logoShape })}
+      class={cx("shadow-xs", entry.data.logoShape === "circle" && "rounded-full")}
+      loading="eager"
+      draggable="false"
     />
     <a
       href={entry.data.href}
       target="_blank"
       rel="noopener noreferrer"
-      class={"text-xl leading-normal font-semibold after:content-[''] after:absolute after:inset-0 after:z-10"}
+      class="after:content-[''] after:absolute after:inset-0 after:z-10 text-xl leading-normal font-semibold"
     >
       {entry.data.title}
     </a>
   </div>
-  <p class={"mb-2 font-serif opacity-75"}>{entry.data.description}</p>
-  <div
-    class={"flex items-center gap-3 font-mono text-sm text-[var(--project-card-color)]"}
+  <p class="font-serif text-current/85 mb-2">{entry.data.description}</p>
+  <ProjectCardStars project={entry.data} server:defer>
+    <ProjectCardStarsSkeleton slot="fallback" />
+  </ProjectCardStars>
+  <p
+    class="first-letter:uppercase absolute right-3 top-3 font-mono text-sm text-[var(--project-card-color)]"
   >
-    <p class={"first-letter:uppercase"}>
-      {entry.data.dateEnd
-          ? formatter.formatRange(entry.data.dateStart, entry.data.dateEnd)
-          : formatter.format(entry.data.dateStart)}
-    </p>
-    <ProjectCardStars project={entry.data} server:defer>
-      <ProjectCardStarsSkeleton slot="fallback" />
-    </ProjectCardStars>
-  </div>
+    {entry.data.dateEnd
+        ? formatter.formatRange(entry.data.dateStart, entry.data.dateEnd)
+        : `${formatter.format(entry.data.dateStart)} – ${t("now")}`}
+  </p>
 </div>

@@ -13,7 +13,7 @@ const { entry } = Astro.props;
 
 <div
   class={cx([
-      "group cursor-pointer relative flex flex-nowrap items-center rounded-lg border border-foreground/15 p-4 hover:bg-foreground/5",
+      "group relative cursor-pointer relative flex flex-nowrap items-center rounded-xl bg-surface/15 border border-foreground/15 p-4 hover:bg-foreground/5",
       "transition-colors duration-300 ease-in-out",
     ])}
 >
@@ -25,14 +25,17 @@ const { entry } = Astro.props;
       {entry.data.title}
     </a>
 
-    <p class={"mt-1 mb-2 font-mono text-sm opacity-75 first-letter:uppercase"}>
-      <Time date={entry.data.date} />
+    <p class={"mt-1 mb-2 font-serif text-current/75 first-letter:uppercase"}>
+      {entry.data.description}
     </p>
 
     {entry.data.tags && <PostTags tags={entry.data.tags} />}
   </div>
+  <p class="absolute right-3 top-3 font-mono text-sm text-current/75">
+    <Time date={entry.data.date} options={{}} />
+  </p>
 
   <span
-    class={"i-material-symbols:arrow-right-alt-rounded text-2xl opacity-75 transition-opacity duration-300 ease-in-out group-hover:opacity-100"}
+    class={"i-material-symbols:arrow-right-alt-rounded text-2xl text-current/50 right-3 top-2/3 absolute transition-opacity duration-300 ease-in-out group-hover:text-current/75"}
   />
 </div>

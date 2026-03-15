@@ -16,7 +16,7 @@ export const Close = ({ ...props }: Base.Close.Props) => {
 export const Popup = ({ className, children, ...props }: Base.Popup.Props) => {
   return (
     <Base.Portal>
-      <Base.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-50 transition-all duration-150 z-50 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 supports-[-webkit-touch-callout:none]:absolute max-sm:hidden" />
+      <Base.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-25 dark:opacity-50 transition-all duration-150 z-50 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 supports-[-webkit-touch-callout:none]:absolute max-sm:hidden" />
       <Base.Popup
         className={cx(
           "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl bg-body p-6 shadow-xl sm:max-w-lg sm:border sm:border-foreground/15 transition-all duration-150 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 max-sm:duration-0",

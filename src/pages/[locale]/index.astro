@@ -1,4 +1,5 @@
 ---
+import { cx } from "class-variance-authority";
 import Link from "@/components/Link.astro";
 import PostCard from "@/components/PostCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
@@ -58,7 +59,9 @@ const t = getTranslator(Astro.currentLocale);
           >{t("projects.all")}</Link
         >
       </div>
-      <ul class="grid gap-4 sm:grid-cols-2">
+      <ul
+        class={cx("grid gap-4", projects.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-1")}
+      >
         {projects.map((entry) => (
             <li>
               <ProjectCard entry={entry} />

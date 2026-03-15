@@ -12,8 +12,10 @@ const stars = await getProjectStars(project);
 ---
 
 {stars !== null && (
-    <p class="flex items-center gap-1" {...props}>
-      <span class="i-octicon:star-16 text-base" />
-      {stars}
+    <p class="flex items-center font-medium gap-1 font-mono text-sm text-[var(--project-card-color)]" {...props}>
+      <span class="i-lucide:star text-base" />
+      <span class="tabular-nums leading-none -mb-0.5">
+        {stars}
+      </span>
     </p>
   )}

@@ -45,6 +45,9 @@ export default defineConfig({
   ],
   output: "server",
   adapter: vercel(),
+  security: {
+    csp: true,
+  },
   markdown: {
     shikiConfig: {
       themes: {

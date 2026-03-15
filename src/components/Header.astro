@@ -6,11 +6,34 @@ import { getTranslator } from "@/i18n";
 import Search from "./Search";
 
 const t = getTranslator(Astro.currentLocale);
-const posts = await getBlogEntries({ locale: Astro.currentLocale });
-const projects = await getProjectsEntries({ locale: Astro.currentLocale });
+
+const postsEntries = await getBlogEntries({ locale: Astro.currentLocale });
+
+const posts = postsEntries.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+}));
+
+const projectsEntries = await getProjectsEntries({
+  locale: Astro.currentLocale,
+});
+
+const projects = projectsEntries.map((project) => ({
+  id: project.id,
+  title: project.data.title,
+  description: project.data.description,
+  href: project.data.href,
+  repo: project.data.repo,
+  logo: project.data.logo?.src || "",
+  logoShape: project.data.logoShape,
+}));
 ---
 
-<header class="sticky top-0 isolate z-20 bg-body py-4 sm:py-6">
+<header
+  class="sticky top-0 isolate z-20 bg-body py-3 sm:py-4 border-b border-b-transparent"
+>
   <Container>
     <div class="flex flex-wrap items-center justify-between gap-y-2">
       <Link
@@ -33,3 +56,17 @@ const projects = await getProjectsEntries({ locale: Astro.currentLocale });
     </div>
   </Container>
 </header>
+
+<style>
+header {
+  animation: add-border linear both;
+  animation-timeline: scroll();
+  animation-range: 0 52px;
+}
+
+@keyframes add-border {
+  to {
+    border-color: var(--colors-surface);
+  }
+}
+</style>
