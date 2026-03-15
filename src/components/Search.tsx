@@ -241,6 +241,7 @@ export default function Search({
       <Command.Popup
         title={t("search.title")}
         description={t("search.description")}
+        initialFocus={inputRef}
       >
         <div className="flex items-center justify-center border-b border-foreground/15 px-3 py-2">
           <Command.Input
