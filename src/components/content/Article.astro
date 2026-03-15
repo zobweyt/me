@@ -1,8 +1,8 @@
 ---
-import { tv } from "tailwind-variants";
+import { cx } from "class-variance-authority";
+---
 
-const styles = tv({
-  base: [
+<article class={cx([
     "article__content",
     "prose max-w-full prose-stone dark:prose-invert",
     "prose-p:text-justify prose-p:font-serif",
@@ -12,10 +12,6 @@ const styles = tv({
     "prose-inline-code:ring prose-inline-code:ring-foreground/15",
     "prose-li:text-justify prose-li:font-serif",
     "prose-img:m-auto",
-  ],
-});
----
-
-<article class={styles()}>
+  ])}>
   <slot />
 </article>

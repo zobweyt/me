@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import { navigate } from "astro:transitions/client";
-import type React from "react";
+import { cx } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import {
@@ -14,7 +14,6 @@ import {
 } from "@/components/Command";
 import { SOCIALS, type Social } from "@/constants";
 import { LOCALES, type Locale, getTranslator } from "@/i18n";
-import { cn } from "@/lib/cn";
 import { DialogClose, DialogTrigger } from "./Dialog";
 
 const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
@@ -33,17 +32,17 @@ const SOCIALS_ICONS: Record<
   React.ComponentType<React.ComponentProps<"span">>
 > = {
   telegram: ({ className, ...props }: React.ComponentProps<"span">) => (
-    <span className={cn("i-logos:telegram text-2xl", className)} {...props} />
+    <span className={cx("i-logos:telegram text-2xl", className)} {...props} />
   ),
   github: ({ className, ...props }: React.ComponentProps<"span">) => (
     <span
-      className={cn("i-logos:github-icon text-2xl dark:invert", className)}
+      className={cx("i-logos:github-icon text-2xl dark:invert", className)}
       {...props}
     />
   ),
   mail: ({ className, ...props }: React.ComponentProps<"span">) => (
     <span
-      className={cn("i-lucide:mail text-2xl opacity-50", className)}
+      className={cx("i-lucide:mail text-2xl opacity-50", className)}
       {...props}
     />
   ),
@@ -143,7 +142,7 @@ export default function Search({
           <img
             src={project.data.logo}
             alt={project.data.title}
-            className={cn(
+            className={cx(
               "size-6 shrink-0",
               project.data.logoShape === "circle" && "rounded-full",
             )}
@@ -186,7 +185,7 @@ export default function Search({
           return {
             icon: (
               <span
-                className={cn(
+                className={cx(
                   "size-6 shrink-0 text-2xl opacity-50",
                   iconClassName,
                 )}
@@ -234,7 +233,7 @@ export default function Search({
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
-        className={cn(
+        className={cx(
           "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-body-alt/50 px-2.5 py-1.5 text-sm leading-none transition outline-none hover:bg-body-alt focus-visible:bg-body-alt",
           className,
         )}
@@ -257,7 +256,7 @@ export default function Search({
             ref={inputRef}
             onInput={(e) => setQuery(e.currentTarget.value)}
             placeholder={t("search.input.placeholder")}
-            className={cn("ps-10", query && "pe-10")}
+            className={cx("ps-10", query && "pe-10")}
             before={
               <span className="i-lucide:search absolute left-2.5 shrink-0 text-xl opacity-50" />
             }

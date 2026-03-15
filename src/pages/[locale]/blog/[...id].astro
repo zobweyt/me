@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
+import { cx } from "class-variance-authority";
 import Article from "@/components/content/Article.astro";
 import H2 from "@/components/content/H2.astro";
 import H3 from "@/components/content/H3.astro";
@@ -9,7 +10,6 @@ import Time from "@/components/Time.astro";
 import { getBlogEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
-import { cn } from "@/lib/cn";
 
 const t = getTranslator(Astro.currentLocale);
 
@@ -47,7 +47,7 @@ const components = { h2: H2, h3: H3, pre: Pre };
   </a>
 
   <div
-    class={cn(
+    class={cx(
       "prose max-w-full prose-stone dark:prose-invert",
       "prose-p:text-justify prose-p:font-serif",
       "prose-inline-code:before:hidden prose-inline-code:after:hidden",

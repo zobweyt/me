@@ -8,7 +8,7 @@ import {
   Title,
   Trigger,
 } from "@radix-ui/react-dialog";
-import { cn } from "@/lib/cn";
+import { cx } from "class-variance-authority";
 
 export const Dialog = ({ ...props }: React.ComponentProps<typeof Root>) => {
   return <Root {...props} />;
@@ -38,7 +38,7 @@ export const DialogOverlay = ({
 }: React.ComponentProps<typeof Overlay>) => {
   return (
     <Overlay
-      className={cn(
+      className={cx(
         "fixed inset-0 z-50 bg-black opacity-50 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 max-sm:hidden sm:data-[state=closed]:animate-out sm:data-[state=open]:animate-in",
         className,
       )}
@@ -56,7 +56,7 @@ export const DialogContent = ({
     <DialogPortal>
       <DialogOverlay />
       <Content
-        className={cn(
+        className={cx(
           "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl bg-body p-6 shadow-xl data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-top-6 data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-top-4 sm:max-w-lg sm:border sm:border-foreground/15 sm:data-[state=closed]:animate-out sm:data-[state=open]:animate-in",
           className,
         )}
@@ -74,7 +74,7 @@ export const DialogHeader = ({
 }: React.ComponentProps<"div">) => {
   return (
     <div
-      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
+      className={cx("flex flex-col gap-2 text-center sm:text-left", className)}
       {...props}
     />
   );
@@ -86,7 +86,7 @@ export const DialogFooter = ({
 }: React.ComponentProps<"div">) => {
   return (
     <div
-      className={cn(
+      className={cx(
         "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
         className,
       )}
@@ -101,7 +101,7 @@ export const DialogTitle = ({
 }: React.ComponentProps<typeof Title>) => {
   return (
     <Title
-      className={cn("text-lg leading-none font-semibold", className)}
+      className={cx("text-lg leading-none font-semibold", className)}
       {...props}
     />
   );
@@ -112,6 +112,6 @@ export const DialogDescription = ({
   ...props
 }: React.ComponentProps<typeof Description>) => {
   return (
-    <Description className={cn("text-sm opacity-75", className)} {...props} />
+    <Description className={cx("text-sm opacity-75", className)} {...props} />
   );
 };

@@ -1,24 +1,27 @@
 ---
-import { tv } from "tailwind-variants";
+import { cva } from "class-variance-authority";
 
-const styles = tv({
-  base: [
+const styles = cva(
+  [
     "inline-block text-foreground/75 decoration-foreground/15 transition-colors duration-300 ease-in-out outline-none",
     "hover:text-(--link-color) hover:decoration-(--link-color)/50",
     "focus-visible:text-(--link-color) focus-visible:decoration-(--link-color)/50",
   ],
-  variants: {
-    underline: {
-      true: "underline underline-offset-6",
-      false: "no-underline",
-    },
-    active: {
-      true: "text-foreground decoration-foreground/75",
+  {
+    variants: {
+      underline: {
+        true: "underline underline-offset-6",
+        false: "no-underline",
+      },
+      active: {
+        true: "text-foreground decoration-foreground/75",
+      },
     },
   },
-});
+);
 
 export type Props = {
+  class?: string;
   href: string;
   active?: boolean;
   external?: boolean;

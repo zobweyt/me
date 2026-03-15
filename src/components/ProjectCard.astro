@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import { tv } from "tailwind-variants";
+import { cva, cx } from "class-variance-authority";
 import ProjectCardStars from "./ProjectCardStars.astro";
 import ProjectCardStarsSkeleton from "./ProjectCardStarsSkeleton.astro";
 
@@ -9,26 +9,9 @@ type Props = {
   entry: CollectionEntry<"projects">;
 };
 
-const styles = tv({
-  slots: {
-    root: [
-      "relative rounded-lg p-4",
-      "transition duration-300 ease-in-out",
-      "bg-(--project-card-color)/5 hover:bg-(--project-card-color)/15 active:ring-(--project-card-color)/30",
-      "ring ring-(--project-card-color)/15 ring-inset hover:ring-(--project-card-color)/30 active:hover:ring-(--project-card-color)/50",
-    ],
-    wrapper: "mb-1 flex items-center gap-2",
-    logo: "size-6",
-    title:
-      "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
-    description: "mb-2 font-serif opacity-75",
-    date: "first-letter:uppercase",
-    stars: "flex items-center gap-1",
-    footer:
-      "flex items-center gap-3 font-mono text-sm text-(--project-card-color)",
-  },
+const logo = cva("size-6", {
   variants: {
-    logoShape: {
+    shape: {
       square: {
         logo: "",
       },
@@ -49,12 +32,17 @@ const formatter = new Intl.DateTimeFormat(Astro.currentLocale, {
 ---
 
 <div
-  class={styles().root()}
+  class={cx([
+      "relative rounded-lg p-4",
+      "transition duration-300 ease-in-out",
+      "bg-(--project-card-color)/5 hover:bg-(--project-card-color)/15 active:ring-(--project-card-color)/30",
+      "ring ring-(--project-card-color)/15 ring-inset hover:ring-(--project-card-color)/30 active:hover:ring-(--project-card-color)/50",
+    ])}
   style={{
     "--project-card-color": entry.data.color,
   }}
 >
-  <div class={styles().wrapper()}>
+  <div class={"mb-1 flex items-center gap-2"}>
     <Image
       src={entry.data.logo}
       alt={entry.data.title}
@@ -62,17 +50,17 @@ const formatter = new Intl.DateTimeFormat(Astro.currentLocale, {
       loading="eager"
       width={24}
       height={24}
-      class={styles().logo({ logoShape: entry.data.logoShape })}
+      class={logo({ shape: entry.data.logoShape })}
     />
-    <a href={entry.data.href} target="_blank" rel="noopener noreferrer" class={styles().title()}>
+    <a href={entry.data.href} target="_blank" rel="noopener noreferrer" class={"text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10"}>
       {entry.data.title}
     </a>
   </div>
-  <p class={styles().description()}>
+  <p class={"mb-2 font-serif opacity-75"}>
     {entry.data.description}
   </p>
-  <div class={styles().footer()}>
-    <p class={styles().date()}>
+  <div class={"flex items-center gap-3 font-mono text-sm text-(--project-card-color)"}>
+    <p class={"first-letter:uppercase"}>
       {
         entry.data.dateEnd
           ? formatter.formatRange(entry.data.dateStart, entry.data.dateEnd)

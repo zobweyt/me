@@ -1,6 +1,6 @@
+import { cx } from "class-variance-authority";
 import { useRef, useState } from "react";
 import { getTranslator } from "@/i18n";
-import { cn } from "@/lib/cn";
 
 export type CodeProps = React.ComponentProps<"pre"> & {
   tabindex?: number | undefined;
@@ -57,7 +57,7 @@ export default function Code({
       <pre
         ref={ref}
         tabIndex={tabindex}
-        className={cn("shiki p-3 text-sm", className)}
+        className={cx("shiki p-3 text-sm", className)}
         {...props}
       />
     </div>
