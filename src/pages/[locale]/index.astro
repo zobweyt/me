@@ -43,29 +43,27 @@ const t = getTranslator(Astro.currentLocale);
         <Link href={`/${Astro.currentLocale}/blog`}>{t("blog.all")}</Link>
       </div>
       <ul class="space-y-4">
-        {
-          blog.map((entry) => (
+        {blog.map((entry) => (
             <li>
               <PostCard entry={entry} />
             </li>
-          ))
-        }
+          ))}
       </ul>
     </section>
 
     <section class="space-y-2">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <h2 class="text-lg font-semibold">{t("projects.recent")}</h2>
-        <Link href={`/${Astro.currentLocale}/projects`}>{t("projects.all")}</Link>
+        <Link href={`/${Astro.currentLocale}/projects`}
+          >{t("projects.all")}</Link
+        >
       </div>
       <ul class="grid gap-4 sm:grid-cols-2">
-        {
-          projects.map((entry) => (
+        {projects.map((entry) => (
             <li>
               <ProjectCard entry={entry} />
             </li>
-          ))
-        }
+          ))}
       </ul>
     </section>
   </div>

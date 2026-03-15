@@ -11,14 +11,16 @@ type Props = {
 const { entry } = Astro.props;
 ---
 
-<div class={cx([
-      "group relative flex flex-nowrap items-center rounded-lg border border-foreground/15 p-4 hover:bg-foreground/5",
+<div
+  class={cx([
+      "group cursor-pointer relative flex flex-nowrap items-center rounded-lg border border-foreground/15 p-4 hover:bg-foreground/5",
       "transition-colors duration-300 ease-in-out",
-    ])}>
+    ])}
+>
   <div class={"flex grow flex-col flex-nowrap"}>
     <a
       href={`/${Astro.currentLocale}/${entry.collection}/${entry.id.replace(`${Astro.currentLocale}/`, "")}`}
-      class={"text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10"}
+      class={"text-xl leading-normal font-semibold after:absolute after:content-[''] after:inset-0 after:z-10"}
     >
       {entry.data.title}
     </a>
@@ -30,5 +32,7 @@ const { entry } = Astro.props;
     {entry.data.tags && <PostTags tags={entry.data.tags} />}
   </div>
 
-  <span class={"i-material-symbols:arrow-right-alt-rounded text-2xl opacity-75 transition-opacity duration-300 ease-in-out group-hover:opacity-100"}/>
+  <span
+    class={"i-material-symbols:arrow-right-alt-rounded text-2xl opacity-75 transition-opacity duration-300 ease-in-out group-hover:opacity-100"}
+  />
 </div>

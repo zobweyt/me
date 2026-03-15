@@ -1,74 +1,36 @@
-import {
-  Close,
-  Content,
-  Description,
-  Overlay,
-  Portal,
-  Root,
-  Title,
-  Trigger,
-} from "@radix-ui/react-dialog";
+import { Dialog as Base } from "@base-ui/react/dialog";
 import { cx } from "class-variance-authority";
 
-export const Dialog = ({ ...props }: React.ComponentProps<typeof Root>) => {
-  return <Root {...props} />;
+export const Root = ({ ...props }: Base.Root.Props) => {
+  return <Base.Root {...props} />;
 };
 
-export const DialogTrigger = ({
-  ...props
-}: React.ComponentProps<typeof Trigger>) => {
-  return <Trigger {...props} />;
+export const Trigger = ({ ...props }: Base.Trigger.Props) => {
+  return <Base.Trigger {...props} />;
 };
 
-export const DialogPortal = ({
-  ...props
-}: React.ComponentProps<typeof Portal>) => {
-  return <Portal {...props} />;
+export const Close = ({ ...props }: Base.Close.Props) => {
+  return <Base.Close {...props} />;
 };
 
-export const DialogClose = ({
-  ...props
-}: React.ComponentProps<typeof Close>) => {
-  return <Close {...props} />;
-};
-
-export const DialogOverlay = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof Overlay>) => {
+export const Popup = ({ className, children, ...props }: Base.Popup.Props) => {
   return (
-    <Overlay
-      className={cx(
-        "fixed inset-0 z-50 bg-black opacity-50 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 max-sm:hidden sm:data-[state=closed]:animate-out sm:data-[state=open]:animate-in",
-        className,
-      )}
-      {...props}
-    />
-  );
-};
-
-export const DialogContent = ({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof Content>) => {
-  return (
-    <DialogPortal>
-      <DialogOverlay />
-      <Content
+    <Base.Portal>
+      <Base.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-50 transition-all duration-150 z-50 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
+      <Base.Popup
         className={cx(
-          "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl bg-body p-6 shadow-xl data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:slide-out-to-top-6 data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-top-4 sm:max-w-lg sm:border sm:border-foreground/15 sm:data-[state=closed]:animate-out sm:data-[state=open]:animate-in",
+          "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl bg-body p-6 shadow-xl sm:max-w-lg sm:border sm:border-foreground/15 transition-all duration-150 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0",
           className,
         )}
         {...props}
       >
         {children}
-      </Content>
-    </DialogPortal>
+      </Base.Popup>
+    </Base.Portal>
   );
 };
 
-export const DialogHeader = ({
+export const Header = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => {
@@ -80,7 +42,7 @@ export const DialogHeader = ({
   );
 };
 
-export const DialogFooter = ({
+export const Footer = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => {
@@ -95,23 +57,23 @@ export const DialogFooter = ({
   );
 };
 
-export const DialogTitle = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof Title>) => {
+export const Title = ({ className, ...props }: Base.Title.Props) => {
   return (
-    <Title
+    <Base.Title
       className={cx("text-lg leading-none font-semibold", className)}
       {...props}
     />
   );
 };
 
-export const DialogDescription = ({
+export const Description = ({
   className,
   ...props
-}: React.ComponentProps<typeof Description>) => {
+}: Base.Description.Props) => {
   return (
-    <Description className={cx("text-sm opacity-75", className)} {...props} />
+    <Base.Description
+      className={cx("text-sm opacity-75", className)}
+      {...props}
+    />
   );
 };

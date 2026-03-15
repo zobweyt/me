@@ -11,11 +11,9 @@ const { project, ...props } = Astro.props;
 const stars = await getProjectStars(project);
 ---
 
-{
-  stars !== null && (
+{stars !== null && (
     <p class="flex items-center gap-1" {...props}>
       <span class="i-octicon:star-16 text-base" />
       {stars}
     </p>
-  )
-}
+  )}

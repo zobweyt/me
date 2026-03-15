@@ -54,6 +54,12 @@
       }
     }
   },
+  "html": {
+    "formatter": {
+      "enabled": true
+    },
+    "experimentalFullSupportEnabled": true
+  },
   "overrides": [
     {
       "includes": ["**/*.astro"],
@@ -65,7 +71,11 @@
           },
           "correctness": {
             "noUnusedVariables": "off",
-            "noUnusedImports": "off"
+            "noUnusedImports": "off",
+            "useJsxKeyInIterable": "off"
+          },
+          "complexity": {
+            "noUselessLoneBlockStatements": "off"
           }
         }
       }

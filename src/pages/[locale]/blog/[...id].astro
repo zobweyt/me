@@ -37,7 +37,11 @@ const { Content } = await render(post);
 const components = { h2: H2, h3: H3, pre: Pre };
 ---
 
-<PageLayout title={post.data.title} description={post.data.description} publishedAt={post.data.date}>
+<PageLayout
+  title={post.data.title}
+  description={post.data.description}
+  publishedAt={post.data.date}
+>
   <a
     href={`/${Astro.currentLocale}/blog`}
     class="flex items-center gap-1 py-4 no-underline opacity-75 transition-opacity hover:opacity-100"
@@ -48,12 +52,12 @@ const components = { h2: H2, h3: H3, pre: Pre };
 
   <div
     class={cx(
-      "prose max-w-full prose-stone dark:prose-invert",
+      "prose max-w-full prose-neutral dark:prose-invert",
       "prose-p:text-justify prose-p:font-serif",
-      "prose-inline-code:before:hidden prose-inline-code:after:hidden",
-      "prose-inline-code:rounded-md prose-inline-code:bg-body-alt",
-      "prose-inline-code:px-1 prose-inline-code:py-0.5",
-      "prose-inline-code:ring prose-inline-code:ring-foreground/15",
+      "prose-code:before:hidden prose-code:after:hidden",
+      "prose-code:rounded-md prose-code:bg-surface",
+      "prose-code:px-1 prose-code:py-0.5",
+      "prose-code:ring prose-code:ring-foreground/15",
       "prose-li:text-justify prose-li:font-serif",
       "prose-img:m-auto",
     )}
@@ -69,12 +73,10 @@ const components = { h2: H2, h3: H3, pre: Pre };
 
     {post.data.tags && <PostTags tags={post.data.tags} />}
 
-    <hr class="!my-12 border-dashed" />
+    <hr class="!my-12 border-dashed">
   </div>
 
   <div class="article">
-    <Article>
-      <Content components={components} />
-    </Article>
+    <Article> <Content components={components} /> </Article>
   </div>
 </PageLayout>

@@ -14,16 +14,19 @@ const { title, description, publishedAt } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={Astro.currentLocale} transition:animate="none">
+<html
+  lang={Astro.currentLocale}
+  class="scheme-light-dark [scrollbar-gutter:stable] scroll-smooth selection:bg-selection selection:text-selection-foreground [scrollbar-color:light-dark(theme('colors.neutral.400'),theme('colors.neutral.500'))_transparent]"
+>
   <head>
     <Head title={title} description={description} publishedAt={publishedAt} />
   </head>
-  <body class="flex min-h-dvh flex-col bg-body text-foreground" transition:animate="none">
+  <body
+    class="flex min-h-dvh flex-col bg-body text-foreground overflow-x-clip touch-manipulation"
+  >
     <Header />
     <main class="grow py-4">
-      <Container>
-        <slot />
-      </Container>
+      <Container> <slot /> </Container>
     </main>
     <Footer />
   </body>

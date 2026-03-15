@@ -4,8 +4,8 @@ import { cva } from "class-variance-authority";
 const styles = cva(
   [
     "inline-block text-foreground/75 decoration-foreground/15 transition-colors duration-300 ease-in-out outline-none",
-    "hover:text-(--link-color) hover:decoration-(--link-color)/50",
-    "focus-visible:text-(--link-color) focus-visible:decoration-(--link-color)/50",
+    "hover:text-[var(--link-color)] hover:decoration-[var(--link-color)]/50",
+    "focus-visible:text-[var(--link-color)] focus-visible:decoration-[var(--link-color)]/50",
   ],
   {
     variants: {
@@ -38,15 +38,19 @@ const {
   color = "unset",
   ...rest
 } = Astro.props;
+
 const active = _active != null ? _active : Astro.url.pathname.includes(href);
+
+const style = { "--link-color": color };
 ---
 
+<!-- biome-ignore lint/a11y/useAnchorContent: slot -->
 <a
   href={href}
   rel={external === true ? "noopener noreferrer" : undefined}
   target={external === true ? "_blank" : "_self"}
   class={styles({ underline, active, className })}
-  style={{ "--link-color": color }}
+  style={style}
   {...rest}
 >
   <slot />

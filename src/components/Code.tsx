@@ -57,7 +57,14 @@ export default function Code({
       <pre
         ref={ref}
         tabIndex={tabindex}
-        className={cx("shiki p-3 text-sm", className)}
+        className={cx(
+          [
+            "shiki p-3 text-sm",
+            "bg-surface! [&_span]:bg-surface!",
+            "dark:text-[var(--shiki-dark)]! dark:[&_span]:text-[var(--shiki-dark)]!",
+          ],
+          className,
+        )}
         {...props}
       />
     </div>

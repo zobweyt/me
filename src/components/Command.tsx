@@ -1,42 +1,36 @@
 import { cx } from "class-variance-authority";
-import { Command } from "cmdk";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/Dialog";
+import { Command } from "cmdk-base";
+import * as Dialog from "@/components/Dialog";
 
-export const CommandDialog = ({
+export const Root = ({
   children,
   ...props
-}: React.ComponentProps<typeof Dialog>) => {
-  return <Dialog {...props}>{children}</Dialog>;
+}: React.ComponentProps<typeof Dialog.Root>) => {
+  return <Dialog.Root {...props}>{children}</Dialog.Root>;
 };
 
-export const CommandDialogContent = ({
+export const Popup = ({
   title,
   description,
   children,
   className,
   ...props
-}: React.ComponentProps<typeof DialogContent> & {
+}: React.ComponentProps<typeof Dialog.Popup> & {
   title: string;
   description: string;
 }) => {
   return (
-    <DialogContent
+    <Dialog.Popup
       className={cx(
-        "overflow-hidden p-0 max-sm:size-full max-sm:max-w-full max-sm:rounded-none sm:top-16 sm:translate-y-0",
+        "overflow-hidden p-0! max-sm:size-full max-sm:max-w-full max-sm:rounded-none sm:top-16 sm:translate-y-0",
         className,
       )}
       {...props}
     >
-      <DialogHeader className="sr-only">
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription>{description}</DialogDescription>
-      </DialogHeader>
+      <Dialog.Header className="sr-only">
+        <Dialog.Title>{title}</Dialog.Title>
+        <Dialog.Description>{description}</Dialog.Description>
+      </Dialog.Header>
 
       <Command
         className={cx(
@@ -56,11 +50,11 @@ export const CommandDialogContent = ({
       >
         {children}
       </Command>
-    </DialogContent>
+    </Dialog.Popup>
   );
 };
 
-export const CommandInput = ({
+export const Input = ({
   before,
   after,
   className,
@@ -86,7 +80,7 @@ export const CommandInput = ({
   );
 };
 
-export const CommandList = ({
+export const List = ({
   className,
   ...props
 }: React.ComponentProps<typeof Command.List>) => {
@@ -101,7 +95,7 @@ export const CommandList = ({
   );
 };
 
-export const CommandEmpty = ({
+export const Empty = ({
   ...props
 }: React.ComponentProps<typeof Command.Empty>) => {
   return (
@@ -112,7 +106,7 @@ export const CommandEmpty = ({
   );
 };
 
-export const CommandGroup = ({
+export const Group = ({
   className,
   ...props
 }: React.ComponentProps<typeof Command.Group>) => {
@@ -127,17 +121,20 @@ export const CommandGroup = ({
   );
 };
 
-export const CommandItem = ({
+export const Item = ({
   className,
   ...props
 }: React.ComponentProps<typeof Command.Item>) => {
   return (
     <Command.Item
       className={cx(
-        "flex min-w-0 cursor-pointer items-center justify-start gap-2 truncate rounded-lg px-2 py-1.5 outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-body-alt",
+        "flex min-w-0 cursor-pointer items-center justify-start gap-2 truncate rounded-lg px-2 py-1.5 outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-surface",
         className,
       )}
       {...props}
     />
   );
 };
+
+export const Trigger = Dialog.Trigger;
+export const Close = Dialog.Close;

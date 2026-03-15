@@ -3,18 +3,9 @@ import { navigate } from "astro:transitions/client";
 import { cx } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
-import {
-  CommandDialog,
-  CommandDialogContent,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/Command";
+import * as Command from "@/components/Command";
 import { SOCIALS, type Social } from "@/constants";
 import { LOCALES, type Locale, getTranslator } from "@/i18n";
-import { DialogClose, DialogTrigger } from "./Dialog";
 
 const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
   light: "i-lucide:sun",
@@ -62,7 +53,7 @@ export default function Search({
   url: URL;
   site: URL | undefined;
   currentLocale: string | undefined;
-} & React.ComponentProps<typeof DialogTrigger>) {
+} & React.ComponentProps<typeof Command.Trigger>) {
   const t = getTranslator(currentLocale);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -231,10 +222,18 @@ export default function Search({
   ];
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger
+    <Command.Root
+      open={open}
+      onOpenChange={setOpen}
+      onOpenChangeComplete={(open) => {
+        if (!open) {
+          setQuery("");
+        }
+      }}
+    >
+      <Command.Trigger
         className={cx(
-          "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-body-alt/50 px-2.5 py-1.5 text-sm leading-none transition outline-none hover:bg-body-alt focus-visible:bg-body-alt",
+          "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2.5 py-1.5 text-sm leading-none transition outline-none hover:bg-surface focus-visible:bg-surface",
           className,
         )}
         title={`${t("search.title")} (Ctrl+K)`}
@@ -242,16 +241,13 @@ export default function Search({
       >
         <span className="i-lucide:search text-sm text-foreground/75 opacity-75 md:-ml-0.5" />
         <span>{t("search.title")}</span>
-      </DialogTrigger>
-      <CommandDialogContent
+      </Command.Trigger>
+      <Command.Popup
         title={t("search.title")}
         description={t("search.description")}
-        onCloseAutoFocus={() => {
-          setQuery("");
-        }}
       >
         <div className="flex items-center justify-center border-b border-foreground/15 px-3 py-2">
-          <CommandInput
+          <Command.Input
             value={query}
             ref={inputRef}
             onInput={(e) => setQuery(e.currentTarget.value)}
@@ -276,18 +272,18 @@ export default function Search({
             }
           />
 
-          <DialogClose className="flex cursor-pointer items-center px-3 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
+          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
             {t("search.footer.exit")}
-          </DialogClose>
+          </Command.Close>
         </div>
 
-        <CommandList>
-          <CommandEmpty>{t("search.empty")}</CommandEmpty>
+        <Command.List>
+          <Command.Empty>{t("search.empty")}</Command.Empty>
 
           {groups.map((group) => (
-            <CommandGroup key={group.name} heading={group.name}>
+            <Command.Group key={group.name} heading={group.name}>
               {group.items.map((item, index) => (
-                <CommandItem
+                <Command.Item
                   key={`${item.href}-${index}`}
                   onSelect={() => {
                     setOpen(false);
@@ -324,11 +320,11 @@ export default function Search({
                       highlightClassName="bg-yellow-400 rounded-sm"
                     />
                   )}
-                </CommandItem>
+                </Command.Item>
               ))}
-            </CommandGroup>
+            </Command.Group>
           ))}
-        </CommandList>
+        </Command.List>
 
         <div className="flex gap-4 border-t border-foreground/15 px-5 py-2 text-sm text-current/75 select-none max-sm:hidden">
           <div className="flex items-center gap-2">
@@ -356,7 +352,7 @@ export default function Search({
             <span>{t("search.footer.exit")}</span>
           </div>
         </div>
-      </CommandDialogContent>
-    </CommandDialog>
+      </Command.Popup>
+    </Command.Root>
   );
 }

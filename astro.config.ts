@@ -2,7 +2,6 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import unocss from "unocss/astro";
 import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
@@ -56,19 +55,13 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
+    react(),
+    unocss(),
     sitemap({
       i18n: {
         locales: SITEMAP_LOCALES,
         defaultLocale: DEFAULT_LOCALE,
       },
     }),
-    react(),
-    unocss(),
   ],
-  vite: {
-    ssr: {
-      noExternal: ["tw-animate-css"],
-    },
-    plugins: [tailwindcss()],
-  },
 });
