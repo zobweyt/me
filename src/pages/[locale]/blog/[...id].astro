@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
 
 import PostTags from "@/components/PostTags.astro";
 import Time from "@/components/Time.astro";
@@ -21,10 +21,10 @@ export async function getStaticPaths() {
 
   return posts.map(function (post) {
     const locale = post.id.split("/")[0];
-    const slug = `${post.slug.replace(`${locale}/`, "")}`;
+    const id = `${post.id.replace(`${locale}/`, "")}`;
 
     return {
-      params: { locale, slug },
+      params: { locale, id },
       props: post,
     };
   });
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 const components = { h2: H2, h3: H3, pre: Pre };
 ---
@@ -43,7 +43,7 @@ const components = { h2: H2, h3: H3, pre: Pre };
     href={`/${Astro.currentLocale}/blog`}
     class="flex items-center gap-1 py-4 no-underline opacity-75 transition-opacity hover:opacity-100"
   >
-    <IconMaterialSymbolsArrowBackRounded className="size-5" />
+    <span class="i-material-symbols:arrow-back-rounded text-xl"></span>
     {t("back")}
   </a>
 

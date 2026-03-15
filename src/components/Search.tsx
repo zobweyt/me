@@ -18,10 +18,10 @@ import { cn } from "@/lib/cn";
 
 import { DialogClose, DialogTrigger } from "./Dialog";
 
-const THEME_ICONS: Record<"light" | "dark" | "system", React.ComponentType<React.ComponentProps<"svg">>> = {
-  light: IconLucideSun,
-  dark: IconLucideMoon,
-  system: IconLucideMonitor,
+const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
+  light: "i-lucide:sun",
+  dark: "i-lucide:moon",
+  system: "i-lucide:monitor",
 };
 
 const LOCALES_FLAGS: Record<Locale, string> = {
@@ -29,13 +29,15 @@ const LOCALES_FLAGS: Record<Locale, string> = {
   ru: "https://emojicdn.elk.sh/🇷🇺?style=apple",
 };
 
-const SOCIALS_ICONS: Record<Social["id"], React.ComponentType<React.ComponentProps<"svg">>> = {
-  telegram: IconLogosTelegram,
-  github: ({ className, ...props }: React.ComponentProps<"svg">) => (
-    <IconLogosGithubIcon className={cn("dark:invert", className)} {...props} />
+const SOCIALS_ICONS: Record<Social["id"], React.ComponentType<React.ComponentProps<"span">>> = {
+  telegram: ({ className, ...props }: React.ComponentProps<"span">) => (
+    <span className={cn("i-logos:telegram text-2xl", className)} {...props} />
   ),
-  mail: ({ className, ...props }: React.ComponentProps<"svg">) => (
-    <IconLucideMail className={cn("opacity-50", className)} {...props} />
+  github: ({ className, ...props }: React.ComponentProps<"span">) => (
+    <span className={cn("i-logos:github-icon text-2xl dark:invert", className)} {...props} />
+  ),
+  mail: ({ className, ...props }: React.ComponentProps<"span">) => (
+    <span className={cn("i-lucide:mail text-2xl opacity-50", className)} {...props} />
   ),
 };
 
@@ -90,17 +92,17 @@ export default function Search({
       name: t("search.groups.pages.title"),
       items: [
         {
-          icon: <IconLucideArrowRight className="size-6 shrink-0 opacity-50" />,
+          icon: <span className="i-lucide:arrow-right shrink-0 text-2xl opacity-50" />,
           name: t("search.groups.pages.items.home"),
           href: `/${currentLocale}`,
         },
         {
-          icon: <IconLucideArrowRight className="size-6 shrink-0 opacity-50" />,
+          icon: <span className="i-lucide:arrow-right shrink-0 text-2xl opacity-50" />,
           name: t("search.groups.pages.items.blog"),
           href: `/${currentLocale}/blog`,
         },
         {
-          icon: <IconLucideArrowRight className="size-6 shrink-0 opacity-50" />,
+          icon: <span className="i-lucide:arrow-right shrink-0 text-2xl opacity-50" />,
           name: t("search.groups.pages.items.projects"),
           href: `/${currentLocale}/projects`,
         },
@@ -109,7 +111,7 @@ export default function Search({
     {
       name: t("search.groups.blog.title"),
       items: posts.map((post) => ({
-        icon: <IconLucideStickyNote className="size-6 shrink-0 opacity-50" />,
+        icon: <span className="i-lucide:sticky-note shrink-0 text-2xl opacity-50" />,
         name: post.data.title,
         keywords: [...(post.data.tags ?? []), ...post.data.description.replace(".", "").split(" ")],
         href: `/${currentLocale}/blog/${post.id.split("/")[1]}`,
@@ -135,7 +137,7 @@ export default function Search({
       items: [
         {
           name: "RSS",
-          icon: <IconStreamlineLogosRssFeedLogoBlock className="size-6 shrink-0 text-[#FF6600]" />,
+          icon: <span className="i-streamline-logos:rss-feed-logo-block shrink-0 text-2xl !text-[#FF6600]" />,
           href: `${site}${currentLocale}/rss.xml`,
           external: true,
         },
@@ -155,10 +157,10 @@ export default function Search({
       name: t("search.groups.themes.title"),
       items: [
         ...(["light", "dark", "system"] as const).map((theme) => {
-          const Icon = THEME_ICONS[theme];
+          const iconClassName = THEME_ICON_CLASS_NAMES[theme];
 
           return {
-            icon: <Icon className="size-6 shrink-0 opacity-50" />,
+            icon: <span className={cn("size-6 shrink-0 text-2xl opacity-50", iconClassName)} />,
             name: t(`search.groups.themes.items.${theme}`),
             href: "",
             action: true,
@@ -195,7 +197,7 @@ export default function Search({
           title={`${t("search.title")} (Ctrl+K)`}
           {...props}
         >
-          <IconLucideSearch className="size-4 text-foreground/75 opacity-75 md:-ml-0.5" />
+          <span className="i-lucide:search text-sm text-foreground/75 opacity-75 md:-ml-0.5" />
           <span>{t("search.title")}</span>
         </DialogTrigger>
         <CommandDialogContent
@@ -212,7 +214,7 @@ export default function Search({
               onInput={(e) => setQuery(e.currentTarget.value)}
               placeholder={t("search.input.placeholder")}
               className={cn("ps-10", query && "pe-10")}
-              before={<IconLucideSearch className="absolute left-2.5 size-5 shrink-0 opacity-50" />}
+              before={<span className="i-lucide:search absolute left-2.5 shrink-0 text-xl opacity-50" />}
               after={
                 query && (
                   <button
@@ -223,7 +225,7 @@ export default function Search({
                       inputRef.current?.focus();
                     }}
                   >
-                    <IconLucideX strokeWidth={3} className="size-5 stroke-current" />
+                    <span className="i-lucide:x stroke-current text-xl" />
                   </button>
                 )
               }

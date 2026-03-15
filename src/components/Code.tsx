@@ -45,7 +45,7 @@ export default function Code({
           className="flex items-center justify-center gap-1 rounded-md px-1.5 py-1 text-sm text-foreground/75 outline-none hover:bg-foreground/5 hover:text-foreground focus-visible:bg-foreground/5 focus-visible:text-foreground active:bg-foreground/10 active:text-foreground"
           onClick={handleCopyButtonClick}
         >
-          {copied ? <IconLucideCheck className="size-4 shrink-0" /> : <IconLucideCopy className="size-4 shrink-0" />}
+          <span className={copied ? "i-lucide:check text-base" : "i-lucide:copy text-base"} />
           <span>{copied ? t("copied") : t("copy")}</span>
         </button>
       </div>

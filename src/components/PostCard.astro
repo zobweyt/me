@@ -14,7 +14,7 @@ const styles = tv({
     wrapper: "flex grow flex-col flex-nowrap",
     title: "text-xl leading-normal font-semibold after:absolute after:inset-0 after:z-10",
     date: "mt-1 mb-2 font-mono text-sm opacity-75 first-letter:uppercase",
-    icon: "size-6 opacity-75 transition-opacity duration-300 ease-in-out group-hover:opacity-100",
+    icon: "i-material-symbols:arrow-right-alt-rounded text-2xl opacity-75 transition-opacity duration-300 ease-in-out group-hover:opacity-100",
   },
 });
 
@@ -28,7 +28,7 @@ const { entry } = Astro.props;
 <div class={styles().root()}>
   <div class={styles().wrapper()}>
     <a
-      href={`/${Astro.currentLocale}/${entry.collection}/${entry.slug.replace(`${Astro.currentLocale}/`, "")}`}
+      href={`/${Astro.currentLocale}/${entry.collection}/${entry.id.replace(`${Astro.currentLocale}/`, "")}`}
       class={styles().title()}
     >
       {entry.data.title}
@@ -41,5 +41,5 @@ const { entry } = Astro.props;
     {entry.data.tags && <PostTags tags={entry.data.tags} />}
   </div>
 
-  <IconMaterialSymbolsArrowRightAltRounded className={styles().icon()} />
+  <span class={styles().icon()}></span>
 </div>

@@ -15,7 +15,7 @@ const stars = await getProjectStars(project);
 {
   stars !== null && (
     <p class="flex items-center gap-1" {...props}>
-      <IconOcticonStar16 className="size-4" />
+      <span class="i-octicon:star-16 text-base" />
       {stars}
     </p>
   )

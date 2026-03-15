@@ -3,10 +3,8 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, envField } from "astro/config";
-import AutoImport from "unplugin-auto-import/vite";
-import IconsResolver from "unplugin-icons/resolver";
-import icons from "unplugin-icons/vite";
+import { defineConfig, envField, fontProviders } from "astro/config";
+import unocss from "unocss/astro";
 
 import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
 
@@ -21,6 +19,32 @@ export default defineConfig({
     locales: Array.from(LOCALES),
     defaultLocale: DEFAULT_LOCALE,
   },
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Inter",
+      cssVariable: "--font-inter",
+      weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+      styles: ["normal", "italic"],
+      subsets: ["cyrillic", "latin"],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Lora",
+      cssVariable: "--font-lora",
+      weights: [400, 500, 600, 700],
+      styles: ["normal", "italic"],
+      subsets: ["cyrillic", "latin"],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Fira Code",
+      cssVariable: "--font-fira-code",
+      weights: [300, 400, 500, 600, 700],
+      styles: ["normal", "italic"],
+      subsets: ["cyrillic", "latin"],
+    },
+  ],
   output: "server",
   adapter: vercel(),
   markdown: {
@@ -40,34 +64,12 @@ export default defineConfig({
       },
     }),
     react(),
+    unocss(),
   ],
   vite: {
     ssr: {
       noExternal: ["tw-animate-css"],
     },
-    plugins: [
-      AutoImport({
-        resolvers: [
-          IconsResolver({
-            prefix: "Icon",
-            extension: "jsx",
-          }),
-          IconsResolver({
-            prefix: "Icon",
-            extension: "astro",
-          }),
-        ],
-      }),
-      icons({
-        jsx: "react",
-        compiler: "jsx",
-        iconCustomizer: (collection, icon, props) => {
-          props.width = "100%";
-          props.height = "100%";
-          props["aria-hidden"] = "true";
-        },
-      }),
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
   },
 });
