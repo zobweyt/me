@@ -87,7 +87,7 @@ export const List = ({
   return (
     <Command.List
       className={cx(
-        "scroll-pt-10 scroll-pb-1.5 overflow-x-hidden overflow-y-auto pb-1.5 outline-none sm:max-h-92.25",
+        "scroll-pt-10 scroll-pb-1.5 overflow-x-hidden overflow-y-auto pb-1.5 transform-3d outline-none sm:max-h-92.25",
         className,
       )}
       {...props}
@@ -113,7 +113,7 @@ export const Group = ({
   return (
     <Command.Group
       className={cx(
-        "relative isolate [&_[cmdk-group-heading]]:sticky [&_[cmdk-group-heading]]:top-0 [&_[cmdk-group-heading]]:z-10 [&_[cmdk-group-heading]]:block [&_[cmdk-group-heading]]:w-full [&_[cmdk-group-heading]]:bg-body [&_[cmdk-group-heading]]:px-5 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-foreground/75 [&_[cmdk-group-heading]]:select-none [&_[cmdk-group-items]]:px-3 [&_[cmdk-group-items]]:pt-px",
+        "relative isolate [&_[cmdk-group-heading]]:sticky [&_[cmdk-group-heading]]:-top-px [&_[cmdk-group-heading]]:z-1 [&_[cmdk-group-heading]]:block [&_[cmdk-group-heading]]:w-full [&_[cmdk-group-heading]]:bg-body [&_[cmdk-group-heading]]:px-5 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-foreground/75 [&_[cmdk-group-heading]]:select-none [&_[cmdk-group-items]]:px-3 [&_[cmdk-group-items]]:pt-px",
         className,
       )}
       {...props}
