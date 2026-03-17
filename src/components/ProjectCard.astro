@@ -49,7 +49,9 @@ const t = getTranslator(Astro.currentLocale);
       {entry.data.title}
     </a>
   </div>
-  <p class="font-serif text-current/85 mb-2">{entry.data.description}</p>
+  <p class="font-serif text-current/85 mb-2 text-pretty">
+    {entry.data.description}
+  </p>
   <ProjectCardStars project={entry.data} server:defer>
     <ProjectCardStarsSkeleton slot="fallback" />
   </ProjectCardStars>

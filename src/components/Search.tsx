@@ -2,7 +2,7 @@ import { navigate } from "astro:transitions/client";
 import { cx } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
-import * as Command from "@/components/Command";
+import * as Command from "@/components/ui/Command";
 import { SOCIALS, type Social } from "@/constants";
 import { LOCALES, type Locale, getTranslator } from "@/i18n";
 
@@ -143,29 +143,19 @@ export default function Search({
     },
     {
       name: t("search.groups.socials.title"),
-      items: [
-        {
-          name: "RSS",
-          icon: (
-            <span className="i-streamline-logos:rss-feed-logo-block shrink-0 text-2xl !text-[#FF6600]" />
-          ),
-          href: `${site}${currentLocale}/rss.xml`,
-          external: true,
-        },
-        ...SOCIALS.map((social) => ({
-          icon: (
-            <span
-              className={cx(
-                "size-6 shrink-0",
-                SOCIAL_ICON_CLASS_NAMES[social.id],
-              )}
-            />
-          ),
-          name: social.name,
-          href: social.href,
-          external: true,
-        })),
-      ],
+      items: SOCIALS.map((social) => ({
+        icon: (
+          <span
+            className={cx(
+              "size-6 shrink-0",
+              SOCIAL_ICON_CLASS_NAMES[social.id],
+            )}
+          />
+        ),
+        name: social.name,
+        href: social.href,
+        external: true,
+      })),
     },
     {
       name: t("search.groups.themes.title"),
@@ -235,7 +225,7 @@ export default function Search({
         title={`${t("search.title")} (Ctrl+K)`}
         {...props}
       >
-        <span className="i-lucide:search text-sm text-foreground/75 opacity-75 md:-ml-0.5" />
+        <span className="i-lucide:search text-foreground/75 opacity-75 md:-ml-0.5" />
         <span>{t("search.title")}</span>
       </Command.Trigger>
       <Command.Popup
@@ -269,7 +259,7 @@ export default function Search({
             }
           />
 
-          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden">
+          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden  -me-1 -mt-0.5">
             {t("search.footer.exit")}
           </Command.Close>
         </div>

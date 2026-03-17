@@ -1,45 +1,40 @@
 ---
+import { cx } from "class-variance-authority";
 import Container from "@/components/Container.astro";
-import { SOCIALS } from "@/constants";
+import { SOCIALS, type Social } from "@/constants";
 import { getTranslator } from "@/i18n";
-import Link from "./Link.astro";
 import Nav from "./Nav.astro";
 
 const t = getTranslator(Astro.currentLocale);
+const currentYear = new Date().getFullYear();
+
+const SOCIAL_ICON_CLASS_NAMES: Record<Social["id"], string> = {
+  telegram: "i-logos:telegram text-2xl",
+  github: "i-logos:github-icon text-2xl dark:invert",
+  mail: "i-lucide:inbox text-2xl",
+};
 ---
 
 <footer class="py-6">
   <Container>
-    <div
-      class="flex items-center justify-between gap-2 max-sm:flex-col-reverse sm:gap-4"
-    >
-      <Link
-        href={`/${Astro.currentLocale}`}
-        underline={false}
-        class="font-semibold text-current/75"
-        color="light-dark(#000, #fff)"
-      >
+    <div class="flex items-center justify-between">
+      <span class="font-medium text-current/75 flex flex-row gap-2">
         {t("name")}
-      </Link>
+        © {currentYear}
+      </span>
 
-      <Nav
-        items={[
-          {
-            name: "RSS",
-            href: `${Astro.site}${Astro.currentLocale}/rss.xml`,
-            color: "#FF6600",
-            external: true,
-            "aria-label": `${t("name")} — RSS ${t("blog.title")}`,
-          },
-          ...SOCIALS.map((social) => ({
-            name: social.name,
-            href: social.href,
-            color: social.color,
-            external: true,
-            "aria-label": `${t("name")} — ${social.name}`,
-          })),
-        ]}
-      />
+      <nav class="flex gap-3">
+        {SOCIALS.map((social) => (
+          <a href={social.href} title={social.name} target="_blank" rel="noopener noreferrer">
+            <span
+              class={cx(
+                SOCIAL_ICON_CLASS_NAMES[social.id],
+                "filter-grayscale opacity-50 hover:opacity-100 size-7 transition hover:grayscale-0 block"
+              )}
+            />
+          </a>
+        ))}
+      </nav>
     </div>
   </Container>
 </footer>

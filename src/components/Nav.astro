@@ -1,4 +1,5 @@
 ---
+import { cx } from "class-variance-authority";
 import Link, { type Props as LinkProps } from "./Link.astro";
 
 type Props = {
@@ -7,13 +8,14 @@ type Props = {
     href: string;
   } & LinkProps)[];
   separator?: string;
+  class?: string;
 };
 
-const { items, separator = "/", ...rest } = Astro.props;
+const { items, separator = "/", class: className, ...rest } = Astro.props;
 ---
 
 <nav {...rest}>
-  <ul class="flex gap-1">
+  <ul class={cx("flex gap-1", className)}>
     {items.map((item, index) => {
         const { href, name, ...rest } = item;
 

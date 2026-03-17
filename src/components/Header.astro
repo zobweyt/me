@@ -3,6 +3,7 @@ import Container from "@/components/Container.astro";
 import Link from "@/components/Link.astro";
 import { getBlogEntries, getProjectsEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
+import Nav from "./Nav.astro";
 import Search from "./Search";
 
 const t = getTranslator(Astro.currentLocale);
@@ -35,13 +36,21 @@ const projects = projectsEntries.map((project) => ({
   class="sticky top-0 isolate z-20 bg-body py-3 sm:py-4 border-b border-b-transparent"
 >
   <Container>
-    <div class="flex flex-wrap items-center justify-between gap-y-2">
+    <div class="flex flex-wrap items-center justify-between">
       <Link
         href={`/${Astro.currentLocale}`}
         underline={false}
-        class="font-semibold text-current/75"
+        class="font-semibold text-current/75 gap-2 group"
         color="light-dark(#000, #fff)"
       >
+        <img
+          src="https://avatars.githubusercontent.com/u/98274273?v=4"
+          alt={t("name")}
+          class="rounded-full opacity-75 group-hover:opacity-100 transition"
+          width={24}
+          height={24}
+          draggable="false"
+        >
         {t("name")}
       </Link>
 
@@ -66,7 +75,7 @@ header {
 
 @keyframes add-border {
   to {
-    border-color: var(--colors-surface);
+    border-color: color-mix(in srgb, var(--colors-foreground) 15%, transparent);
   }
 }
 </style>

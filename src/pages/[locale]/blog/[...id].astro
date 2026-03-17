@@ -1,12 +1,10 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
-import Article from "@/components/content/Article.astro";
-import H2 from "@/components/content/H2.astro";
-import H3 from "@/components/content/H3.astro";
-import Pre from "@/components/content/Pre.astro";
-import Prose from "@/components/content/Prose.astro";
+import Article from "@/components/Article.astro";
+import { components } from "@/components/mdx";
+import Nav from "@/components/Nav.astro";
 import PostTags from "@/components/PostTags.astro";
-import ScrollToTopButton from "@/components/ScrollToTopButton.astro";
+import Prose from "@/components/Prose.astro";
 import Time from "@/components/Time.astro";
 import { getBlogEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
@@ -34,8 +32,6 @@ type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await render(post);
-
-const components = { h2: H2, h3: H3, pre: Pre };
 ---
 
 <PageLayout
@@ -43,21 +39,34 @@ const components = { h2: H2, h3: H3, pre: Pre };
   description={post.data.description}
   publishedAt={post.data.date}
 >
-  <a
-    href={`/${Astro.currentLocale}/blog`}
-    class="flex items-center gap-1 py-4 no-underline opacity-75 transition-opacity hover:opacity-100"
-  >
-    <span class="i-material-symbols:arrow-back-rounded text-xl" />
-    {t("back")}
-  </a>
+  <Nav
+    items={[
+      {
+        name: t("home.title"),
+        href: `/${Astro.currentLocale}`,
+        active: false,
+      },
+      {
+        name: t("blog.title"),
+        href: `/${Astro.currentLocale}/blog`,
+        active: false,
+      },
+      {
+        name: post.data.title,
+        href: "",
+        active: true,
+      },
+    ]}
+    class="mb-6"
+  />
 
   <Prose>
     <hgroup>
-      <h1 class="mt-3 !mb-0">{post.data.title}</h1>
-      <p class="mt-3">{post.data.description}</p>
+      <h1 class="mb-3">{post.data.title}</h1>
+      <p class="mt-3 mb-4 text-lg">{post.data.description}</p>
     </hgroup>
 
-    <p class="font-base text-sm first-letter:uppercase">
+    <p class="font-base first-letter:uppercase mb-2">
       <Time date={post.data.date} />
     </p>
 

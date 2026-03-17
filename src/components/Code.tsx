@@ -36,8 +36,8 @@ export default function Code({
   };
 
   return (
-    <div className="not-prose flex flex-col overflow-hidden rounded-lg ring ring-foreground/15">
-      <style className="flex items-center justify-between border-b border-foreground/15 p-1">
+    <div className="not-prose flex flex-col overflow-hidden rounded-lg ring ring-foreground/15 shadow">
+      <aside className="flex items-center justify-between border-b border-foreground/15 p-1">
         <span className="ms-2 font-mono text-sm text-foreground/75">
           {language}
         </span>
@@ -53,7 +53,7 @@ export default function Code({
           />
           <span>{copied ? t("copied") : t("copy")}</span>
         </button>
-      </style>
+      </aside>
       <pre
         ref={ref}
         tabIndex={tabindex}

@@ -31,8 +31,8 @@ export default defineConfig({
   presets: [
     presetWind4({
       dark: {
-        dark: '[data-theme="dark"]',
         light: '[data-theme="light"]',
+        dark: '[data-theme="dark"]',
       },
     }),
     presetIcons(),
