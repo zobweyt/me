@@ -1,10 +1,9 @@
 import { cx } from "class-variance-authority";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getTranslator } from "@/i18n";
 
 export type CodeProps = React.ComponentProps<"pre"> & {
   tabindex?: number | undefined;
-  "data-language"?: string | undefined;
   copiedDelay?: number;
   currentLocale: string | undefined;
 };
@@ -12,54 +11,76 @@ export type CodeProps = React.ComponentProps<"pre"> & {
 export default function Code({
   tabindex,
   className,
-  "data-language": language,
-  copiedDelay = 1500,
+  copiedDelay = 1000,
   currentLocale,
   ...props
 }: CodeProps) {
   const ref = useRef<HTMLPreElement>(null);
-  const t = getTranslator(currentLocale);
+  const copiedTimeoutRef = useRef<number | null>(null);
   const [copied, setCopied] = useState(false);
+  const t = getTranslator(currentLocale);
+
+  useEffect(() => {
+    return () => {
+      if (copiedTimeoutRef.current) {
+        window.clearTimeout(copiedTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleCopyButtonClick = async () => {
-    await navigator.clipboard.writeText(ref.current?.innerText ?? "");
+    try {
+      await navigator.clipboard.writeText(ref.current?.innerText ?? "");
 
-    setCopied(true);
+      if (copiedTimeoutRef.current) {
+        window.clearTimeout(copiedTimeoutRef.current);
+      }
 
-    const copiedTimeoutId = window.setTimeout(() => {
-      setCopied(false);
-    }, copiedDelay);
+      setCopied(true);
 
-    return () => {
-      clearTimeout(copiedTimeoutId);
-    };
+      copiedTimeoutRef.current = window.setTimeout(() => {
+        setCopied(false);
+        copiedTimeoutRef.current = null;
+      }, copiedDelay);
+    } catch (error) {
+      console.error("Failed to copy code:", error);
+    }
   };
 
   return (
-    <div className="not-prose flex flex-col overflow-hidden rounded-lg ring ring-foreground/15 shadow">
-      <aside className="flex items-center justify-between border-b border-foreground/15 p-1">
-        <span className="ms-2 font-mono text-sm text-foreground/75">
-          {language}
-        </span>
-        <button
-          type="button"
-          className="flex items-center justify-center gap-1 rounded-md px-1.5 py-1 text-sm text-foreground/75 outline-none hover:bg-foreground/5 hover:text-foreground focus-visible:bg-foreground/5 focus-visible:text-foreground active:bg-foreground/10 active:text-foreground"
-          onClick={handleCopyButtonClick}
-        >
+    <div className="not-prose relative flex flex-col overflow-hidden rounded-xl">
+      <button
+        type="button"
+        className={cx(
+          "flex items-center transition-all backdrop-blur-xl cursor-pointer absolute right-1 top-1 duration-150 justify-center gap-1 rounded-lg p-1.5 text-xl text-foreground/50 outline-none bg-surface",
+          "hover:bg-foreground/10 focus-visible:bg-foreground/10 active:bg-foreground/15",
+          "hover:text-foreground focus-visible:text-foreground active:text-foreground",
+          copied && "text-success!",
+        )}
+        onClick={handleCopyButtonClick}
+        aria-label={copied ? t("copied") : t("copy")}
+      >
+        <span className="relative block size-5">
           <span
-            className={
-              copied ? "i-lucide:check text-base" : "i-lucide:copy text-base"
-            }
+            className={cx(
+              "i-f7:doc-on-clipboard absolute inset-0 duration-250",
+              copied ? "opacity-0 scale-50" : "opacity-100 scale-100",
+            )}
           />
-          <span>{copied ? t("copied") : t("copy")}</span>
-        </button>
-      </aside>
+          <span
+            className={cx(
+              "i-f7:checkmark absolute inset-0 duration-250",
+              copied ? "opacity-100 scale-100" : "opacity-0 scale-50",
+            )}
+          />
+        </span>
+      </button>
       <pre
         ref={ref}
         tabIndex={tabindex}
         className={cx(
           [
-            "shiki p-3 text-sm",
+            "p-4 text-sm focus-visible:outline-foreground/25! rounded-inherit",
             "bg-surface! [&_span]:bg-surface!",
             "dark:text-[var(--shiki-dark)]! dark:[&_span]:text-[var(--shiki-dark)]!",
           ],

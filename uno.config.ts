@@ -26,6 +26,8 @@ export default defineConfig({
           "light-dark(oklch(88.2% 0.059 254.128), oklch(37.9% 0.146 265.522))",
         foreground: "light-dark(oklch(20.5% 0 0), oklch(97% 0 0))",
       },
+      success:
+        "light-dark(oklch(62.7% 0.194 149.214), oklch(72.3% 0.219 149.579))",
     },
   },
   presets: [
