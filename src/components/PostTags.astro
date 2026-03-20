@@ -3,10 +3,10 @@ export type Props = {
   tags: string[];
 };
 
-const { tags } = Astro.props;
+const { tags, ...props } = Astro.props;
 ---
 
-<ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+<ul class="m-0 flex list-none flex-wrap gap-2 p-0" {...props}>
   {tags.map((tag) => (
       <li class="cursor-default rounded-full bg-body px-2 py-0.5 !font-mono text-sm text-foreground/75 ring ring-foreground/15">
         {tag}

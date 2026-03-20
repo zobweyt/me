@@ -16,28 +16,31 @@ const { entry } = Astro.props;
       "group relative cursor-pointer relative flex flex-nowrap items-center rounded-xl bg-surface/15 border border-foreground/15 p-4 hover:bg-foreground/5",
       "transition-colors duration-300 ease-in-out",
     ])}
+  transition:name={`post-${entry.id}-card`}
 >
   <div class={"flex grow flex-col flex-nowrap"}>
     <a
       href={`/${Astro.currentLocale}/${entry.collection}/${entry.id.replace(`${Astro.currentLocale}/`, "")}`}
       class={"text-xl leading-normal font-semibold after:absolute after:content-[''] after:inset-0 after:z-10"}
+      transition:name={`post-${entry.id}-title`}
     >
       {entry.data.title}
     </a>
 
     <p
       class={"mt-1 mb-2 font-serif text-current/75 first-letter:uppercase text-pretty"}
+      transition:name={`post-${entry.id}-description`}
     >
       {entry.data.description}
     </p>
 
-    {entry.data.tags && <PostTags tags={entry.data.tags} />}
+    {entry.data.tags && <PostTags tags={entry.data.tags} transition:name={`post-${entry.id}-tags`} />}
   </div>
   <p class="absolute right-3 top-3 font-mono text-sm text-current/75">
-    <Time date={entry.data.date} options={{}} />
+    <Time
+      date={entry.data.date}
+      options={{}}
+      transition:name={`post-${entry.id}-date`}
+    />
   </p>
-
-  <span
-    class={"i-material-symbols:arrow-right-alt-rounded text-2xl text-current/50 right-3 top-2/3 absolute transition-opacity duration-300 ease-in-out group-hover:text-current/75"}
-  />
 </div>

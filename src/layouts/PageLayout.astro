@@ -15,6 +15,8 @@ const { title, description, publishedAt } = Astro.props;
 <html
   lang={Astro.currentLocale}
   class="scheme-light-dark [scrollbar-gutter:stable] scroll-smooth selection:bg-selection selection:text-selection-foreground [scrollbar-color:light-dark(theme('colors.neutral.400'),theme('colors.neutral.500'))_transparent]"
+  transition:name="root"
+  transition:animate="none"
 >
   <head>
     <Head title={title} description={description} publishedAt={publishedAt} />
@@ -22,8 +24,8 @@ const { title, description, publishedAt } = Astro.props;
   <body
     class="flex min-h-dvh flex-col bg-body text-foreground overflow-x-clip touch-manipulation"
   >
-    <Header />
-    <main class="grow pt-4 pb-8">
+    <Header transition:name="none" transition:persist="header" />
+    <main class="grow pt-4 pb-8" transition:animate="fade">
       <Container><slot /></Container>
     </main>
   </body>

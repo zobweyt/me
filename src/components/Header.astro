@@ -3,7 +3,6 @@ import Container from "@/components/Container.astro";
 import Link from "@/components/Link.astro";
 import { getBlogEntries, getProjectsEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
-import Nav from "./Nav.astro";
 import Search from "./Search";
 
 const t = getTranslator(Astro.currentLocale);
@@ -30,10 +29,13 @@ const projects = projectsEntries.map((project) => ({
   logo: project.data.logo?.src || "",
   logoShape: project.data.logoShape,
 }));
+
+const props = Astro.props;
 ---
 
 <header
   class="sticky top-0 isolate z-20 bg-body py-3 sm:py-4 border-b border-b-transparent"
+  {...props}
 >
   <Container>
     <div class="flex flex-wrap items-center justify-between">
@@ -77,5 +79,13 @@ header {
   to {
     border-color: color-mix(in srgb, var(--colors-foreground) 15%, transparent);
   }
+}
+</style>
+
+<style is:global>
+html[data-astro-transition] header,
+html[data-astro-transition] header * {
+  transition: none;
+  animation: none;
 }
 </style>

@@ -1,8 +1,8 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
 import Article from "@/components/Article.astro";
+import Link from "@/components/Link.astro";
 import { components } from "@/components/mdx";
-import Nav from "@/components/Nav.astro";
 import PostTags from "@/components/PostTags.astro";
 import Prose from "@/components/Prose.astro";
 import Time from "@/components/Time.astro";
@@ -39,38 +39,34 @@ const { Content } = await render(post);
   description={post.data.description}
   publishedAt={post.data.date}
 >
-  <Nav
-    items={[
-      {
-        name: t("home.title"),
-        href: `/${Astro.currentLocale}`,
-        active: false,
-      },
-      {
-        name: t("blog.title"),
-        href: `/${Astro.currentLocale}/blog`,
-        active: false,
-      },
-      {
-        name: post.data.title,
-        href: "",
-        active: true,
-      },
-    ]}
-    class="mb-6"
-  />
+  <Link
+    href={`/${Astro.currentLocale}/blog`}
+    underline={false}
+    active={false}
+    class="mb-6 text-base flex items-center justify-center gap-1"
+  >
+    <span class="i-f7:chevron-left text-2xl" />
+    <span transition:name="blog-page-title"> {t("blog.title")} </span>
+  </Link>
 
   <Prose>
     <hgroup>
-      <h1 class="mb-3">{post.data.title}</h1>
-      <p class="mt-3 mb-4 text-lg text-pretty">{post.data.description}</p>
+      <h1 class="mb-3" transition:name={`post-${post.id}-title`}>
+        {post.data.title}
+      </h1>
+      <p
+        class="mt-3 mb-4 text-lg text-pretty"
+        transition:name={`post-${post.id}-description`}
+      >
+        {post.data.description}
+      </p>
     </hgroup>
 
     <p class="font-base first-letter:uppercase mb-2">
-      <Time date={post.data.date} />
+      <Time date={post.data.date} transition:name={`post-${post.id}-date`} />
     </p>
 
-    {post.data.tags && <PostTags tags={post.data.tags} />}
+    {post.data.tags && <PostTags tags={post.data.tags} transition:name={`post-${post.id}-tags`} />}
 
     <hr class="border-dashed">
   </Prose>

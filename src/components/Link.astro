@@ -36,7 +36,7 @@ const {
   external,
   underline = true,
   color = "unset",
-  ...rest
+  ...props
 } = Astro.props;
 
 const active = _active != null ? _active : Astro.url.pathname.includes(href);
@@ -51,7 +51,7 @@ const style = { "--link-color": color };
   target={external === true ? "_blank" : "_self"}
   class={styles({ underline, active, className })}
   style={style}
-  {...rest}
+  {...props}
 >
   <slot />
 </a>
