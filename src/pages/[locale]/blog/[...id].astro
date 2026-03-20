@@ -66,7 +66,7 @@ const { Content } = await render(post);
       <Time date={post.data.date} transition:name={`post-${post.id}-date`} />
     </p>
 
-    {post.data.tags && <PostTags tags={post.data.tags} transition:name={`post-${post.id}-tags`} />}
+    {post.data.tags && <PostTags tags={post.data.tags} transitionId={`post-${post.id}-tags`} />}
 
     <hr class="border-dashed">
   </Prose>

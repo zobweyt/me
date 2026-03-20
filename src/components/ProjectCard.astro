@@ -36,6 +36,7 @@ const t = getTranslator(Astro.currentLocale);
   class={cardClass}
   style={cardStyle}
   aria-label={entry.data.title}
+  transition:name={`project-${entry.id}-card`}
 >
   <div class="mb-1 flex items-center gap-2">
     <Image
