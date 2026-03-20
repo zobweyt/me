@@ -18,10 +18,10 @@ const formatter = new Intl.DateTimeFormat(Astro.currentLocale, {
 });
 
 const cardClass = cx([
-  "relative cursor-pointer rounded-xl p-4",
+  "relative cursor-pointer rounded-xl p-4 flex flex-col outline-none",
   "transition duration-300 ease-in-out",
-  "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 hover:bg-[var(--project-card-color)]/15 active:ring-[var(--project-card-color)]/30",
-  "ring ring-[var(--project-card-color)]/15 ring-inset hover:ring-[var(--project-card-color)]/30 active:hover:ring-[var(--project-card-color)]/50",
+  "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 hover:bg-[var(--project-card-color)]/15 active:ring-[var(--project-card-color)]/30 focus-visible:bg-[var(--project-card-color)]/15 active:ring-[var(--project-card-color)]/30",
+  "ring ring-[var(--project-card-color)]/15 ring-inset hover:ring-[var(--project-card-color)]/30 focus-visible:ring-[var(--project-card-color)]/30 active:hover:ring-[var(--project-card-color)]/50",
 ]);
 
 const cardStyle = { "--project-card-color": entry.data.color };
@@ -29,7 +29,14 @@ const cardStyle = { "--project-card-color": entry.data.color };
 const t = getTranslator(Astro.currentLocale);
 ---
 
-<div class={cardClass} style={cardStyle}>
+<a
+  href={entry.data.href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={cardClass}
+  style={cardStyle}
+  aria-label={entry.data.title}
+>
   <div class="mb-1 flex items-center gap-2">
     <Image
       src={entry.data.logo}
@@ -40,14 +47,9 @@ const t = getTranslator(Astro.currentLocale);
       loading="eager"
       draggable="false"
     />
-    <a
-      href={entry.data.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="after:content-[''] after:absolute after:inset-0 after:z-10 text-xl leading-normal font-semibold"
-    >
+    <span class="text-xl leading-normal font-semibold">
       {entry.data.title}
-    </a>
+    </span>
   </div>
   <p class="font-serif text-current/85 mb-2 text-pretty">
     {entry.data.description}
@@ -62,4 +64,4 @@ const t = getTranslator(Astro.currentLocale);
         ? formatter.formatRange(entry.data.dateStart, entry.data.dateEnd)
         : `${formatter.format(entry.data.dateStart)} – ${t("now")}`}
   </p>
-</div>
+</a>
