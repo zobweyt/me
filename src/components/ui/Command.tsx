@@ -96,11 +96,15 @@ export const List = ({
 };
 
 export const Empty = ({
+  className,
   ...props
 }: React.ComponentProps<typeof Command.Empty>) => {
   return (
     <Command.Empty
-      className="flex h-18.25 items-end justify-center pb-1.5 text-current/75"
+      className={cx(
+        "flex h-18.25 items-end justify-center pb-1.5 text-current/75",
+        className,
+      )}
       {...props}
     />
   );

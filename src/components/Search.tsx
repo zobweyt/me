@@ -9,13 +9,12 @@ import { LOCALES, type Locale, getTranslator } from "@/i18n";
 const SOCIAL_ICON_CLASS_NAMES: Record<Social["id"], string> = {
   telegram: "i-logos:telegram text-2xl",
   github: "i-logos:github-icon text-2xl dark:invert",
-  mail: "i-lucide:mail text-2xl opacity-50",
 };
 
 const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
-  light: "i-lucide:sun",
-  dark: "i-lucide:moon",
-  system: "i-lucide:monitor",
+  light: "i-f7:sun-max",
+  dark: "i-f7:moon-stars",
+  system: "i-f7:device-laptop",
 };
 
 const LOCALES_FLAGS: Record<Locale, string> = {
@@ -88,21 +87,21 @@ export default function Search({
       items: [
         {
           icon: (
-            <span className="i-lucide:arrow-right shrink-0 text-2xl opacity-50" />
+            <span className="i-f7:house shrink-0 text-2xl text-current/50" />
           ),
           name: t("search.groups.pages.items.home"),
           href: `/${currentLocale}`,
         },
         {
           icon: (
-            <span className="i-lucide:arrow-right shrink-0 text-2xl opacity-50" />
+            <span className="i-f7:tray-full shrink-0 text-2xl text-current/50" />
           ),
           name: t("search.groups.pages.items.blog"),
           href: `/${currentLocale}/blog`,
         },
         {
           icon: (
-            <span className="i-lucide:arrow-right shrink-0 text-2xl opacity-50" />
+            <span className="i-f7:briefcase shrink-0 text-2xl text-current/50" />
           ),
           name: t("search.groups.pages.items.projects"),
           href: `/${currentLocale}/projects`,
@@ -113,7 +112,7 @@ export default function Search({
       name: t("search.groups.blog.title"),
       items: posts.map((post) => ({
         icon: (
-          <span className="i-lucide:sticky-note shrink-0 text-2xl opacity-50" />
+          <span className="i-f7:doc-richtext shrink-0 text-2xl opacity-50" />
         ),
         name: post.title,
         keywords: [
@@ -219,13 +218,13 @@ export default function Search({
     >
       <Command.Trigger
         className={cx(
-          "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2.5 py-1.5 text-sm leading-none transition outline-none hover:bg-surface focus-visible:bg-surface",
+          "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2 py-1.5 text-sm leading-none transition outline-none hover:bg-surface focus-visible:bg-surface",
           className,
         )}
         title={`${t("search.title")} (Ctrl+K)`}
         {...props}
       >
-        <span className="i-lucide:search text-foreground/75 opacity-75 md:-ml-0.5" />
+        <span className="i-f7:search text-foreground/75 text-base -m-0.5" />
         <span>{t("search.title")}</span>
       </Command.Trigger>
       <Command.Popup
@@ -241,31 +240,34 @@ export default function Search({
             placeholder={t("search.input.placeholder")}
             className={cx("ps-10", query && "pe-10")}
             before={
-              <span className="i-lucide:search absolute left-2.5 shrink-0 text-xl opacity-50" />
+              <span className="i-f7:search absolute left-2 shrink-0 text-2xl text-current/50" />
             }
             after={
               query && (
                 <button
                   type="button"
-                  className="absolute right-0 flex size-9 cursor-pointer items-center justify-center opacity-50 hover:opacity-75 focus-visible:opacity-75 active:opacity-100"
+                  className="absolute right-0 flex size-9 cursor-pointer items-center justify-center text-current/50 hover:text-current/75 focus-visible:text-current/75 active:text-current"
                   onClick={() => {
                     setQuery("");
                     inputRef.current?.focus();
                   }}
                 >
-                  <span className="i-lucide:x stroke-current text-xl" />
+                  <span className="i-f7:xmark-circle-fill stroke-current text-xl" />
                 </button>
               )
             }
           />
 
-          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline opacity-75 transition-opacity hover:opacity-100 sm:hidden  -me-1 -mt-0.5">
+          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline text-current/75 transition-opacity focus-visible:text-current hover:text-current sm:hidden -me-1 -mt-0.5">
             {t("search.footer.exit")}
           </Command.Close>
         </div>
 
         <Command.List>
-          <Command.Empty>{t("search.empty")}</Command.Empty>
+          <Command.Empty className="flex-col items-center justify-center p-0! gap-2">
+            <span className="i-f7:skew text-2xl text-current/75" />
+            <span className="mt-0.5">{t("search.empty")}</span>
+          </Command.Empty>
 
           {groups.map((group) => (
             <Command.Group key={group.name} heading={group.name}>
