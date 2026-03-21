@@ -52,7 +52,9 @@ export default defineConfig({
     },
   ],
   output: "server",
-  adapter: vercel(),
+  adapter: vercel({
+    isr: true,
+  }),
   markdown: {
     shikiConfig: {
       themes: {
@@ -64,7 +66,9 @@ export default defineConfig({
   integrations: [
     mdx(),
     react(),
-    unocss(),
+    unocss({
+      injectReset: true,
+    }),
     sitemap({
       i18n: {
         locales: SITEMAP_LOCALES,

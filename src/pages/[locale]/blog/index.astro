@@ -4,17 +4,17 @@ import PageLayout from "@/layouts/PageLayout.astro";
 import { getBlogPostsByYears } from "@/lib/collections";
 import { LOCALES, getTranslator } from "@/lib/i18n";
 
-const t = getTranslator(Astro.currentLocale);
-
-const { posts, years } = await getBlogPostsByYears({
-  locale: Astro.currentLocale,
-});
-
 export const prerender = true;
 
 export async function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { locale } }));
 }
+
+const t = getTranslator(Astro.currentLocale);
+
+const { posts, years } = await getBlogPostsByYears({
+  locale: Astro.currentLocale,
+});
 ---
 
 <PageLayout title={t("blog.title")} description={t("blog.description")}>

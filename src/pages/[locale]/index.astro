@@ -9,24 +9,26 @@ import PostCard from "@/components/PostCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { getBlogPosts, getProjectsWithStats } from "@/lib/collections";
-import { LOCALES, getTranslator } from "@/lib/i18n";
+import { getTranslator } from "@/lib/i18n";
+
+export const prerender = false;
+
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, s-maxage=3600, stale-while-revalidate=60",
+);
+
+const t = getTranslator(Astro.currentLocale);
 
 const blog = await getBlogPosts({
   count: CONTENT_RECENT_BLOG_POSTS_COUNT,
   locale: Astro.currentLocale,
 });
+
 const projects = await getProjectsWithStats({
   count: CONTENT_RECENT_PROJECTS_COUNT,
   locale: Astro.currentLocale,
 });
-
-export const prerender = false;
-
-export async function getStaticPaths() {
-  return LOCALES.map((locale) => ({ params: { locale } }));
-}
-
-const t = getTranslator(Astro.currentLocale);
 ---
 
 <PageLayout title={t("home.title")} description={t("home.description")}>

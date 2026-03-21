@@ -2,19 +2,20 @@
 import ProjectCard from "@/components/ProjectCard.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { getProjectsWithStatsByYears } from "@/lib/collections";
-import { LOCALES, getTranslator } from "@/lib/i18n";
+import { getTranslator } from "@/lib/i18n";
+
+export const prerender = false;
+
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, s-maxage=3600, stale-while-revalidate=60",
+);
 
 const t = getTranslator(Astro.currentLocale);
 
 const { projects, years } = await getProjectsWithStatsByYears({
   locale: Astro.currentLocale,
 });
-
-export const prerender = false;
-
-export async function getStaticPaths() {
-  return LOCALES.map((locale) => ({ params: { locale } }));
-}
 ---
 
 <PageLayout title={t("projects.title")} description={t("projects.description")}>

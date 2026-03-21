@@ -10,8 +10,6 @@ import PageLayout from "@/layouts/PageLayout.astro";
 import { type BlogPost, getBlogPosts } from "@/lib/collections";
 import { getTranslator } from "@/lib/i18n";
 
-const t = getTranslator(Astro.currentLocale);
-
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -29,6 +27,8 @@ export async function getStaticPaths() {
 }
 
 type Props = BlogPost;
+
+const t = getTranslator(Astro.currentLocale);
 
 const post = Astro.props;
 const { Content } = await render(post);
