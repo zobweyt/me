@@ -4,6 +4,7 @@ import {
   presetTypography,
   presetWind4,
   transformerDirectives,
+  transformerVariantGroup,
 } from "unocss";
 import {
   presetFunctionCompletion,
@@ -44,5 +45,5 @@ export default defineConfig({
     }),
     presetObjectCompletion(),
   ],
-  transformers: [transformerDirectives()],
+  transformers: [transformerDirectives(), transformerVariantGroup()],
 });

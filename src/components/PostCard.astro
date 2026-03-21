@@ -1,4 +1,5 @@
 ---
+import { cx } from "class-variance-authority";
 import type { BlogPost } from "@/lib/collections";
 import PostTags from "./PostTags.astro";
 import Time from "./Time.astro";
@@ -7,11 +8,21 @@ type Props = {
   entry: BlogPost;
 };
 
+const cardClass = cx([
+  "relative flex flex-col cursor-pointer rounded-xl p-4 outline-none",
+  "ring ring-inset ring-foreground/15",
+  "bg-surface/15",
+  "motion-safe:(transition duration-300 ease-in-out)",
+  "@hover:(bg-foreground/5 ring-foreground/20)",
+  "focus-visible:(bg-foreground/5 ring-foreground/20)",
+  "active:(!bg-foreground/10 !ring-foreground/25)",
+]);
+
 const { entry } = Astro.props;
 ---
 
 <a
-  class="motion-safe:transition-colors motion-safe:duration-300 motion-safe:ease-in-out relative cursor-pointer relative flex flex-nowrap items-center rounded-xl bg-surface/15 border border-foreground/15 p-4 [@media(pointer:fine)]:hover:bg-foreground/5 active:bg-foreground/5 focus-visible:bg-foreground/5 outline-none focus-visible:border-foreground/20 [@media(pointer:fine)]:hover:border-foreground/20 active:border-foreground/25"
+  class={cardClass}
   href={`/${Astro.currentLocale}/${entry.collection}/${entry.id.replace(`${Astro.currentLocale}/`, "")}`}
   aria-label={entry.data.title}
   transition:name={`post-${entry.id}-card`}

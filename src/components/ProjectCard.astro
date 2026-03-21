@@ -16,10 +16,13 @@ const formatter = new Intl.DateTimeFormat(Astro.currentLocale, {
 });
 
 const cardClass = cx([
-  "relative cursor-pointer rounded-xl p-4 flex flex-col outline-none",
-  "motion-safe:transition motion-safe:duration-300 motion-safe:ease-in-out",
-  "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 [@media(pointer:fine)]:hover:bg-[var(--project-card-color)]/15 active:bg-[var(--project-card-color)]/15 active:ring-[var(--project-card-color)]/30 focus-visible:bg-[var(--project-card-color)]/15 active:ring-[var(--project-card-color)]/30",
-  "ring ring-[var(--project-card-color)]/15 ring-inset [@media(pointer:fine)]:hover:ring-[var(--project-card-color)]/30 focus-visible:ring-[var(--project-card-color)]/30 active:[@media(pointer:fine)]:hover:ring-[var(--project-card-color)]/50",
+  "relative flex flex-col cursor-pointer rounded-xl p-4 outline-none",
+  "ring ring-inset ring-[var(--project-card-color)]/15",
+  "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 ",
+  "motion-safe:(transition duration-300 ease-in-out)",
+  "@hover:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
+  "focus-visible:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
+  "active:(!bg-[var(--project-card-color)]/20 !ring-[var(--project-card-color)]/50)",
 ]);
 
 const cardStyle = { "--project-card-color": entry.data.color };

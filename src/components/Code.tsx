@@ -53,9 +53,9 @@ export default function Code({
         type="button"
         className={cx(
           "flex items-center motion-safe:transition-all backdrop-blur-xl cursor-pointer absolute right-1 top-1 motion-safe:duration-150 justify-center gap-1 rounded-lg p-1.5 text-xl text-foreground/50 outline-none bg-surface",
-          "[@media(pointer:fine)]:hover:bg-foreground/10 focus-visible:bg-foreground/10 active:bg-foreground/15",
-          "[@media(pointer:fine)]:hover:text-foreground focus-visible:text-foreground active:text-foreground",
-          copied && "text-success!",
+          "focus-visible:bg-foreground/10 @hover:bg-foreground/10 active:!bg-foreground/15",
+          "focus-visible:text-foreground @hover:text-foreground active:text-foreground",
+          copied && "!text-success",
         )}
         onClick={handleCopyButtonClick}
         aria-label={copied ? t("copied") : t("copy")}
