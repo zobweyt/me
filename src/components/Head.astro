@@ -44,4 +44,17 @@ const t = getTranslator(Astro.currentLocale);
   )}
 
 <Themes />
-<ClientRouter />
+<ClientRouter fallback="swap" />
+
+<style is:global>
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*) {
+    display: none !important;
+  }
+
+  ::view-transition-new(*) {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+</style>

@@ -75,7 +75,8 @@
             "useJsxKeyInIterable": "off"
           },
           "complexity": {
-            "noUselessLoneBlockStatements": "off"
+            "noUselessLoneBlockStatements": "off",
+            "noImportantStyles": "off"
           }
         }
       }
