@@ -1,6 +1,6 @@
 import { cx } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
-import { getTranslator } from "@/i18n";
+import { getTranslator } from "@/lib/i18n";
 
 export type CodeProps = React.ComponentProps<"pre"> & {
   tabindex?: number | undefined;

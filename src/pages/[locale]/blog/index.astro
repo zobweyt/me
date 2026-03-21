@@ -1,8 +1,8 @@
 ---
 import PostCard from "@/components/PostCard.astro";
-import { LOCALES, getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { getBlogPostsByYears } from "@/lib/collections";
+import { LOCALES, getTranslator } from "@/lib/i18n";
 
 const t = getTranslator(Astro.currentLocale);
 

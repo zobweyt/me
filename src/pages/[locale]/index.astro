@@ -7,9 +7,9 @@ import {
   RECENT_BLOG_ENTRIES_COUNT,
   RECENT_PROJECTS_ENTRIES_COUNT,
 } from "@/constants";
-import { LOCALES, getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { getBlogPosts, getProjectsWithStats } from "@/lib/collections";
+import { LOCALES, getTranslator } from "@/lib/i18n";
 
 const blog = await getBlogPosts({
   count: RECENT_BLOG_ENTRIES_COUNT,

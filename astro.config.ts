@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import unocss from "unocss/astro";
-import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/i18n";
+import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/lib/i18n";
 
 export default defineConfig({
   site: "https://zobweyt.vercel.app",

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import * as Command from "@/components/ui/Command";
 import { SOCIALS, type Social } from "@/constants";
-import { LOCALES, type Locale, getTranslator } from "@/i18n";
+import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
 
 const SOCIAL_ICON_CLASS_NAMES: Record<Social["id"], string> = {
   telegram: "i-logos:telegram text-2xl",

@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
-import { LOCALES, type Locale, getTranslator } from "@/i18n";
 import { getBlogPosts } from "@/lib/collections";
+import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
 
 type Context = {
   site: string;

@@ -6,9 +6,9 @@ import { components } from "@/components/mdx";
 import PostTags from "@/components/PostTags.astro";
 import Prose from "@/components/Prose.astro";
 import Time from "@/components/Time.astro";
-import { getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { type BlogPost, getBlogPosts } from "@/lib/collections";
+import { getTranslator } from "@/lib/i18n";
 
 const t = getTranslator(Astro.currentLocale);
 
