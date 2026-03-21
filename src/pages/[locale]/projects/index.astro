@@ -1,30 +1,14 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import ProjectCard from "@/components/ProjectCard.astro";
-import { getProjectsEntries } from "@/content/entries";
 import { LOCALES, getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
+import { getProjectsWithStatsByYears } from "@/lib/collections";
 
 const t = getTranslator(Astro.currentLocale);
 
-const data = await getProjectsEntries({ locale: Astro.currentLocale });
-
-type Acc = {
-  [year: string]: CollectionEntry<"projects">[];
-};
-
-const projects = data.reduce((acc: Acc, project) => {
-  const year = project.data.dateStart.getFullYear().toString();
-  if (!acc[year]) {
-    acc[year] = [];
-  }
-  acc[year].push(project);
-  return acc;
-}, {});
-
-const years = Object.keys(projects).sort(
-  (a, b) => parseInt(b, 10) - parseInt(a, 10),
-);
+const { projects, years } = await getProjectsWithStatsByYears({
+  locale: Astro.currentLocale,
+});
 
 export const prerender = false;
 
@@ -42,19 +26,19 @@ export async function getStaticPaths() {
 
     <div class="space-y-4">
       {years.map((year) => (
-          <section>
-            <div class="sticky top-12 z-10 bg-body py-2 text-lg font-semibold sm:top-16">{year}</div>
-            <div>
-              <ul class="flex flex-col gap-4">
-                {projects[year].map((project) => (
-                  <li>
-                    <ProjectCard entry={project} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        ))}
+        <section>
+          <div class="sticky top-12 z-10 bg-body py-2 text-lg font-semibold sm:top-16">{year}</div>
+          <div>
+            <ul class="flex flex-col gap-4">
+              {projects[year].map((project) => (
+                <li>
+                  <ProjectCard entry={project} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ))}
     </div>
   </div>
 </PageLayout>

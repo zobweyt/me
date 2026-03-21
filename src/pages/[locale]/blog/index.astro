@@ -1,30 +1,14 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import PostCard from "@/components/PostCard.astro";
-import { getBlogEntries } from "@/content/entries";
 import { LOCALES, getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
+import { getBlogPostsByYears } from "@/lib/collections";
 
 const t = getTranslator(Astro.currentLocale);
 
-const data = await getBlogEntries({ locale: Astro.currentLocale });
-
-type Acc = {
-  [year: string]: CollectionEntry<"blog">[];
-};
-
-const posts = data.reduce((acc: Acc, post) => {
-  const year = post.data.date.getFullYear().toString();
-  if (!acc[year]) {
-    acc[year] = [];
-  }
-  acc[year].push(post);
-  return acc;
-}, {});
-
-const years = Object.keys(posts).sort(
-  (a, b) => parseInt(b, 10) - parseInt(a, 10),
-);
+const { posts, years } = await getBlogPostsByYears({
+  locale: Astro.currentLocale,
+});
 
 export const prerender = true;
 
@@ -53,19 +37,19 @@ export async function getStaticPaths() {
 
     <div class="space-y-4">
       {years.map((year) => (
-          <section>
-            <div class="sticky top-12 z-10 bg-body py-2 text-lg font-semibold sm:top-16">{year}</div>
-            <div>
-              <ul class="flex flex-col gap-4">
-                {posts[year].map((post) => (
-                  <li>
-                    <PostCard entry={post} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        ))}
+        <section>
+          <div class="sticky top-12 z-10 bg-body py-2 text-lg font-semibold sm:top-16">{year}</div>
+          <div>
+            <ul class="flex flex-col gap-4">
+              {posts[year].map((post) => (
+                <li>
+                  <PostCard entry={post} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ))}
     </div>
   </div>
 </PageLayout>

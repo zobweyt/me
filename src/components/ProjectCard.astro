@@ -1,13 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
 import { cx } from "class-variance-authority";
 import { getTranslator } from "@/i18n";
-import ProjectCardStars from "./ProjectCardStars.astro";
-import ProjectCardStarsSkeleton from "./ProjectCardStarsSkeleton.astro";
+import type { ProjectWithStats } from "@/lib/collections";
 
 type Props = {
-  entry: CollectionEntry<"projects">;
+  entry: ProjectWithStats;
 };
 
 const { entry } = Astro.props;
@@ -52,12 +50,32 @@ const t = getTranslator(Astro.currentLocale);
       {entry.data.title}
     </span>
   </div>
-  <p class="font-serif text-current/85 mb-2 text-pretty">
-    {entry.data.description}
-  </p>
-  <ProjectCardStars project={entry.data} server:defer>
-    <ProjectCardStarsSkeleton slot="fallback" />
-  </ProjectCardStars>
+  <p class="font-serif text-current/85 text-pretty">{entry.data.description}</p>
+  {!!entry.stats && (
+    <div class="flex gap-3 font-medium items-center text-[var(--project-card-color)] font-mono text-sm mt-2">
+      <p class="flex items-center gap-1">
+        <span
+          class="block size-4 ring ring-foreground/15 ring-inset bg-[var(--bg)]/75 rounded-full"
+          style={{"--bg": entry.stats.primaryLanguage.color}}
+        />
+        <span class="tabular-nums leading-none -mb-0.5">
+          {entry.stats.primaryLanguage.name}
+        </span>
+      </p>
+      <p class="flex items-center gap-1">
+        <span class="i-lucide:star text-base" />
+        <span class="tabular-nums leading-none -mb-0.5">
+          {entry.stats.stargazerCount}
+        </span>
+      </p>
+      <p class="flex items-center gap-1">
+        <span class="i-lucide:git-fork text-base" />
+        <span class="tabular-nums leading-none -mb-0.5">
+          {entry.stats.forkCount}
+        </span>
+      </p>
+    </div>
+  )}
   <p
     class="first-letter:uppercase absolute right-3 top-3 font-mono text-sm text-[var(--project-card-color)]"
   >

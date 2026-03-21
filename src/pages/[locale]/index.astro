@@ -7,15 +7,15 @@ import {
   RECENT_BLOG_ENTRIES_COUNT,
   RECENT_PROJECTS_ENTRIES_COUNT,
 } from "@/constants";
-import { getBlogEntries, getProjectsEntries } from "@/content/entries";
 import { LOCALES, getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
+import { getBlogPosts, getProjectsWithStats } from "@/lib/collections";
 
-const blog = await getBlogEntries({
+const blog = await getBlogPosts({
   count: RECENT_BLOG_ENTRIES_COUNT,
   locale: Astro.currentLocale,
 });
-const projects = await getProjectsEntries({
+const projects = await getProjectsWithStats({
   count: RECENT_PROJECTS_ENTRIES_COUNT,
   locale: Astro.currentLocale,
 });

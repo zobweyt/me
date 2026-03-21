@@ -1,10 +1,10 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { BlogPost } from "@/lib/collections";
 import PostTags from "./PostTags.astro";
 import Time from "./Time.astro";
 
 type Props = {
-  entry: CollectionEntry<"blog">;
+  entry: BlogPost;
 };
 
 const { entry } = Astro.props;

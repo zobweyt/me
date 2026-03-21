@@ -1,21 +1,21 @@
 ---
-import { type CollectionEntry, render } from "astro:content";
+import { render } from "astro:content";
 import Article from "@/components/Article.astro";
 import Link from "@/components/Link.astro";
 import { components } from "@/components/mdx";
 import PostTags from "@/components/PostTags.astro";
 import Prose from "@/components/Prose.astro";
 import Time from "@/components/Time.astro";
-import { getBlogEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
 import PageLayout from "@/layouts/PageLayout.astro";
+import { type BlogPost, getBlogPosts } from "@/lib/collections";
 
 const t = getTranslator(Astro.currentLocale);
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const posts = await getBlogEntries();
+  const posts = await getBlogPosts();
 
   return posts.map((post) => {
     const locale = post.id.split("/")[0];
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
   });
 }
 
-type Props = CollectionEntry<"blog">;
+type Props = BlogPost;
 
 const post = Astro.props;
 const { Content } = await render(post);

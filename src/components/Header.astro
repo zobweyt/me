@@ -1,13 +1,13 @@
 ---
 import Container from "@/components/Container.astro";
 import Link from "@/components/Link.astro";
-import { getBlogEntries, getProjectsEntries } from "@/content/entries";
 import { getTranslator } from "@/i18n";
+import { getBlogPosts, getProjects } from "@/lib/collections";
 import Search from "./Search";
 
 const t = getTranslator(Astro.currentLocale);
 
-const postsEntries = await getBlogEntries({ locale: Astro.currentLocale });
+const postsEntries = await getBlogPosts({ locale: Astro.currentLocale });
 
 const posts = postsEntries.map((post) => ({
   id: post.id,
@@ -16,7 +16,7 @@ const posts = postsEntries.map((post) => ({
   tags: post.data.tags,
 }));
 
-const projectsEntries = await getProjectsEntries({
+const projectsEntries = await getProjects({
   locale: Astro.currentLocale,
 });
 
