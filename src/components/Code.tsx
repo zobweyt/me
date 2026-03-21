@@ -52,9 +52,9 @@ export default function Code({
       <button
         type="button"
         className={cx(
-          "flex items-center transition-all backdrop-blur-xl cursor-pointer absolute right-1 top-1 duration-150 justify-center gap-1 rounded-lg p-1.5 text-xl text-foreground/50 outline-none bg-surface",
-          "hover:bg-foreground/10 focus-visible:bg-foreground/10 active:bg-foreground/15",
-          "hover:text-foreground focus-visible:text-foreground active:text-foreground",
+          "flex items-center motion-safe:transition-all backdrop-blur-xl cursor-pointer absolute right-1 top-1 motion-safe:duration-150 justify-center gap-1 rounded-lg p-1.5 text-xl text-foreground/50 outline-none bg-surface",
+          "[@media(pointer:fine)]:hover:bg-foreground/10 focus-visible:bg-foreground/10 active:bg-foreground/15",
+          "[@media(pointer:fine)]:hover:text-foreground focus-visible:text-foreground active:text-foreground",
           copied && "text-success!",
         )}
         onClick={handleCopyButtonClick}
@@ -63,13 +63,13 @@ export default function Code({
         <span className="relative block size-5">
           <span
             className={cx(
-              "i-f7:doc-on-clipboard absolute inset-0 duration-250",
+              "i-f7:doc-on-clipboard absolute inset-0 motion-safe:duration-250",
               copied ? "opacity-0 scale-50" : "opacity-100 scale-100",
             )}
           />
           <span
             className={cx(
-              "i-f7:checkmark absolute inset-0 duration-250",
+              "i-f7:checkmark absolute inset-0 motion-safe:duration-250",
               copied ? "opacity-100 scale-100" : "opacity-0 scale-50",
             )}
           />

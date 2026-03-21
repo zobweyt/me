@@ -218,7 +218,7 @@ export default function Search({
     >
       <Command.Trigger
         className={cx(
-          "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2 py-1.5 text-sm leading-none transition outline-none hover:bg-surface focus-visible:bg-surface",
+          "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2 py-1.5 text-sm leading-none motion-safe:transition outline-none [@media(pointer:fine)]:hover:bg-surface active:bg-surface focus-visible:bg-surface",
           className,
         )}
         title={`${t("search.title")} (Ctrl+K)`}
@@ -246,7 +246,7 @@ export default function Search({
               query && (
                 <button
                   type="button"
-                  className="absolute right-0 flex size-9 cursor-pointer items-center justify-center text-current/50 hover:text-current/75 focus-visible:text-current/75 active:text-current"
+                  className="absolute right-0 flex size-9 cursor-pointer items-center justify-center text-current/50 [@media(pointer:fine)]:hover:text-current/75 active:text-current/75 focus-visible:text-current/75 active:text-current"
                   onClick={() => {
                     setQuery("");
                     inputRef.current?.focus();
@@ -258,7 +258,7 @@ export default function Search({
             }
           />
 
-          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline text-current/75 transition-opacity focus-visible:text-current hover:text-current sm:hidden -me-1 -mt-0.5">
+          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline text-current/75 transition-opacity focus-visible:text-current [@media(pointer:fine)]:hover:text-current active:text-current sm:hidden -me-1 -mt-0.5">
             {t("search.footer.exit")}
           </Command.Close>
         </div>

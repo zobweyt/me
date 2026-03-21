@@ -132,7 +132,7 @@ export const Item = ({
   return (
     <Command.Item
       className={cx(
-        "flex min-w-0 cursor-pointer items-center justify-start gap-2 truncate rounded-lg px-2 py-1.5 outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-surface",
+        "flex min-w-0 cursor-pointer items-center justify-start gap-2 truncate rounded-lg px-2 py-1.5 outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [@media(pointer:fine)]:data-[selected=true]:bg-surface active:bg-surface",
         className,
       )}
       {...props}
