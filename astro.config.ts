@@ -11,6 +11,14 @@ export default defineConfig({
   env: {
     schema: {
       GITHUB_TOKEN: envField.string({ context: "server", access: "secret" }),
+      CONTENT_RECENT_BLOG_POSTS_COUNT: envField.number({
+        context: "server",
+        access: "public",
+      }),
+      CONTENT_RECENT_PROJECTS_COUNT: envField.number({
+        context: "server",
+        access: "public",
+      }),
     },
   },
   i18n: {
