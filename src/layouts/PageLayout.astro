@@ -24,7 +24,7 @@ const { title, description, publishedAt } = Astro.props;
   <body
     class="flex min-h-dvh flex-col bg-body text-foreground overflow-x-clip touch-manipulation"
   >
-    <Header />
+    <Header transition:name="header" transition:animate="none" />
     <main class="grow pt-4 pb-8" transition:animate="fade">
       <Container><slot /></Container>
     </main>

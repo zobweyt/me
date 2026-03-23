@@ -46,4 +46,10 @@ export default defineConfig({
     presetObjectCompletion(),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
+
+  content: {
+    pipeline: {
+      include: [/\.([jt]sx?|mdx?|astro|html)($|\?)/],
+    },
+  },
 });

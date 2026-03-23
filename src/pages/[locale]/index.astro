@@ -7,6 +7,7 @@ import { cx } from "class-variance-authority";
 import Link from "@/components/Link.astro";
 import PostCard from "@/components/PostCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
+import Skills from "@/components/Skills";
 import PageLayout from "@/layouts/PageLayout.astro";
 import { getBlogPosts, getProjectsWithStats } from "@/lib/collections";
 import { getTranslator } from "@/lib/i18n";
@@ -40,6 +41,11 @@ const projects = await getProjectsWithStats({
       </hgroup>
     </section>
 
+    <section>
+      <h2 class="text-lg font-semibold mb-1">{t("skills.title")}</h2>
+      <Skills client:idle currentLocale={Astro.currentLocale} />
+    </section>
+
     <section class="space-y-2">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <h2 class="text-lg font-semibold">{t("blog.latest")}</h2>
@@ -47,10 +53,10 @@ const projects = await getProjectsWithStats({
       </div>
       <ul class="space-y-4">
         {blog.map((entry) => (
-            <li>
-              <PostCard entry={entry} />
-            </li>
-          ))}
+          <li>
+            <PostCard entry={entry} />
+          </li>
+        ))}
       </ul>
     </section>
 
@@ -65,10 +71,10 @@ const projects = await getProjectsWithStats({
         class={cx("grid gap-4", projects.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-1")}
       >
         {projects.map((entry) => (
-            <li>
-              <ProjectCard entry={entry} />
-            </li>
-          ))}
+          <li>
+            <ProjectCard entry={entry} />
+          </li>
+        ))}
       </ul>
     </section>
   </div>
