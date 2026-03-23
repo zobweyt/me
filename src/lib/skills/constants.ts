@@ -270,6 +270,20 @@ export const SKILLS: Skill[] = [
     categories: ["environment"],
   },
   {
+    id: "md",
+    name: "Markdown",
+    icon: "i-skill-icons:markdown-light dark:i-skill-icons:markdown-dark",
+    group: "docs",
+    categories: ["environment"],
+  },
+  {
+    id: "latex",
+    name: "LaTeX",
+    icon: "i-skill-icons:latex-light dark:i-skill-icons:latex-dark",
+    group: "docs",
+    categories: ["environment"],
+  },
+  {
     id: "angular",
     name: "Angular",
     icon: "i-skill-icons:angular-light dark:i-skill-icons:angular-dark",
@@ -294,8 +308,8 @@ export const SKILLS: Skill[] = [
     id: "svelte",
     name: "Svelte",
     icon: "i-skill-icons:svelte",
-    categories: ["experiment"],
     group: "frameworks",
+    categories: ["experiment"],
   },
   {
     id: "qwik",
@@ -308,14 +322,14 @@ export const SKILLS: Skill[] = [
     id: "csharp",
     name: "C#",
     icon: "i-skill-icons:cs",
-    categories: ["archive", "backend"],
     group: "languages",
+    categories: ["archive", "backend"],
   },
   {
     id: "django",
     name: "Django",
     icon: "i-skill-icons:django",
-    categories: ["archive", "backend"],
     group: "frameworks",
+    categories: ["archive", "backend"],
   },
 ];
