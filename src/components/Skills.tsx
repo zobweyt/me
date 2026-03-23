@@ -14,22 +14,24 @@ export default function Skills({
     useState<SkillCategory>("primary");
 
   const groupedSkills = useMemo(() => {
+    const isArchiveCategory = selectedCategory === "archive";
     const isGlobalCategory =
-      selectedCategory === "primary" || selectedCategory === "archive";
+      selectedCategory === "primary" || isArchiveCategory;
 
     if (isGlobalCategory) {
       const groups: Record<string, typeof SKILLS> = {};
 
       SKILL_CATEGORIES.forEach((category) => {
-        if (category === "primary" || category === "archive") {
-          return;
-        }
+        if (category === "primary" || category === "archive") return;
 
-        const skillsInCategory = SKILLS.filter(
-          (skill) =>
-            skill.categories.includes(selectedCategory) &&
-            skill.categories.includes(category),
-        );
+        const skillsInCategory = SKILLS.filter((skill) => {
+          const hasSelected = skill.categories.includes(selectedCategory);
+          const hasCurrentLoopCategory = skill.categories.includes(category);
+          const isHiddenArchive =
+            !isArchiveCategory && skill.categories.includes("archive");
+
+          return hasSelected && hasCurrentLoopCategory && !isHiddenArchive;
+        });
 
         if (skillsInCategory.length > 0) {
           groups[t(`skills.category.${category}`)] = skillsInCategory;
@@ -39,9 +41,12 @@ export default function Skills({
       return groups;
     }
 
-    const filtered = SKILLS.filter((skill) =>
-      skill.categories.includes(selectedCategory),
+    const filtered = SKILLS.filter(
+      (skill) =>
+        skill.categories.includes(selectedCategory) &&
+        !skill.categories.includes("archive"),
     );
+
     return Object.groupBy(filtered, (skill) =>
       t(`skills.group.${skill.group}`),
     );
