@@ -7,6 +7,7 @@ export type SkillGroup = (typeof SKILL_GROUPS)[number];
 export interface Skill {
   id: string;
   name: string;
+  href: string;
   icon: string;
   group: SkillGroup;
   categories: SkillCategory[];

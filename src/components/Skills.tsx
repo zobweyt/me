@@ -98,10 +98,18 @@ export default function Skills({
             <ul className="flex flex-wrap gap-2">
               {skills?.map((skill) => (
                 <li key={skill.id}>
-                  <span
+                  <a
                     title={skill.name}
-                    className={cx("flex size-8!", skill.icon)}
-                  />
+                    className={cx(
+                      "flex size-8! focus-visible:scale-110 @hover:scale-110 active:opacity-75 motion-safe:transition outline-none",
+                      skill.icon,
+                    )}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={skill.href}
+                  >
+                    <span className="sr-only">{skill.name}</span>
+                  </a>
                 </li>
               ))}
             </ul>

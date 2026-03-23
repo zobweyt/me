@@ -27,6 +27,7 @@ export const SKILLS: Skill[] = [
   {
     id: "typescript",
     name: "TypeScript",
+    href: "https://www.typescriptlang.org/",
     icon: "i-skill-icons:typescript",
     group: "languages",
     categories: ["primary", "frontend", "backend"],
@@ -34,6 +35,7 @@ export const SKILLS: Skill[] = [
   {
     id: "javascript",
     name: "JavaScript",
+    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
     icon: "i-skill-icons:javascript",
     group: "languages",
     categories: ["primary", "frontend", "backend"],
@@ -41,6 +43,7 @@ export const SKILLS: Skill[] = [
   {
     id: "elysiajs",
     name: "ElysiaJS",
+    href: "https://elysiajs.dev/",
     icon: "i-skill-icons:elysia-light dark:i-skill-icons:elysia-dark",
     group: "frameworks",
     categories: ["primary", "backend"],
@@ -48,6 +51,7 @@ export const SKILLS: Skill[] = [
   {
     id: "html",
     name: "HTML",
+    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
     icon: "i-skill-icons:html",
     group: "languages",
     categories: ["primary", "frontend"],
@@ -55,6 +59,7 @@ export const SKILLS: Skill[] = [
   {
     id: "css",
     name: "CSS",
+    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
     icon: "i-skill-icons:css",
     group: "languages",
     categories: ["primary", "frontend"],
@@ -62,6 +67,7 @@ export const SKILLS: Skill[] = [
   {
     id: "scss",
     name: "SCSS",
+    href: "https://sass-lang.com/",
     icon: "i-skill-icons:sass",
     group: "styling",
     categories: ["frontend"],
@@ -69,6 +75,7 @@ export const SKILLS: Skill[] = [
   {
     id: "less",
     name: "Less",
+    href: "https://lesscss.org/",
     icon: "i-skill-icons:less-dark",
     group: "styling",
     categories: ["frontend"],
@@ -76,6 +83,7 @@ export const SKILLS: Skill[] = [
   {
     id: "tailwindcss",
     name: "Tailwind CSS",
+    href: "https://tailwindcss.com/",
     icon: "i-skill-icons:tailwindcss-light dark:i-skill-icons:tailwindcss-dark",
     group: "styling",
     categories: ["primary", "frontend"],
@@ -83,6 +91,7 @@ export const SKILLS: Skill[] = [
   {
     id: "react",
     name: "React",
+    href: "https://reactjs.org/",
     icon: "i-skill-icons:react-light dark:i-skill-icons:react-dark",
     group: "frameworks",
     categories: ["primary", "frontend"],
@@ -90,6 +99,7 @@ export const SKILLS: Skill[] = [
   {
     id: "solid",
     name: "SolidJS",
+    href: "https://www.solidjs.com/",
     icon: "i-skill-icons:solidjs-light dark:i-skill-icons:solidjs-dark",
     group: "frameworks",
     categories: ["primary", "frontend"],
@@ -97,6 +107,7 @@ export const SKILLS: Skill[] = [
   {
     id: "nextjs",
     name: "Next.js",
+    href: "https://nextjs.org/",
     icon: "i-skill-icons:nextjs-light dark:i-skill-icons:nextjs-dark",
     group: "frameworks",
     categories: ["frontend"],
@@ -104,6 +115,7 @@ export const SKILLS: Skill[] = [
   {
     id: "astro",
     name: "Astro",
+    href: "https://astro.build/",
     icon: "i-skill-icons:astro",
     group: "frameworks",
     categories: ["frontend"],
@@ -111,6 +123,7 @@ export const SKILLS: Skill[] = [
   {
     id: "unocss",
     name: "UnoCSS",
+    href: "https://unocss.dev/",
     icon: "i-logos:unocss",
     group: "styling",
     categories: ["frontend"],
@@ -118,6 +131,7 @@ export const SKILLS: Skill[] = [
   {
     id: "zod",
     name: "Zod",
+    href: "https://github.com/colinhacks/zod",
     icon: "i-logos:zod",
     group: "libraries",
     categories: ["frontend"],
@@ -125,6 +139,7 @@ export const SKILLS: Skill[] = [
   {
     id: "vite",
     name: "Vite",
+    href: "https://vitejs.dev/",
     icon: "i-skill-icons:vite-light dark:i-skill-icons:vite-dark",
     group: "libraries",
     categories: ["frontend"],
@@ -132,6 +147,7 @@ export const SKILLS: Skill[] = [
   {
     id: "vitest",
     name: "Vitest",
+    href: "https://vitest.dev/",
     icon: "i-skill-icons:vitest-light dark:i-skill-icons:vitest-dark",
     group: "testing",
     categories: ["frontend"],
@@ -139,6 +155,7 @@ export const SKILLS: Skill[] = [
   {
     id: "playwright",
     name: "Playwright",
+    href: "https://playwright.dev/",
     icon: "i-logos:playwright",
     group: "testing",
     categories: ["frontend"],
@@ -146,6 +163,7 @@ export const SKILLS: Skill[] = [
   {
     id: "python",
     name: "Python",
+    href: "https://www.python.org/",
     icon: "i-skill-icons:python-light dark:i-skill-icons:python-dark",
     group: "languages",
     categories: ["primary", "backend"],
@@ -153,6 +171,7 @@ export const SKILLS: Skill[] = [
   {
     id: "fastapi",
     name: "FastAPI",
+    href: "https://fastapi.tiangolo.com/",
     icon: "i-skill-icons:fastapi",
     group: "frameworks",
     categories: ["primary", "backend"],
@@ -160,6 +179,7 @@ export const SKILLS: Skill[] = [
   {
     id: "postgres",
     name: "PostgreSQL",
+    href: "https://www.postgresql.org/",
     icon: "i-skill-icons:postgresql-light dark:i-skill-icons:postgresql-dark",
     group: "storage",
     categories: ["primary", "backend"],
@@ -167,6 +187,7 @@ export const SKILLS: Skill[] = [
   {
     id: "sqlite",
     name: "SQLite",
+    href: "https://www.sqlite.org/",
     icon: "i-skill-icons:sqlite",
     group: "storage",
     categories: ["backend"],
@@ -174,6 +195,7 @@ export const SKILLS: Skill[] = [
   {
     id: "redis",
     name: "Redis",
+    href: "https://redis.io/",
     icon: "i-skill-icons:redis-light dark:i-skill-icons:redis-dark",
     group: "storage",
     categories: ["primary", "backend"],
@@ -181,6 +203,7 @@ export const SKILLS: Skill[] = [
   {
     id: "git",
     name: "Git",
+    href: "https://git-scm.com/",
     icon: "i-skill-icons:git",
     group: "infrastructure",
     categories: ["environment"],
@@ -188,6 +211,7 @@ export const SKILLS: Skill[] = [
   {
     id: "docker",
     name: "Docker",
+    href: "https://www.docker.com/",
     icon: "i-skill-icons:docker",
     group: "infrastructure",
     categories: ["environment"],
@@ -195,6 +219,7 @@ export const SKILLS: Skill[] = [
   {
     id: "nginx",
     name: "NGINX",
+    href: "https://www.nginx.com/",
     icon: "i-skill-icons:nginx",
     group: "infrastructure",
     categories: ["environment"],
@@ -202,6 +227,7 @@ export const SKILLS: Skill[] = [
   {
     id: "nix",
     name: "Nix",
+    href: "https://nixos.org/",
     icon: "i-skill-icons:nix-light dark:i-skill-icons:nix-dark",
     group: "infrastructure",
     categories: ["environment"],
@@ -209,6 +235,7 @@ export const SKILLS: Skill[] = [
   {
     id: "vscode",
     name: "Visual Studio Code",
+    href: "https://code.visualstudio.com/",
     icon: "i-skill-icons:vscode-light dark:i-skill-icons:vscode-dark",
     group: "apps",
     categories: ["environment"],
@@ -216,6 +243,7 @@ export const SKILLS: Skill[] = [
   {
     id: "nvim",
     name: "Neovim",
+    href: "https://neovim.io/",
     icon: "i-skill-icons:neovim-light dark:i-skill-icons:neovim-dark",
     group: "apps",
     categories: ["environment"],
@@ -223,6 +251,7 @@ export const SKILLS: Skill[] = [
   {
     id: "webstorm",
     name: "Webstorm",
+    href: "https://www.jetbrains.com/webstorm/",
     icon: "i-skill-icons:webstorm-light dark:i-skill-icons:webstorm-dark",
     group: "apps",
     categories: ["environment"],
@@ -230,6 +259,7 @@ export const SKILLS: Skill[] = [
   {
     id: "obsidian",
     name: "Obsidian",
+    href: "https://obsidian.md/",
     icon: "i-skill-icons:obsidian-light dark:i-skill-icons:obsidian-dark",
     group: "apps",
     categories: ["environment"],
@@ -237,6 +267,7 @@ export const SKILLS: Skill[] = [
   {
     id: "figma",
     name: "Figma",
+    href: "https://www.figma.com/",
     icon: "i-skill-icons:figma-light dark:i-skill-icons:figma-dark",
     group: "apps",
     categories: ["environment"],
@@ -244,6 +275,7 @@ export const SKILLS: Skill[] = [
   {
     id: "gitlab",
     name: "GitLab",
+    href: "https://about.gitlab.com/",
     icon: "i-skill-icons:gitlab-light dark:i-skill-icons:gitlab-dark",
     group: "apps",
     categories: ["environment"],
@@ -251,6 +283,7 @@ export const SKILLS: Skill[] = [
   {
     id: "github",
     name: "GitHub",
+    href: "https://github.com/",
     icon: "i-skill-icons:github-light dark:i-skill-icons:github-dark",
     group: "apps",
     categories: ["environment"],
@@ -258,6 +291,7 @@ export const SKILLS: Skill[] = [
   {
     id: "grafana",
     name: "Grafana",
+    href: "https://grafana.com/",
     icon: "i-skill-icons:grafana-light dark:i-skill-icons:grafana-dark",
     group: "monitoring",
     categories: ["environment"],
@@ -265,6 +299,7 @@ export const SKILLS: Skill[] = [
   {
     id: "prometheus",
     name: "Prometheus",
+    href: "https://prometheus.io/",
     icon: "i-skill-icons:prometheus",
     group: "monitoring",
     categories: ["environment"],
@@ -272,6 +307,7 @@ export const SKILLS: Skill[] = [
   {
     id: "md",
     name: "Markdown",
+    href: "https://www.markdownguide.org/",
     icon: "i-skill-icons:markdown-light dark:i-skill-icons:markdown-dark",
     group: "docs",
     categories: ["environment"],
@@ -279,6 +315,7 @@ export const SKILLS: Skill[] = [
   {
     id: "latex",
     name: "LaTeX",
+    href: "https://www.latex-project.org/",
     icon: "i-skill-icons:latex-light dark:i-skill-icons:latex-dark",
     group: "docs",
     categories: ["environment"],
@@ -286,6 +323,7 @@ export const SKILLS: Skill[] = [
   {
     id: "angular",
     name: "Angular",
+    href: "https://angular.io/",
     icon: "i-skill-icons:angular-light dark:i-skill-icons:angular-dark",
     group: "frameworks",
     categories: ["learning"],
@@ -293,6 +331,7 @@ export const SKILLS: Skill[] = [
   {
     id: "go",
     name: "Go",
+    href: "https://go.dev/",
     icon: "i-skill-icons:golang",
     group: "languages",
     categories: ["learning"],
@@ -300,6 +339,7 @@ export const SKILLS: Skill[] = [
   {
     id: "rust",
     name: "Rust",
+    href: "https://www.rust-lang.org/",
     icon: "i-skill-icons:rust",
     group: "languages",
     categories: ["experiment"],
@@ -307,6 +347,7 @@ export const SKILLS: Skill[] = [
   {
     id: "svelte",
     name: "Svelte",
+    href: "https://svelte.dev/",
     icon: "i-skill-icons:svelte",
     group: "frameworks",
     categories: ["experiment"],
@@ -314,6 +355,7 @@ export const SKILLS: Skill[] = [
   {
     id: "qwik",
     name: "Qwik",
+    href: "https://qwik.builder.io/",
     icon: "i-logos:qwik-icon",
     group: "frameworks",
     categories: ["experiment"],
@@ -321,6 +363,7 @@ export const SKILLS: Skill[] = [
   {
     id: "csharp",
     name: "C#",
+    href: "https://learn.microsoft.com/dotnet/csharp/",
     icon: "i-skill-icons:cs",
     group: "languages",
     categories: ["archive", "backend"],
@@ -328,6 +371,7 @@ export const SKILLS: Skill[] = [
   {
     id: "django",
     name: "Django",
+    href: "https://www.djangoproject.com/",
     icon: "i-skill-icons:django",
     group: "frameworks",
     categories: ["archive", "backend"],
