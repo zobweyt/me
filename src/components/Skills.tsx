@@ -12,6 +12,7 @@ export default function Skills({
   const t = getTranslator(currentLocale);
   const [selectedCategory, setSelectedCategory] =
     useState<SkillCategory>("primary");
+  const [focusSource, setFocusSource] = useState<"mouse" | null>(null);
 
   const groupedSkills = useMemo(() => {
     const isArchiveCategory = selectedCategory === "archive";
@@ -54,11 +55,29 @@ export default function Skills({
 
   return (
     <Tabs.Root value={selectedCategory} onValueChange={setSelectedCategory}>
-      <Tabs.List className="relative z-0 flex gap-1.5 overflow-x-auto px-4 -mx-4 [scrollbar-width:none] scroll-smooth">
+      <Tabs.List className="relative z-0 flex gap-1.5 overflow-x-auto [scrollbar-width:none] max-sm:-mx-4 max-sm:px-4 scroll-smooth">
         {SKILL_CATEGORIES.map((category) => (
           <Tabs.Tab
             key={category}
             value={category}
+            onMouseDown={() => setFocusSource("mouse")}
+            onFocus={(event) => {
+              if (focusSource !== "mouse") {
+                event.currentTarget.scrollIntoView({
+                  behavior: "smooth",
+                  block: "nearest",
+                  inline: "center",
+                });
+              }
+              setFocusSource(null);
+            }}
+            onClick={(event) => {
+              event.currentTarget.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center",
+              });
+            }}
             className="flex items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:bg-foreground/15 hover:active:bg-foreground/15 rounded-full outline-hidden select-none focus-visible:ring-foreground ring ring-inset ring-transparent motion-safe:transition data-[active]:focus-visible:opacity-75 data-[active]:(text-body! bg-foreground!)"
           >
             {t(`skills.category.${category}`)}
@@ -68,14 +87,15 @@ export default function Skills({
       <Tabs.Panel
         key={selectedCategory}
         value={selectedCategory}
-        className="gap-3 outline-none mt-2 grid grid-cols-2"
+        tabIndex={-1}
+        className="grid grid-cols-2 gap-4 mt-4"
       >
         {Object.entries(groupedSkills).map(([groupName, skills]) => (
           <section key={groupName}>
-            <h3 className="text-sm font-medium text-foreground/50 mb-1">
+            <h3 className="text-xs font-medium uppercase tracking-wider text-current/50 mb-1.5">
               {groupName}
             </h3>
-            <ul className="flex flex-wrap gap-1.5">
+            <ul className="flex flex-wrap gap-2">
               {skills?.map((skill) => (
                 <li key={skill.id}>
                   <span

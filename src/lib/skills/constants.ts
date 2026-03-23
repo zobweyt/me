@@ -99,7 +99,7 @@ export const SKILLS: Skill[] = [
     name: "Next.js",
     icon: "i-skill-icons:nextjs-light dark:i-skill-icons:nextjs-dark",
     group: "frameworks",
-    categories: ["primary", "frontend"],
+    categories: ["frontend"],
   },
   {
     id: "astro",
