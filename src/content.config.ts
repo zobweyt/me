@@ -51,4 +51,14 @@ const skills = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, skills };
+const socials = defineCollection({
+  loader: file("./src/content/socials/data.yaml"),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    href: z.string(),
+    icon: z.string(),
+  }),
+});
+
+export const collections = { blog, projects, skills, socials };

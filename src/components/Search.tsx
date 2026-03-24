@@ -4,12 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import * as Command from "@/components/ui/Command";
 import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
-import { SOCIALS, type Social } from "@/lib/socials";
-
-const SOCIAL_ICON_CLASS_NAMES: Record<Social["id"], string> = {
-  telegram: "i-logos:telegram text-2xl",
-  github: "i-logos:github-icon text-2xl dark:invert",
-};
 
 const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
   light: "i-f7:sun-max",
@@ -25,6 +19,7 @@ const LOCALES_FLAGS: Record<Locale, string> = {
 export default function Search({
   posts,
   projects,
+  socials,
   className,
   url,
   site,
@@ -44,6 +39,12 @@ export default function Search({
     logo: string;
     href: string | undefined;
     repo: string | undefined;
+  }[];
+  socials: {
+    id: string;
+    name: string;
+    href: string;
+    icon: string;
   }[];
   url: URL;
   site: URL | undefined;
@@ -138,15 +139,8 @@ export default function Search({
     },
     {
       name: t("search.groups.socials.title"),
-      items: SOCIALS.map((social) => ({
-        icon: (
-          <span
-            className={cx(
-              "size-6 shrink-0",
-              SOCIAL_ICON_CLASS_NAMES[social.id],
-            )}
-          />
-        ),
+      items: socials.map((social) => ({
+        icon: <span className={cx("size-6 shrink-0 text-xl", social.icon)} />,
         name: social.name,
         href: social.href,
         external: true,
@@ -298,7 +292,7 @@ export default function Search({
                       autoEscape
                       searchWords={[query]}
                       textToHighlight={item.href
-                        .replace(`/${currentLocale}`, "")
+                        .replace(new RegExp(`^/${currentLocale}`), "")
                         .replace("https://", "")
                         .replace(/\/+$/, "")}
                       className="min-w-0 truncate text-current/50"
