@@ -1,12 +1,18 @@
 import { Tabs } from "@base-ui/react/tabs";
 import { cx } from "class-variance-authority";
 import { useMemo, useState } from "react";
+import type { Skill, SkillCategory } from "@/lib/collections/skills";
+import {
+  SKILL_CATEGORIES,
+  SKILL_GROUPS,
+} from "@/lib/collections/skills/constants";
 import { getTranslator } from "@/lib/i18n";
-import { SKILLS, SKILL_CATEGORIES, type SkillCategory } from "@/lib/skills";
 
 export default function Skills({
+  skills,
   currentLocale,
 }: {
+  skills: Skill[];
   currentLocale: string | undefined;
 }) {
   const t = getTranslator(currentLocale);
@@ -19,39 +25,49 @@ export default function Skills({
     const isGlobalCategory =
       selectedCategory === "primary" || isArchiveCategory;
 
+    const sortedSkills = [...skills].sort(
+      (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0),
+    );
+
     if (isGlobalCategory) {
-      const groups: Record<string, typeof SKILLS> = {};
+      const groups: Record<string, typeof skills> = {};
 
-      SKILL_CATEGORIES.forEach((category) => {
-        if (category === "primary" || category === "archive") return;
+      SKILL_CATEGORIES.forEach((cat) => {
+        if (cat === "primary" || cat === "archive") return;
 
-        const skillsInCategory = SKILLS.filter((skill) => {
-          const hasSelected = skill.categories.includes(selectedCategory);
-          const hasCurrentLoopCategory = skill.categories.includes(category);
+        const skillsInCat = sortedSkills.filter((s) => {
+          const hasSelected = s.data.categories.includes(selectedCategory);
+          const hasCurrentCat = s.data.categories.includes(cat);
           const isHiddenArchive =
-            !isArchiveCategory && skill.categories.includes("archive");
-
-          return hasSelected && hasCurrentLoopCategory && !isHiddenArchive;
+            !isArchiveCategory && s.data.categories.includes("archive");
+          return hasSelected && hasCurrentCat && !isHiddenArchive;
         });
 
-        if (skillsInCategory.length > 0) {
-          groups[t(`skills.category.${category}`)] = skillsInCategory;
+        if (skillsInCat.length > 0) {
+          groups[t(`skills.category.${cat}`)] = skillsInCat;
         }
       });
 
       return groups;
     }
 
-    const filtered = SKILLS.filter(
-      (skill) =>
-        skill.categories.includes(selectedCategory) &&
-        !skill.categories.includes("archive"),
+    const filtered = sortedSkills.filter(
+      (s) =>
+        s.data.categories.includes(selectedCategory) &&
+        !s.data.categories.includes("archive"),
     );
 
-    return Object.groupBy(filtered, (skill) =>
-      t(`skills.group.${skill.group}`),
-    );
-  }, [selectedCategory, t]);
+    const orderedGroups: Record<string, typeof skills> = {};
+
+    SKILL_GROUPS.forEach((groupKey) => {
+      const skillsInGroup = filtered.filter((s) => s.data.group === groupKey);
+      if (skillsInGroup.length > 0) {
+        orderedGroups[t(`skills.group.${groupKey}`)] = skillsInGroup;
+      }
+    });
+
+    return orderedGroups;
+  }, [skills, selectedCategory, t]);
 
   return (
     <Tabs.Root value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -99,16 +115,16 @@ export default function Skills({
               {skills?.map((skill) => (
                 <li key={skill.id}>
                   <a
-                    title={skill.name}
+                    title={skill.data.name}
                     className={cx(
                       "flex size-8! focus-visible:scale-110 @hover:scale-110 active:opacity-75 motion-safe:transition outline-none",
-                      skill.icon,
+                      skill.data.icon,
                     )}
                     rel="noopener noreferrer"
                     target="_blank"
-                    href={skill.href}
+                    href={skill.data.href}
                   >
-                    <span className="sr-only">{skill.name}</span>
+                    <span className="sr-only">{skill.data.name}</span>
                   </a>
                 </li>
               ))}

@@ -2,7 +2,8 @@
 import { Image } from "astro:assets";
 import Container from "@/components/Container.astro";
 import Link from "@/components/Link.astro";
-import { getBlogPosts, getProjects } from "@/lib/collections";
+import { getBlogPosts } from "@/lib/collections/blog/content";
+import { getProjects } from "@/lib/collections/projects/content";
 import { getTranslator } from "@/lib/i18n";
 import Search from "./Search";
 

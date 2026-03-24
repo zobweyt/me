@@ -1,6 +1,5 @@
-import { type CollectionEntry, getCollection } from "astro:content";
-
-export type BlogPost = CollectionEntry<"blog">;
+import { getCollection } from "astro:content";
+import type { BlogPost } from "./types";
 
 export type GetBlogPostsProps = {
   count?: number | undefined;

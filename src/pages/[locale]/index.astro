@@ -9,7 +9,9 @@ import PostCard from "@/components/PostCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import Skills from "@/components/Skills";
 import PageLayout from "@/layouts/PageLayout.astro";
-import { getBlogPosts, getProjectsWithStats } from "@/lib/collections";
+import { getBlogPosts } from "@/lib/collections/blog/content";
+import { getProjectsWithStats } from "@/lib/collections/projects/content";
+import { getSkills } from "@/lib/collections/skills/content";
 import { getTranslator } from "@/lib/i18n";
 
 export const prerender = false;
@@ -30,6 +32,8 @@ const projects = await getProjectsWithStats({
   count: CONTENT_RECENT_PROJECTS_COUNT,
   locale: Astro.currentLocale,
 });
+
+const skills = await getSkills();
 ---
 
 <PageLayout title={t("home.title")} description={t("home.description")}>
@@ -43,7 +47,7 @@ const projects = await getProjectsWithStats({
 
     <section>
       <h2 class="text-lg font-semibold mb-1">{t("skills.title")}</h2>
-      <Skills client:idle currentLocale={Astro.currentLocale} />
+      <Skills client:idle skills={skills} currentLocale={Astro.currentLocale} />
     </section>
 
     <section class="space-y-2">

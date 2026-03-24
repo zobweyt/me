@@ -49,7 +49,11 @@ export default defineConfig({
 
   content: {
     pipeline: {
-      include: [/\.([jt]sx?|mdx?|astro|html)($|\?)/],
+      include: [
+        /\.([jt]sx?|mdx?|astro|html)($|\?)/,
+        "./src/**/*.{json,yaml,yml}",
+      ],
     },
+    filesystem: ["./src/**/*.{json,yaml,yml}"],
   },
 });

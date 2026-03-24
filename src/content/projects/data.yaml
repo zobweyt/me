@@ -1,0 +1,12 @@
+- id: textcase
+  logo: "./logos/textcase.svg"
+  repo: "https://github.com/zobweyt/textcase"
+  color: "#795649"
+  dateStart: Mar 30 2025
+  i18n:
+    en:
+      description: "A feature-rich Python text case conversion library."
+      href: "https://zobweyt.github.io/textcase"
+    ru:
+      description: "Библиотека преобразования регистра текста для Python."
+      href: "https://zobweyt.github.io/textcase/ru"

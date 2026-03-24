@@ -1,27 +1,38 @@
-import { type CollectionEntry, getCollection } from "astro:content";
-import {
-  type GitHubRepo,
-  type GitHubRepoStats,
-  fetchGitHubStats,
-} from "../github";
-
-export type Project = CollectionEntry<"projects">;
-
-export type ProjectWithStats = Project & {
-  stats?: GitHubRepoStats;
-};
+import { getCollection } from "astro:content";
+import { type GitHubRepo, fetchGitHubStats } from "@/lib/github";
+import { DEFAULT_LOCALE } from "@/lib/i18n";
+import type { ProjectWithLocalization, ProjectWithStats } from "../projects";
 
 export type GetProjectsProps = {
   count?: number;
   locale?: string;
 };
 
-export const getProjects = async ({ count, locale }: GetProjectsProps = {}) => {
+export const getProjects = async ({
+  count,
+  locale,
+}: GetProjectsProps = {}): Promise<ProjectWithLocalization[]> => {
   const projects = await getCollection("projects");
 
   const entries = projects
-    .filter((p) => !locale || p.id.startsWith(`${locale}/`))
-    .sort((a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf());
+    .sort((a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf())
+    .map((project) => {
+      const { i18n, ...commonData } = project.data;
+
+      const localeData = i18n[locale as keyof typeof i18n];
+      const defaultData = i18n[DEFAULT_LOCALE];
+
+      return {
+        ...project,
+        data: {
+          ...commonData,
+          title: localeData?.title ?? defaultData?.title ?? commonData.id,
+          description:
+            localeData?.description ?? defaultData?.description ?? "",
+          href: localeData?.href ?? defaultData?.href,
+        },
+      };
+    });
 
   return count ? entries.slice(0, count) : entries;
 };
