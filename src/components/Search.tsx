@@ -44,7 +44,6 @@ export default function Search({
     logo: string;
     href: string | undefined;
     repo: string | undefined;
-    logoShape: "square" | "circle";
   }[];
   url: URL;
   site: URL | undefined;
@@ -129,10 +128,7 @@ export default function Search({
           <img
             src={project.logo}
             alt={project.title}
-            className={cx(
-              "size-6 shrink-0",
-              project.logoShape === "circle" && "rounded-full",
-            )}
+            className={cx("size-6 shrink-0 rounded-full")}
           />
         ),
         name: project.title,

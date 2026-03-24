@@ -23,7 +23,6 @@ const projects = defineCollection({
       href: z.string().optional(),
       repo: z.string().optional(),
       logo: image(),
-      logoShape: z.enum(["square", "circle"]).default("square"),
       color: z.string(),
     }),
 });
