@@ -2,17 +2,13 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import Themes from "astro-themes";
-import { getTranslator } from "@/lib/i18n";
 
 type Props = {
   title: string;
   description: string;
-  publishedAt?: Date;
 };
 
-const { title, description, publishedAt } = Astro.props;
-
-const t = getTranslator(Astro.currentLocale);
+const { title, description } = Astro.props;
 ---
 
 <meta charset="utf-8">
@@ -35,13 +31,6 @@ const t = getTranslator(Astro.currentLocale);
 <meta property="twitter:title" content={title}>
 <meta property="twitter:description" content={description}>
 <meta property="tg:site_verification" content="g7j8/rPFXfhyrq5q0QQV7EsYWv4=">
-
-{!!publishedAt && (
-    <>
-      <meta property="article:author" content={t("name")} />
-      <meta property="article:published_time" content={publishedAt.toISOString()} />
-    </>
-  )}
 
 <Themes />
 <ClientRouter fallback="swap" />

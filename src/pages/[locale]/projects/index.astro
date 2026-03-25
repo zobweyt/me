@@ -1,6 +1,6 @@
 ---
-import ProjectCard from "@/components/ProjectCard.astro";
-import PageLayout from "@/layouts/PageLayout.astro";
+import { ProjectCard } from "@/components/collections/projects";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getProjectsWithStatsByYears } from "@/lib/collections/projects/content";
 import { getTranslator } from "@/lib/i18n";
 
@@ -18,7 +18,7 @@ const { projects, years } = await getProjectsWithStatsByYears({
 });
 ---
 
-<PageLayout title={t("projects.title")} description={t("projects.description")}>
+<BaseLayout title={t("projects.title")} description={t("projects.description")}>
   <div class="space-y-10">
     <hgroup>
       <h1 class="mb-3 text-3xl font-semibold">{t("projects.title")}</h1>
@@ -42,4 +42,4 @@ const { projects, years } = await getProjectsWithStatsByYears({
       ))}
     </div>
   </div>
-</PageLayout>
+</BaseLayout>

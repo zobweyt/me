@@ -1,15 +1,13 @@
 ---
-import Container from "@/components/Container.astro";
-import Head from "@/components/Head.astro";
-import Header from "@/components/Header.astro";
+import { Head, Header } from "@/components/site";
+import { Container } from "@/components/ui";
 
 type Props = {
   title: string;
   description: string;
-  publishedAt?: Date;
 };
 
-const { title, description, publishedAt } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <html
@@ -19,7 +17,7 @@ const { title, description, publishedAt } = Astro.props;
   transition:animate="none"
 >
   <head>
-    <Head title={title} description={description} publishedAt={publishedAt} />
+    <Head title={title} description={description} />
   </head>
   <body
     class="flex min-h-dvh flex-col bg-body text-foreground overflow-x-clip touch-manipulation"

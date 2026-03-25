@@ -4,11 +4,11 @@ import {
   CONTENT_RECENT_PROJECTS_COUNT,
 } from "astro:env/server";
 import { cx } from "class-variance-authority";
-import Link from "@/components/Link.astro";
-import PostCard from "@/components/PostCard.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
-import Skills from "@/components/Skills";
-import PageLayout from "@/layouts/PageLayout.astro";
+import { PostCard } from "@/components/collections/blog";
+import { ProjectCard } from "@/components/collections/projects";
+import { Skills } from "@/components/collections/skills";
+import { Link } from "@/components/ui";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getBlogPosts } from "@/lib/collections/blog/content";
 import { getProjectsWithStats } from "@/lib/collections/projects/content";
 import { getSkills } from "@/lib/collections/skills/content";
@@ -36,7 +36,7 @@ const projects = await getProjectsWithStats({
 const skills = await getSkills();
 ---
 
-<PageLayout title={t("home.title")} description={t("home.description")}>
+<BaseLayout title={t("home.title")} description={t("home.description")}>
   <div class="space-y-6">
     <section>
       <hgroup>
@@ -82,4 +82,4 @@ const skills = await getSkills();
       </ul>
     </section>
   </div>
-</PageLayout>
+</BaseLayout>

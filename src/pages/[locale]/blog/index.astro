@@ -1,6 +1,6 @@
 ---
-import PostCard from "@/components/PostCard.astro";
-import PageLayout from "@/layouts/PageLayout.astro";
+import { PostCard } from "@/components/collections/blog";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getBlogPostsByYears } from "@/lib/collections/blog/content";
 import { LOCALES, getTranslator } from "@/lib/i18n";
 
@@ -17,7 +17,7 @@ const { posts, years } = await getBlogPostsByYears({
 });
 ---
 
-<PageLayout title={t("blog.title")} description={t("blog.description")}>
+<BaseLayout title={t("blog.title")} description={t("blog.description")}>
   <div class="space-y-10">
     <hgroup>
       <div class="flex justify-between items-center mb-3">
@@ -52,4 +52,4 @@ const { posts, years } = await getBlogPostsByYears({
       ))}
     </div>
   </div>
-</PageLayout>
+</BaseLayout>

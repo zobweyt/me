@@ -1,11 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import Container from "@/components/Container.astro";
-import Link from "@/components/Link.astro";
 import { getBlogPosts } from "@/lib/collections/blog/content";
 import { getProjects } from "@/lib/collections/projects/content";
 import { getSocials } from "@/lib/collections/socials/content";
 import { getTranslator } from "@/lib/i18n";
+import { Container, Link } from "../ui";
 import Search from "./Search";
 
 const t = getTranslator(Astro.currentLocale);
@@ -49,7 +48,6 @@ const props = Astro.props;
         href={`/${Astro.currentLocale}`}
         underline={false}
         class="font-semibold text-current/75 gap-2 group"
-        color="light-dark(#000, #fff)"
       >
         <Image
           src="https://avatars.githubusercontent.com/u/98274273?v=4"

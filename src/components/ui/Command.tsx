@@ -1,6 +1,6 @@
 import { cx } from "class-variance-authority";
 import { Command } from "cmdk-base";
-import * as Dialog from "@/components/ui/Dialog";
+import * as Dialog from "./Dialog";
 
 export const Root = ({
   children,

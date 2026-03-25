@@ -66,9 +66,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     react(),
-    unocss({
-      injectReset: true,
-    }),
+    unocss(),
     sitemap({
       i18n: {
         locales: SITEMAP_LOCALES,

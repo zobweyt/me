@@ -2,7 +2,7 @@ import { navigate } from "astro:transitions/client";
 import { cx } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
-import * as Command from "@/components/ui/Command";
+import { Command } from "@/components/ui";
 import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
 
 const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
@@ -236,7 +236,7 @@ export default function Search({
               query && (
                 <button
                   type="button"
-                  className="absolute right-0 flex size-9 cursor-pointer items-center justify-center text-current/50 @hover:text-current/75 focus-visible:text-current/75 active:!text-current"
+                  className="absolute right-0 flex size-9 cursor-pointer items-center justify-center text-current/50 @hover:text-current/75 focus-visible:text-current/75 active:!text-current motion-safe:(transition duration-300 ease-in-out)"
                   onClick={() => {
                     setQuery("");
                     inputRef.current?.focus();
@@ -248,7 +248,7 @@ export default function Search({
             }
           />
 
-          <Command.Close className="flex cursor-pointer items-center px-3 py-1.5 no-underline text-current/75 transition-opacity focus-visible:text-current @hover:text-current active:!text-current sm:hidden -me-1 -mt-0.5">
+          <Command.Close className="flex cursor-pointer motion-safe:(transition duration-300 ease-in-out) items-center px-3 py-1.5 no-underline text-current/75 focus-visible:text-current @hover:text-current active:!text-current sm:hidden -me-1 -mt-0.5">
             {t("search.footer.exit")}
           </Command.Close>
         </div>
