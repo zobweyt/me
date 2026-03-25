@@ -4,8 +4,7 @@ import { PostTags } from "@/components/collections/blog";
 import { components } from "@/components/mdx";
 import { Article, Link, Prose, Time } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import type { BlogPost } from "@/lib/collections/blog";
-import { getBlogPosts } from "@/lib/collections/blog/content";
+import { type BlogPost, getBlogPosts } from "@/lib/collections/blog";
 import { getTranslator } from "@/lib/i18n";
 
 export const prerender = true;

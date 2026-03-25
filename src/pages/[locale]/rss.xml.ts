@@ -1,5 +1,5 @@
 import rss from "@astrojs/rss";
-import { getBlogPosts } from "@/lib/collections/blog/content";
+import { getBlogPosts } from "@/lib/collections/blog";
 import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
 
 type Context = {

@@ -9,9 +9,9 @@ import { ProjectCard } from "@/components/collections/projects";
 import { Skills } from "@/components/collections/skills";
 import { Link } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getBlogPosts } from "@/lib/collections/blog/content";
-import { getProjectsWithStats } from "@/lib/collections/projects/content";
-import { getSkills } from "@/lib/collections/skills/content";
+import { getBlogPosts } from "@/lib/collections/blog";
+import { getProjectsWithStats } from "@/lib/collections/projects";
+import { getSkills } from "@/lib/collections/skills";
 import { getTranslator } from "@/lib/i18n";
 
 export const prerender = false;
