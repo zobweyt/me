@@ -175,22 +175,14 @@ export default function Search({
     {
       name: t("search.groups.locales.title"),
       items: [
-        ...LOCALES.map((locale) => ({
+        ...LOCALES.map((item) => ({
           icon: (
-            <img
-              src={LOCALES_FLAGS[locale]}
-              alt={locale}
-              width={24}
-              height={24}
-            />
+            <img src={LOCALES_FLAGS[item]} alt={item} width={24} height={24} />
           ),
-          name: t(`search.groups.locales.items.${locale}`),
-          href:
-            locale != null
-              ? url.pathname.replace(locale, locale)
-              : `/${locale}`,
+          name: t(`search.groups.locales.items.${item}`),
+          href: item != null ? url.pathname.replace(item, item) : `/${item}`,
           action: true,
-          keywords: [locale],
+          keywords: [item],
         })),
       ],
     },
