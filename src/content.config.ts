@@ -1,9 +1,6 @@
 import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
-import SKILL_CATEGORIES from "./content/skills/categories";
-import SKILL_GROUPS from "./content/skills/groups";
-import SKILL_IDS from "./content/skills/ids";
 import { LOCALES } from "./lib/i18n";
 
 const blog = defineCollection({
@@ -17,7 +14,7 @@ const blog = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: file("./src/content/projects/data.yaml"),
+  loader: file("./src/content/projects/data.json"),
   schema: ({ image }) =>
     z.object({
       id: z.string(),
@@ -38,19 +35,19 @@ const projects = defineCollection({
 });
 
 const skills = defineCollection({
-  loader: file("./src/content/skills/data.yaml"),
+  loader: file("./src/content/skills/data.json"),
   schema: z.object({
-    id: z.enum(SKILL_IDS),
+    id: z.string(),
     name: z.string(),
     href: z.string(),
     icon: z.string(),
-    group: z.enum(SKILL_GROUPS),
-    categories: z.array(z.enum(SKILL_CATEGORIES)),
+    group: z.string(),
+    categories: z.array(z.string()),
   }),
 });
 
 const socials = defineCollection({
-  loader: file("./src/content/socials/data.yaml"),
+  loader: file("./src/content/socials/data.json"),
   schema: z.object({
     id: z.string(),
     name: z.string(),

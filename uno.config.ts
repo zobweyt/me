@@ -31,11 +31,20 @@ export default defineConfig({
         "light-dark(oklch(62.7% 0.194 149.214), oklch(72.3% 0.219 149.579))",
     },
   },
+  content: {
+    pipeline: {
+      include: [
+        /\.([jt]sx?|mdx?|astro|html)($|\?)/,
+        "./src/**/*.{json,yaml,yml}",
+      ],
+    },
+    filesystem: ["./src/**/*.{json,yaml,yml}"],
+  },
   presets: [
     presetWind4({
       dark: {
-        light: '[data-theme="light"]',
-        dark: '[data-theme="dark"]',
+        light: "[data-theme=light]",
+        dark: "[data-theme=dark]",
       },
     }),
     presetIcons(),
@@ -46,14 +55,4 @@ export default defineConfig({
     presetObjectCompletion(),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
-
-  content: {
-    pipeline: {
-      include: [
-        /\.([jt]sx?|mdx?|astro|html)($|\?)/,
-        "./src/**/*.{json,yaml,yml}",
-      ],
-    },
-    filesystem: ["./src/**/*.{json,yaml,yml}"],
-  },
 });

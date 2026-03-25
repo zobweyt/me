@@ -1,14 +1,13 @@
 import { getCollection } from "astro:content";
-import ids from "@/content/skills/ids";
+import SKILLS_DATA from "@/content/skills/data.json";
 
 export const getSkills = async () => {
   const skills = await getCollection("skills");
+  const order = Object.fromEntries(
+    SKILLS_DATA.map((skill, i) => [skill.id, i]),
+  );
 
-  return skills.sort((a, b) => {
-    const getOrder = (id: string) => {
-      const index = ids.indexOf(id as (typeof ids)[number]);
-      return index === -1 ? Infinity : index;
-    };
-    return getOrder(a.id) - getOrder(b.id);
-  });
+  return skills.sort(
+    (a, b) => (order[a.id] ?? Infinity) - (order[b.id] ?? Infinity),
+  );
 };

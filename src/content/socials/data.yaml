@@ -1,9 +1,0 @@
-- id: telegram
-  name: Telegram
-  href: https://t.me/zobweyt
-  icon: i-logos:telegram
-
-- id: github
-  name: GitHub
-  href: https://github.com/zobweyt
-  icon: i-logos:github-icon dark:invert

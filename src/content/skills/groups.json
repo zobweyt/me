@@ -1,0 +1,112 @@
+[
+  {
+    "id": "languages",
+    "i18n": {
+      "en": {
+        "name": "Languages"
+      },
+      "ru": {
+        "name": "Языки"
+      }
+    }
+  },
+  {
+    "id": "frameworks",
+    "i18n": {
+      "en": {
+        "name": "Frameworks"
+      },
+      "ru": {
+        "name": "Фреймворки"
+      }
+    }
+  },
+  {
+    "id": "styling",
+    "i18n": {
+      "en": {
+        "name": "Styling"
+      },
+      "ru": {
+        "name": "Стилизация"
+      }
+    }
+  },
+  {
+    "id": "libraries",
+    "i18n": {
+      "en": {
+        "name": "Libraries"
+      },
+      "ru": {
+        "name": "Библиотеки"
+      }
+    }
+  },
+  {
+    "id": "storage",
+    "i18n": {
+      "en": {
+        "name": "Storage"
+      },
+      "ru": {
+        "name": "Хранилище"
+      }
+    }
+  },
+  {
+    "id": "infrastructure",
+    "i18n": {
+      "en": {
+        "name": "Infrastructure"
+      },
+      "ru": {
+        "name": "Инфраструктура"
+      }
+    }
+  },
+  {
+    "id": "apps",
+    "i18n": {
+      "en": {
+        "name": "Apps"
+      },
+      "ru": {
+        "name": "Приложения"
+      }
+    }
+  },
+  {
+    "id": "docs",
+    "i18n": {
+      "en": {
+        "name": "Docs"
+      },
+      "ru": {
+        "name": "Документация"
+      }
+    }
+  },
+  {
+    "id": "testing",
+    "i18n": {
+      "en": {
+        "name": "Testing"
+      },
+      "ru": {
+        "name": "Тестирование"
+      }
+    }
+  },
+  {
+    "id": "monitoring",
+    "i18n": {
+      "en": {
+        "name": "Monitoring"
+      },
+      "ru": {
+        "name": "Мониторинг"
+      }
+    }
+  }
+]

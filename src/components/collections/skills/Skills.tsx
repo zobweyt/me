@@ -1,22 +1,21 @@
 import { Tabs } from "@base-ui/react/tabs";
 import { cx } from "class-variance-authority";
 import { useMemo, useState } from "react";
-import SKILL_CATEGORIES from "@/content/skills/categories";
-import SKILL_GROUPS from "@/content/skills/groups";
-import type { Skill, SkillCategory } from "@/lib/collections/skills";
-import { getTranslator } from "@/lib/i18n";
+import SKILLS_CATEGORIES from "@/content/skills/categories.json";
+import SKILLS_GROUPS from "@/content/skills/groups.json";
+import type { Skill } from "@/lib/collections/skills";
 
 export default function Skills({
   skills,
-  currentLocale,
+  locale,
 }: {
   skills: Skill[];
-  currentLocale: string | undefined;
+  locale: string | undefined;
 }) {
-  const t = getTranslator(currentLocale);
-  const [selectedCategory, setSelectedCategory] =
-    useState<SkillCategory>("primary");
-  const [focusSource, setFocusSource] = useState<"mouse" | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState(
+    SKILLS_CATEGORIES[0].id,
+  );
+  const [tabFocusSource, setTabFocusSource] = useState<"mouse" | null>(null);
 
   const groupedSkills = useMemo(() => {
     const isArchiveCategory = selectedCategory === "archive";
@@ -26,19 +25,22 @@ export default function Skills({
     if (isGlobalCategory) {
       const groups: Record<string, typeof skills> = {};
 
-      SKILL_CATEGORIES.forEach((category) => {
-        if (category === "primary" || category === "archive") return;
+      SKILLS_CATEGORIES.forEach((category) => {
+        if (category.id === "primary" || category.id === "archive") return;
 
-        const skillsInCategory = skills.filter((s) => {
-          const hasSelected = s.data.categories.includes(selectedCategory);
-          const hasCurrentCategory = s.data.categories.includes(category);
+        const skillsInCategory = skills.filter((skill) => {
+          const hasSelected = skill.data.categories.includes(selectedCategory);
+          const hasCurrentCategory = skill.data.categories.includes(
+            category.id,
+          );
           const isHiddenArchive =
-            !isArchiveCategory && s.data.categories.includes("archive");
+            !isArchiveCategory && skill.data.categories.includes("archive");
           return hasSelected && hasCurrentCategory && !isHiddenArchive;
         });
 
         if (skillsInCategory.length > 0) {
-          groups[t(`skills.category.${category}`)] = skillsInCategory;
+          groups[category.i18n[locale as keyof typeof category.i18n].name] =
+            skillsInCategory;
         }
       });
 
@@ -53,33 +55,36 @@ export default function Skills({
 
     const orderedGroups: Record<string, typeof skills> = {};
 
-    SKILL_GROUPS.forEach((groupKey) => {
-      const skillsInGroup = filtered.filter((s) => s.data.group === groupKey);
+    SKILLS_GROUPS.forEach((group) => {
+      const skillsInGroup = filtered.filter(
+        (skill) => skill.data.group === group.id,
+      );
       if (skillsInGroup.length > 0) {
-        orderedGroups[t(`skills.group.${groupKey}`)] = skillsInGroup;
+        orderedGroups[group.i18n[locale as keyof typeof group.i18n].name] =
+          skillsInGroup;
       }
     });
 
     return orderedGroups;
-  }, [skills, selectedCategory, t]);
+  }, [skills, locale, selectedCategory]);
 
   return (
     <Tabs.Root value={selectedCategory} onValueChange={setSelectedCategory}>
       <Tabs.List className="relative z-0 flex gap-1.5 overflow-x-auto [scrollbar-width:none] max-sm:-mx-4 max-sm:px-4 scroll-smooth">
-        {SKILL_CATEGORIES.map((category) => (
+        {SKILLS_CATEGORIES.map((category) => (
           <Tabs.Tab
-            key={category}
-            value={category}
-            onMouseDown={() => setFocusSource("mouse")}
+            key={category.id}
+            value={category.id}
+            onMouseDown={() => setTabFocusSource("mouse")}
             onFocus={(event) => {
-              if (focusSource !== "mouse") {
+              if (tabFocusSource !== "mouse") {
                 event.currentTarget.scrollIntoView({
                   behavior: "smooth",
                   block: "nearest",
                   inline: "center",
                 });
               }
-              setFocusSource(null);
+              setTabFocusSource(null);
             }}
             onClick={(event) => {
               event.currentTarget.scrollIntoView({
@@ -90,7 +95,7 @@ export default function Skills({
             }}
             className="flex cursor-pointer items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:bg-foreground/15 hover:active:bg-foreground/15 rounded-full outline-hidden select-none focus-visible:ring-foreground ring ring-inset ring-transparent motion-safe:transition data-[active]:focus-visible:opacity-75 data-[active]:(text-body! bg-foreground!)"
           >
-            {t(`skills.category.${category}`)}
+            {category.i18n[locale as keyof typeof category.i18n].name}
           </Tabs.Tab>
         ))}
       </Tabs.List>
@@ -100,10 +105,10 @@ export default function Skills({
         tabIndex={-1}
         className="grid grid-cols-2 gap-4 mt-4"
       >
-        {Object.entries(groupedSkills).map(([groupName, skills]) => (
-          <section key={groupName}>
+        {Object.entries(groupedSkills).map(([group, skills]) => (
+          <section key={group}>
             <h3 className="text-xs font-medium uppercase tracking-wider text-current/50 mb-1.5">
-              {groupName}
+              {group}
             </h3>
             <ul className="flex flex-wrap gap-2">
               {skills?.map((skill) => (

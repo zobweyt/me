@@ -1,2 +1,2 @@
 export { getSkills } from "./content";
-export type { Skill, SkillCategory, SkillGroup } from "./types";
+export type { Skill } from "./types";

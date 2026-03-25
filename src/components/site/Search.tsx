@@ -23,7 +23,7 @@ export default function Search({
   className,
   url,
   site,
-  currentLocale,
+  locale,
   ...props
 }: {
   posts: {
@@ -48,9 +48,9 @@ export default function Search({
   }[];
   url: URL;
   site: URL | undefined;
-  currentLocale: string | undefined;
+  locale: string | undefined;
 } & React.ComponentProps<typeof Command.Trigger>) {
-  const t = getTranslator(currentLocale);
+  const t = getTranslator(locale);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -90,21 +90,21 @@ export default function Search({
             <span className="i-f7:house shrink-0 text-2xl text-current/50" />
           ),
           name: t("search.groups.pages.items.home"),
-          href: `/${currentLocale}`,
+          href: `/${locale}`,
         },
         {
           icon: (
             <span className="i-f7:tray-full shrink-0 text-2xl text-current/50" />
           ),
           name: t("search.groups.pages.items.blog"),
-          href: `/${currentLocale}/blog`,
+          href: `/${locale}/blog`,
         },
         {
           icon: (
             <span className="i-f7:briefcase shrink-0 text-2xl text-current/50" />
           ),
           name: t("search.groups.pages.items.projects"),
-          href: `/${currentLocale}/projects`,
+          href: `/${locale}/projects`,
         },
       ],
     },
@@ -119,7 +119,7 @@ export default function Search({
           ...(post.tags ?? []),
           ...post.description.replace(".", "").split(" "),
         ],
-        href: `/${currentLocale}/blog/${post.id.split("/")[1]}`,
+        href: `/${locale}/blog/${post.id.split("/")[1]}`,
       })),
     },
     {
@@ -186,8 +186,8 @@ export default function Search({
           ),
           name: t(`search.groups.locales.items.${locale}`),
           href:
-            currentLocale != null
-              ? url.pathname.replace(currentLocale, locale)
+            locale != null
+              ? url.pathname.replace(locale, locale)
               : `/${locale}`,
           action: true,
           keywords: [locale],
@@ -292,7 +292,7 @@ export default function Search({
                       autoEscape
                       searchWords={[query]}
                       textToHighlight={item.href
-                        .replace(new RegExp(`^/${currentLocale}`), "")
+                        .replace(new RegExp(`^/${locale}`), "")
                         .replace("https://", "")
                         .replace(/\/+$/, "")}
                       className="min-w-0 truncate text-current/50"

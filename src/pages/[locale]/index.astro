@@ -47,7 +47,7 @@ const skills = await getSkills();
 
     <section>
       <h2 class="text-lg font-semibold mb-1">{t("skills.title")}</h2>
-      <Skills client:idle skills={skills} currentLocale={Astro.currentLocale} />
+      <Skills client:idle skills={skills} locale={Astro.currentLocale} />
     </section>
 
     <section class="space-y-2">

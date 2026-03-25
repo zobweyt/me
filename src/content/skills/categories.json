@@ -1,0 +1,79 @@
+[
+  {
+    "id": "primary",
+    "i18n": {
+      "en": {
+        "name": "Primary"
+      },
+      "ru": {
+        "name": "Основное"
+      }
+    }
+  },
+  {
+    "id": "frontend",
+    "i18n": {
+      "en": {
+        "name": "Frontend"
+      },
+      "ru": {
+        "name": "Фронтенд"
+      }
+    }
+  },
+  {
+    "id": "backend",
+    "i18n": {
+      "en": {
+        "name": "Backend"
+      },
+      "ru": {
+        "name": "Бэкенд"
+      }
+    }
+  },
+  {
+    "id": "environment",
+    "i18n": {
+      "en": {
+        "name": "Environment"
+      },
+      "ru": {
+        "name": "Окружение"
+      }
+    }
+  },
+  {
+    "id": "learning",
+    "i18n": {
+      "en": {
+        "name": "Learning"
+      },
+      "ru": {
+        "name": "Изучаю"
+      }
+    }
+  },
+  {
+    "id": "experiment",
+    "i18n": {
+      "en": {
+        "name": "Experimenting"
+      },
+      "ru": {
+        "name": "Экспериментирую"
+      }
+    }
+  },
+  {
+    "id": "archive",
+    "i18n": {
+      "en": {
+        "name": "Archive"
+      },
+      "ru": {
+        "name": "Архив"
+      }
+    }
+  }
+]
