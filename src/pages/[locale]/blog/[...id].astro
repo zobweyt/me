@@ -14,21 +14,21 @@ export async function getStaticPaths() {
   const posts = await getBlogPosts();
 
   return posts.map((post) => {
-    const locale = post.id.split("/")[0];
-    const id = `${post.id.replace(`${locale}/`, "")}`;
+    const [locale, id] = post.id.split("/");
 
     return {
       params: { locale, id },
-      props: post,
+      props: { post },
     };
   });
 }
 
-type Props = BlogPost;
+interface Props {
+  post: BlogPost;
+}
 
+const { post } = Astro.props;
 const t = getTranslator(Astro.currentLocale);
-
-const post = Astro.props;
 const { Content } = await render(post);
 ---
 
