@@ -1,5 +1,6 @@
 import type { CollectionEntry } from "astro:content";
-import type { SKILL_CATEGORIES, SKILL_GROUPS } from "./constants";
+import type SKILL_CATEGORIES from "@/content/skills/categories";
+import type SKILL_GROUPS from "@/content/skills/groups";
 
 export type Skill = CollectionEntry<"skills">;
 

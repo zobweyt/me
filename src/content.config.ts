@@ -1,10 +1,9 @@
 import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
-import {
-  SKILL_CATEGORIES,
-  SKILL_GROUPS,
-} from "./lib/collections/skills/constants";
+import SKILL_CATEGORIES from "./content/skills/categories";
+import SKILL_GROUPS from "./content/skills/groups";
+import SKILL_IDS from "./content/skills/ids";
 import { LOCALES } from "./lib/i18n";
 
 const blog = defineCollection({
@@ -41,11 +40,10 @@ const projects = defineCollection({
 const skills = defineCollection({
   loader: file("./src/content/skills/data.yaml"),
   schema: z.object({
-    id: z.string(),
+    id: z.enum(SKILL_IDS),
     name: z.string(),
     href: z.string(),
     icon: z.string(),
-    order: z.number(),
     group: z.enum(SKILL_GROUPS),
     categories: z.array(z.enum(SKILL_CATEGORIES)),
   }),

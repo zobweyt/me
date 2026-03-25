@@ -1,11 +1,9 @@
 import { Tabs } from "@base-ui/react/tabs";
 import { cx } from "class-variance-authority";
 import { useMemo, useState } from "react";
+import SKILL_CATEGORIES from "@/content/skills/categories";
+import SKILL_GROUPS from "@/content/skills/groups";
 import type { Skill, SkillCategory } from "@/lib/collections/skills";
-import {
-  SKILL_CATEGORIES,
-  SKILL_GROUPS,
-} from "@/lib/collections/skills/constants";
 import { getTranslator } from "@/lib/i18n";
 
 export default function Skills({
@@ -25,36 +23,32 @@ export default function Skills({
     const isGlobalCategory =
       selectedCategory === "primary" || isArchiveCategory;
 
-    const sortedSkills = [...skills].sort(
-      (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0),
-    );
-
     if (isGlobalCategory) {
       const groups: Record<string, typeof skills> = {};
 
-      SKILL_CATEGORIES.forEach((cat) => {
-        if (cat === "primary" || cat === "archive") return;
+      SKILL_CATEGORIES.forEach((category) => {
+        if (category === "primary" || category === "archive") return;
 
-        const skillsInCat = sortedSkills.filter((s) => {
+        const skillsInCategory = skills.filter((s) => {
           const hasSelected = s.data.categories.includes(selectedCategory);
-          const hasCurrentCat = s.data.categories.includes(cat);
+          const hasCurrentCategory = s.data.categories.includes(category);
           const isHiddenArchive =
             !isArchiveCategory && s.data.categories.includes("archive");
-          return hasSelected && hasCurrentCat && !isHiddenArchive;
+          return hasSelected && hasCurrentCategory && !isHiddenArchive;
         });
 
-        if (skillsInCat.length > 0) {
-          groups[t(`skills.category.${cat}`)] = skillsInCat;
+        if (skillsInCategory.length > 0) {
+          groups[t(`skills.category.${category}`)] = skillsInCategory;
         }
       });
 
       return groups;
     }
 
-    const filtered = sortedSkills.filter(
-      (s) =>
-        s.data.categories.includes(selectedCategory) &&
-        !s.data.categories.includes("archive"),
+    const filtered = skills.filter(
+      (skill) =>
+        skill.data.categories.includes(selectedCategory) &&
+        !skill.data.categories.includes("archive"),
     );
 
     const orderedGroups: Record<string, typeof skills> = {};

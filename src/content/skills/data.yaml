@@ -1,171 +1,7 @@
-- id: typescript
-  name: TypeScript
-  href: https://www.typescriptlang.org
-  icon: i-skill-icons:typescript
-  order: 1
-  group: languages
-  categories:
-    - primary
-    - frontend
-    - backend
-
-- id: javascript
-  name: JavaScript
-  href: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-  icon: i-skill-icons:javascript
-  order: 1
-  group: languages
-  categories:
-    - primary
-    - frontend
-    - backend
-
-- id: elysiajs
-  name: ElysiaJS
-  href: https://elysiajs.com
-  icon: i-skill-icons:elysia-light dark:i-skill-icons:elysia-dark
-  order: 4
-  group: frameworks
-  categories:
-    - primary
-    - backend
-
-- id: html
-  name: HTML
-  href: https://developer.mozilla.org/en-US/docs/Web/HTML
-  icon: i-skill-icons:html
-  order: 0
-  group: languages
-  categories:
-    - primary
-    - frontend
-
-- id: css
-  name: CSS
-  href: https://developer.mozilla.org/en-US/docs/Web/CSS
-  icon: i-skill-icons:css
-  order: 0
-  group: languages
-  categories:
-    - primary
-    - frontend
-
-- id: scss
-  name: SCSS
-  href: https://sass-lang.com
-  icon: i-skill-icons:sass
-  order: 2
-  group: styling
-  categories:
-    - frontend
-
-- id: less
-  name: Less
-  href: https://lesscss.org
-  icon: i-skill-icons:less-dark
-  order: 5
-  group: styling
-  categories:
-    - frontend
-
-- id: tailwindcss
-  name: Tailwind CSS
-  href: https://tailwindcss.com
-  icon: i-skill-icons:tailwindcss-light dark:i-skill-icons:tailwindcss-dark
-  order: 3
-  group: styling
-  categories:
-    - primary
-    - frontend
-
-- id: react
-  name: React
-  href: https://reactjs.org
-  icon: i-skill-icons:react-light dark:i-skill-icons:react-dark
-  order: 2
-  group: frameworks
-  categories:
-    - primary
-    - frontend
-
-- id: solid
-  name: SolidJS
-  href: https://www.solidjs.com
-  icon: i-skill-icons:solidjs-light dark:i-skill-icons:solidjs-dark
-  order: 2
-  group: frameworks
-  categories:
-    - primary
-    - frontend
-
-- id: nextjs
-  name: Next.js
-  href: https://nextjs.org
-  icon: i-skill-icons:nextjs-light dark:i-skill-icons:nextjs-dark
-  order: 2
-  group: frameworks
-  categories:
-    - frontend
-
-- id: astro
-  name: Astro
-  href: https://astro.build
-  icon: i-skill-icons:astro
-  order: 4
-  group: frameworks
-  categories:
-    - frontend
-
-- id: unocss
-  name: UnoCSS
-  href: https://unocss.dev
-  icon: i-logos:unocss
-  order: 3
-  group: styling
-  categories:
-    - frontend
-
-- id: zod
-  name: Zod
-  href: https://github.com/colinhacks/zod
-  icon: i-logos:zod
-  order: 2
-  group: libraries
-  categories:
-    - frontend
-
-- id: vite
-  name: Vite
-  href: https://vitejs.dev
-  icon: i-skill-icons:vite-light dark:i-skill-icons:vite-dark
-  order: 1
-  group: libraries
-  categories:
-    - frontend
-
-- id: vitest
-  name: Vitest
-  href: https://vitest.dev
-  icon: i-skill-icons:vitest-light dark:i-skill-icons:vitest-dark
-  order: 3
-  group: testing
-  categories:
-    - frontend
-
-- id: playwright
-  name: Playwright
-  href: https://playwright.dev
-  icon: i-logos:playwright
-  order: 2
-  group: testing
-  categories:
-    - frontend
-
 - id: python
   name: Python
   href: https://www.python.org
   icon: i-skill-icons:python-light dark:i-skill-icons:python-dark
-  order: 3
   group: languages
   categories:
     - primary
@@ -175,18 +11,153 @@
   name: FastAPI
   href: https://fastapi.tiangolo.com
   icon: i-skill-icons:fastapi
-  order: 3
   group: frameworks
   categories:
     - primary
     - backend
 
-- id: postgres
-  name: PostgreSQL
-  href: https://www.postgresql.org
-  icon: i-skill-icons:postgresql-light dark:i-skill-icons:postgresql-dark
-  order: 4
-  group: storage
+- id: html
+  name: HTML
+  href: https://developer.mozilla.org/en-US/docs/Web/HTML
+  icon: i-skill-icons:html
+  group: languages
+  categories:
+    - primary
+    - frontend
+
+- id: css
+  name: CSS
+  href: https://developer.mozilla.org/en-US/docs/Web/CSS
+  icon: i-skill-icons:css
+  group: languages
+  categories:
+    - primary
+    - frontend
+
+- id: scss
+  name: SCSS
+  href: https://sass-lang.com
+  icon: i-skill-icons:sass
+  group: styling
+  categories:
+    - frontend
+
+- id: less
+  name: Less
+  href: https://lesscss.org
+  icon: i-skill-icons:less-dark
+  group: styling
+  categories:
+    - frontend
+
+- id: javascript
+  name: JavaScript
+  href: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  icon: i-skill-icons:javascript
+  group: languages
+  categories:
+    - primary
+    - frontend
+    - backend
+
+- id: typescript
+  name: TypeScript
+  href: https://www.typescriptlang.org
+  icon: i-skill-icons:typescript
+  group: languages
+  categories:
+    - primary
+    - frontend
+    - backend
+
+- id: solid
+  name: SolidJS
+  href: https://www.solidjs.com
+  icon: i-skill-icons:solidjs-light dark:i-skill-icons:solidjs-dark
+  group: frameworks
+  categories:
+    - primary
+    - frontend
+
+- id: react
+  name: React
+  href: https://reactjs.org
+  icon: i-skill-icons:react-light dark:i-skill-icons:react-dark
+  group: frameworks
+  categories:
+    - primary
+    - frontend
+
+- id: tailwindcss
+  name: Tailwind CSS
+  href: https://tailwindcss.com
+  icon: i-skill-icons:tailwindcss-light dark:i-skill-icons:tailwindcss-dark
+  group: styling
+  categories:
+    - primary
+    - frontend
+
+- id: unocss
+  name: UnoCSS
+  href: https://unocss.dev
+  icon: i-logos:unocss
+  group: styling
+  categories:
+    - frontend
+
+- id: nextjs
+  name: Next.js
+  href: https://nextjs.org
+  icon: i-skill-icons:nextjs-light dark:i-skill-icons:nextjs-dark
+  group: frameworks
+  categories:
+    - frontend
+
+- id: astro
+  name: Astro
+  href: https://astro.build
+  icon: i-skill-icons:astro
+  group: frameworks
+  categories:
+    - frontend
+
+- id: vite
+  name: Vite
+  href: https://vitejs.dev
+  icon: i-skill-icons:vite-light dark:i-skill-icons:vite-dark
+  group: libraries
+  categories:
+    - frontend
+
+- id: vitest
+  name: Vitest
+  href: https://vitest.dev
+  icon: i-skill-icons:vitest-light dark:i-skill-icons:vitest-dark
+  group: testing
+  categories:
+    - frontend
+
+- id: playwright
+  name: Playwright
+  href: https://playwright.dev
+  icon: i-logos:playwright
+  group: testing
+  categories:
+    - frontend
+
+- id: zod
+  name: Zod
+  href: https://github.com/colinhacks/zod
+  icon: i-logos:zod
+  group: libraries
+  categories:
+    - frontend
+
+- id: elysiajs
+  name: ElysiaJS
+  href: https://elysiajs.com
+  icon: i-skill-icons:elysia-light dark:i-skill-icons:elysia-dark
+  group: frameworks
   categories:
     - primary
     - backend
@@ -195,16 +166,23 @@
   name: SQLite
   href: https://www.sqlite.org
   icon: i-skill-icons:sqlite
-  order: 6
   group: storage
   categories:
+    - backend
+
+- id: postgres
+  name: PostgreSQL
+  href: https://www.postgresql.org
+  icon: i-skill-icons:postgresql-light dark:i-skill-icons:postgresql-dark
+  group: storage
+  categories:
+    - primary
     - backend
 
 - id: redis
   name: Redis
   href: https://redis.io
   icon: i-skill-icons:redis-light dark:i-skill-icons:redis-dark
-  order: 4
   group: storage
   categories:
     - primary
@@ -214,7 +192,6 @@
   name: Git
   href: https://git-scm.com
   icon: i-skill-icons:git
-  order: 1
   group: infrastructure
   categories:
     - environment
@@ -223,16 +200,14 @@
   name: Docker
   href: https://www.docker.com
   icon: i-skill-icons:docker
-  order: 3
   group: infrastructure
   categories:
     - environment
 
 - id: nginx
   name: NGINX
-  href: https://www.nginx.com
+  href: https://nginx.com
   icon: i-skill-icons:nginx
-  order: 5
   group: infrastructure
   categories:
     - environment
@@ -241,89 +216,7 @@
   name: Nix
   href: https://nixos.org
   icon: i-skill-icons:nix-light dark:i-skill-icons:nix-dark
-  order: 6
   group: infrastructure
-  categories:
-    - environment
-
-- id: vscode
-  name: Visual Studio Code
-  href: https://code.visualstudio.com
-  icon: i-skill-icons:vscode-light dark:i-skill-icons:vscode-dark
-  order: 1
-  group: apps
-  categories:
-    - environment
-
-- id: nvim
-  name: Neovim
-  href: https://neovim.io
-  icon: i-skill-icons:neovim-light dark:i-skill-icons:neovim-dark
-  order: 2
-  group: apps
-  categories:
-    - environment
-
-- id: webstorm
-  name: Webstorm
-  href: https://www.jetbrains.com/webstorm
-  icon: i-skill-icons:webstorm-light dark:i-skill-icons:webstorm-dark
-  order: 2
-  group: apps
-  categories:
-    - environment
-
-- id: obsidian
-  name: Obsidian
-  href: https://obsidian.md
-  icon: i-skill-icons:obsidian-light dark:i-skill-icons:obsidian-dark
-  order: 3
-  group: apps
-  categories:
-    - environment
-
-- id: figma
-  name: Figma
-  href: https://www.figma.com
-  icon: i-skill-icons:figma-light dark:i-skill-icons:figma-dark
-  order: 3
-  group: apps
-  categories:
-    - environment
-
-- id: gitlab
-  name: GitLab
-  href: https://about.gitlab.com
-  icon: i-skill-icons:gitlab-light dark:i-skill-icons:gitlab-dark
-  order: 4
-  group: apps
-  categories:
-    - environment
-
-- id: github
-  name: GitHub
-  href: https://github.com
-  icon: i-skill-icons:github-light dark:i-skill-icons:github-dark
-  order: 4
-  group: apps
-  categories:
-    - environment
-
-- id: grafana
-  name: Grafana
-  href: https://grafana.com
-  icon: i-skill-icons:grafana-light dark:i-skill-icons:grafana-dark
-  order: 6
-  group: monitoring
-  categories:
-    - environment
-
-- id: prometheus
-  name: Prometheus
-  href: https://prometheus.io
-  icon: i-skill-icons:prometheus
-  order: 6
-  group: monitoring
   categories:
     - environment
 
@@ -331,7 +224,6 @@
   name: Markdown
   href: https://www.markdownguide.org
   icon: i-skill-icons:markdown-light dark:i-skill-icons:markdown-dark
-  order: 1
   group: docs
   categories:
     - environment
@@ -340,8 +232,79 @@
   name: LaTeX
   href: https://www.latex-project.org
   icon: i-skill-icons:latex-light dark:i-skill-icons:latex-dark
-  order: 5
   group: docs
+  categories:
+    - environment
+
+- id: grafana
+  name: Grafana
+  href: https://grafana.com
+  icon: i-skill-icons:grafana-light dark:i-skill-icons:grafana-dark
+  group: monitoring
+  categories:
+    - environment
+
+- id: prometheus
+  name: Prometheus
+  href: https://prometheus.io
+  icon: i-skill-icons:prometheus
+  group: monitoring
+  categories:
+    - environment
+
+- id: vscode
+  name: Visual Studio Code
+  href: https://code.visualstudio.com
+  icon: i-skill-icons:vscode-light dark:i-skill-icons:vscode-dark
+  group: apps
+  categories:
+    - environment
+
+- id: nvim
+  name: Neovim
+  href: https://neovim.io
+  icon: i-skill-icons:neovim-light dark:i-skill-icons:neovim-dark
+  group: apps
+  categories:
+    - environment
+
+- id: webstorm
+  name: Webstorm
+  href: https://www.jetbrains.com/webstorm
+  icon: i-skill-icons:webstorm-light dark:i-skill-icons:webstorm-dark
+  group: apps
+  categories:
+    - environment
+
+- id: figma
+  name: Figma
+  href: https://figma.com
+  icon: i-skill-icons:figma-light dark:i-skill-icons:figma-dark
+  group: apps
+  categories:
+    - environment
+
+- id: obsidian
+  name: Obsidian
+  href: https://obsidian.md
+  icon: i-skill-icons:obsidian-light dark:i-skill-icons:obsidian-dark
+  group: apps
+  categories:
+    - environment
+
+- id: github
+  name: GitHub
+  href: https://github.com
+  icon: i-skill-icons:github-light dark:i-skill-icons:github-dark
+  group: apps
+  categories:
+    - environment
+
+- id: gitlab
+  name: GitLab
+  href: https://about.gitlab.com
+  icon: i-skill-icons:gitlab-light dark:i-skill-icons:gitlab-dark
+  group: apps
   categories:
     - environment
 
@@ -349,7 +312,6 @@
   name: Angular
   href: https://angular.io
   icon: i-skill-icons:angular-light dark:i-skill-icons:angular-dark
-  order: 4
   group: frameworks
   categories:
     - learning
@@ -358,7 +320,6 @@
   name: Go
   href: https://go.dev
   icon: i-skill-icons:golang
-  order: 5
   group: languages
   categories:
     - learning
@@ -367,7 +328,6 @@
   name: Rust
   href: https://www.rust-lang.org
   icon: i-skill-icons:rust
-  order: 5
   group: languages
   categories:
     - experiment
@@ -376,7 +336,6 @@
   name: Svelte
   href: https://svelte.dev
   icon: i-skill-icons:svelte
-  order: 3
   group: frameworks
   categories:
     - experiment
@@ -385,7 +344,6 @@
   name: Qwik
   href: https://qwik.builder.io
   icon: i-logos:qwik-icon
-  order: 6
   group: frameworks
   categories:
     - experiment
@@ -394,7 +352,6 @@
   name: C#
   href: https://learn.microsoft.com/dotnet/csharp
   icon: i-skill-icons:cs
-  order: 6
   group: languages
   categories:
     - archive
@@ -404,7 +361,6 @@
   name: Django
   href: https://www.djangoproject.com
   icon: i-skill-icons:django
-  order: 6
   group: frameworks
   categories:
     - archive
