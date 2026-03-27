@@ -1,5 +1,6 @@
 ---
 import { ProjectCard } from "@/components/collections/projects";
+import { Section } from "@/components/site";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getProjectsWithStatsByYears } from "@/lib/collections/projects";
 import { getTranslator } from "@/lib/i18n";
@@ -19,16 +20,14 @@ const { projects, years } = await getProjectsWithStatsByYears({
 ---
 
 <BaseLayout title={t("projects.title")} description={t("projects.description")}>
-  <div class="space-y-10">
-    <hgroup>
-      <h1 class="mb-3 text-3xl font-semibold">{t("projects.title")}</h1>
-      <p class="font-serif text-pretty">{t("projects.description")}</p>
-    </hgroup>
-
-    <div class="space-y-4">
-      {years.map((year) => (
+  <Section pattern="grid">
+    <h1 class="mb-3 text-3xl font-semibold">{t("projects.title")}</h1>
+    <p class="font-serif text-pretty">{t("projects.description")}</p>
+  </Section>
+  <Section class="space-y-4">
+    {years.map((year) => (
         <section>
-          <div class="sticky top-12 z-10 bg-body py-2 text-lg font-semibold sm:top-16">{year}</div>
+          <div class="py-2 text-lg font-semibold">{year}</div>
           <div>
             <ul class="flex flex-col gap-4">
               {projects[year].map((project) => (
@@ -40,6 +39,5 @@ const { projects, years } = await getProjectsWithStatsByYears({
           </div>
         </section>
       ))}
-    </div>
-  </div>
+  </Section>
 </BaseLayout>

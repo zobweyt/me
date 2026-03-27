@@ -65,6 +65,9 @@
       "includes": ["**/*.astro"],
       "linter": {
         "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "off"
+          },
           "style": {
             "useConst": "off",
             "useImportType": "off"

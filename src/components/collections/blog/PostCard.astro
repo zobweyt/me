@@ -29,13 +29,13 @@ const { entry } = Astro.props;
 >
   <div class={"flex grow flex-col flex-nowrap"}>
     <span
-      class="text-xl leading-normal font-semibold text-balance"
+      class="text-xl font-serif leading-normal font-semibold text-balance"
       transition:name={`post-${entry.id}-title`}
     >
       {entry.data.title}
     </span>
     <p
-      class={"mt-1 mb-2 font-serif text-current/75 first-letter:uppercase text-pretty"}
+      class={"mt-1 mb-2 text-current/75 first-letter:uppercase text-pretty"}
       transition:name={`post-${entry.id}-description`}
     >
       {entry.data.description}

@@ -1,6 +1,5 @@
 ---
 import { Head, Header } from "@/components/site";
-import { Container } from "@/components/ui";
 
 type Props = {
   title: string;
@@ -12,7 +11,7 @@ const { title, description } = Astro.props;
 
 <html
   lang={Astro.currentLocale}
-  class="scheme-light-dark [scrollbar-gutter:stable] scroll-smooth selection:bg-selection selection:text-selection-foreground [scrollbar-color:light-dark(theme('colors.neutral.400'),theme('colors.neutral.500'))_transparent]"
+  class="relative scheme-light-dark [scrollbar-gutter:stable] scroll-smooth selection:bg-selection selection:text-selection-foreground [scrollbar-color:light-dark(theme('colors.neutral.400'),theme('colors.neutral.500'))_transparent]"
   transition:name="root"
   transition:animate="none"
 >
@@ -22,9 +21,11 @@ const { title, description } = Astro.props;
   <body
     class="flex min-h-dvh flex-col bg-body text-foreground overflow-x-clip touch-manipulation"
   >
+    <div
+      class="absolute inset-0 -z-50 pointer-events-none bg-repeat bg-[size:180px] opacity-[0.035] dark:opacity-[0.012]"
+      style="background-image: url(/noise.webp);"
+    />
     <Header transition:name="header" transition:animate="none" />
-    <main class="grow pt-4 pb-8" transition:animate="fade">
-      <Container><slot /></Container>
-    </main>
+    <main class="grow flex flex-col" transition:animate="fade"><slot /></main>
   </body>
 </html>

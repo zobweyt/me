@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cx } from "class-variance-authority";
+import { Container } from "../ui";
+
+type Props = HTMLAttributes<"section"> & { pattern?: "grid" };
+
+const { class: className, pattern, ...props } = Astro.props;
+---
+
+<section class="group flex last:grow" {...props}>
+  <span
+    class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-r lg:border-r-0 border-foreground/5 border-b group-last:border-b-0"
+    transition:animate="none"
+  />
+  <span
+    class="hidden flex-1 border-x border-foreground/5 lg:block border-b group-last:border-b-0"
+    transition:animate="none"
+  />
+
+  <Container
+    class={cx("py-8 relative overflow-hidden flex flex-col min-w-0 w-full border-b border-foreground/5 group-last:border-b-0", className)}
+  >
+    {pattern === "grid" && (
+      <div
+        class="absolute inset-0 -z-10 pointer-events-none opacity-[0.1] dark:opacity-[0.05]"
+        style="background-image: linear-gradient(to right, var(--colors-foreground) 1px, transparent 1px), linear-gradient(var(--colors-foreground) 1px, transparent 1px); background-size: 20px 20px; mask-image: repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px), repeating-linear-gradient(black 0px, black 3px, transparent 3px, transparent 8px), radial-gradient(60% 60%, black 30%, transparent 70%); mask-composite: intersect; -webkit-mask-composite: source-in;"
+      />
+    )}
+
+    <slot />
+  </Container>
+
+  <span
+    class="hidden flex-1 border-x border-foreground/5 lg:block border-b group-last:border-b-0"
+    transition:animate="none"
+  />
+  <span
+    class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-l lg:border-l-0 border-foreground/5 border-b group-last:border-b-0"
+    transition:animate="none"
+  />
+</section>

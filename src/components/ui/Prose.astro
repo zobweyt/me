@@ -11,10 +11,10 @@ const { as: Element = "div", class: className, ...props } = Astro.props;
 
 <Element
   class={cx([
-    "prose prose-neutral dark:prose-invert",
-    "prose-p:font-serif",
-    "prose-li:font-serif",
+    "prose prose-zinc dark:prose-invert",
     "prose-code:(font-normal bg-surface text-foreground rounded-md px-1 py-0.5 before:hidden after:hidden)",
+    "prose-headings:(first:mt-0 font-serif)",
+    "prose-hr:border-foreground/5",
     className
   ])}
   {...props}

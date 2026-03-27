@@ -70,7 +70,7 @@ export default function Skills({
 
   return (
     <Tabs.Root value={selectedCategory} onValueChange={setSelectedCategory}>
-      <Tabs.List className="relative z-0 flex gap-1.5 overflow-x-auto [scrollbar-width:none] max-sm:-mx-4 max-sm:px-4 scroll-smooth">
+      <Tabs.List className="relative z-0 flex gap-1.5 overflow-x-auto [scrollbar-width:none] -mx-4 px-4 lg:-mx-8 lg:px-8 scroll-smooth">
         {SKILLS_CATEGORIES.map((category) => (
           <Tabs.Tab
             key={category.id}
@@ -103,14 +103,14 @@ export default function Skills({
         key={selectedCategory}
         value={selectedCategory}
         tabIndex={-1}
-        className="grid grid-cols-2 gap-4 mt-4"
+        className="grid grid-cols-2 gap-4 max-sm:gap-2 mt-4"
       >
         {Object.entries(groupedSkills).map(([group, skills]) => (
           <section key={group}>
             <h3 className="text-xs font-medium uppercase tracking-wider text-current/50 mb-1.5">
               {group}
             </h3>
-            <ul className="flex flex-wrap gap-2">
+            <ul className="flex flex-wrap gap-2 max-sm:gap-1">
               {skills?.map((skill) => (
                 <li key={skill.id}>
                   <a

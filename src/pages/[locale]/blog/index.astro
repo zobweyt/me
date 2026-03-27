@@ -1,5 +1,6 @@
 ---
 import { PostCard } from "@/components/collections/blog";
+import { Section } from "@/components/site";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getBlogPostsByYears } from "@/lib/collections/blog";
 import { LOCALES, getTranslator } from "@/lib/i18n";
@@ -18,38 +19,41 @@ const { posts, years } = await getBlogPostsByYears({
 ---
 
 <BaseLayout title={t("blog.title")} description={t("blog.description")}>
-  <div class="space-y-10">
-    <hgroup>
-      <div class="flex justify-between items-center mb-3">
-        <h1 class="text-3xl font-semibold" transition:name="blog-page-title">
-          {t("blog.title")}
-        </h1>
-        <a
-          href={`${Astro.site}${Astro.currentLocale}/rss.xml`}
-          class="flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border bg-surface/50 px-2.5 py-1.5 text-sm leading-none border-[#FF6600]/25 motion-safe:transition outline-none active:bg-surface @hover:bg-surface focus-visible:bg-surface text-[#FF6600]"
-        >
-          <span class="i-lucide:rss text-lg" />
-          RSS
-        </a>
-      </div>
-      <p class="font-serif text-pretty">{t("blog.description")}</p>
-    </hgroup>
+  <Section pattern="grid">
+    <div class="flex justify-between items-center mb-3">
+      <h1
+        class="text-3xl font-semibold font-serif"
+        transition:name="blog-page-title"
+      >
+        {t("blog.title")}
+      </h1>
+      <a
+        href={`${Astro.site}${Astro.currentLocale}/rss.xml`}
+        class="flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border bg-surface/50 px-2.5 py-1.5 text-sm leading-none border-[#FF6600]/25 motion-safe:transition outline-none active:bg-surface @hover:bg-surface focus-visible:bg-surface text-[#FF6600]"
+      >
+        <span class="i-lucide:rss text-lg" />
+        RSS
+      </a>
+    </div>
+    <p class="text-pretty">{t("blog.description")}</p>
+  </Section>
 
+  <Section>
     <div class="space-y-4">
       {years.map((year) => (
-        <section>
-          <div class="sticky top-12 z-10 bg-body py-2 text-lg font-semibold sm:top-16">{year}</div>
-          <div>
-            <ul class="flex flex-col gap-4">
-              {posts[year].map((post) => (
-                <li>
-                  <PostCard entry={post} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ))}
+          <section>
+            <div class="py-2 text-lg font-semibold">{year}</div>
+            <div>
+              <ul class="flex flex-col gap-4">
+                {posts[year].map((post) => (
+                  <li>
+                    <PostCard entry={post} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ))}
     </div>
-  </div>
+  </Section>
 </BaseLayout>

@@ -185,7 +185,7 @@ export default function Search({
             />
           ),
           name: t(`search.groups.locales.items.${locale}`),
-          href: `/${locale}`,
+          href: url.pathname.replace(/^\/[^/]+/, `/${locale}`),
           action: true,
           keywords: [locale],
         })),
@@ -282,7 +282,7 @@ export default function Search({
                     autoEscape
                     searchWords={[query]}
                     textToHighlight={item.name}
-                    highlightClassName="bg-yellow-400 rounded-sm"
+                    highlightClassName="bg-selection text-selection-foreground"
                   />
                   {item.action !== true && (
                     <Highlighter
@@ -293,7 +293,7 @@ export default function Search({
                         .replace("https://", "")
                         .replace(/\/+$/, "")}
                       className="min-w-0 truncate text-current/50"
-                      highlightClassName="bg-yellow-400 rounded-sm"
+                      highlightClassName="bg-selection text-selection-foreground"
                     />
                   )}
                 </Command.Item>

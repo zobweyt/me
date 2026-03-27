@@ -6,7 +6,11 @@ const { class: className, ...props } = Astro.props;
 ---
 
 <div class="article">
-  <Prose as="article" class={cx("article__content", className)} {...props}>
+  <Prose
+    as="article"
+    class={cx("article__content max-w-max", className)}
+    {...props}
+  >
     <slot />
   </Prose>
 </div>
