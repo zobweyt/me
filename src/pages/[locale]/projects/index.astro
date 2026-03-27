@@ -22,22 +22,24 @@ const { projects, years } = await getProjectsWithStatsByYears({
 <BaseLayout title={t("projects.title")} description={t("projects.description")}>
   <Section pattern="grid">
     <h1 class="mb-3 text-3xl font-semibold">{t("projects.title")}</h1>
-    <p class="font-serif text-pretty">{t("projects.description")}</p>
+    <p class="font-serif text-pretty text-current/75">
+      {t("projects.description")}
+    </p>
   </Section>
   <Section class="space-y-4">
     {years.map((year) => (
-        <section>
-          <div class="py-2 text-lg font-semibold">{year}</div>
-          <div>
-            <ul class="flex flex-col gap-4">
-              {projects[year].map((project) => (
-                <li>
-                  <ProjectCard entry={project} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ))}
+      <section>
+        <div class="py-2 text-lg font-semibold">{year}</div>
+        <div>
+          <ul class="flex flex-col gap-4">
+            {projects[year].map((project) => (
+              <li>
+                <ProjectCard project={project} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    ))}
   </Section>
 </BaseLayout>

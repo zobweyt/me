@@ -35,25 +35,25 @@ const { posts, years } = await getBlogPostsByYears({
         RSS
       </a>
     </div>
-    <p class="text-pretty">{t("blog.description")}</p>
+    <p class="text-pretty text-current/75">{t("blog.description")}</p>
   </Section>
 
   <Section>
     <div class="space-y-4">
       {years.map((year) => (
-          <section>
-            <div class="py-2 text-lg font-semibold">{year}</div>
-            <div>
-              <ul class="flex flex-col gap-4">
-                {posts[year].map((post) => (
-                  <li>
-                    <PostCard entry={post} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        ))}
+        <section>
+          <div class="py-2 text-lg font-semibold">{year}</div>
+          <div>
+            <ul class="flex flex-col gap-4">
+              {posts[year].map((post) => (
+                <li>
+                  <PostCard post={post} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ))}
     </div>
   </Section>
 </BaseLayout>

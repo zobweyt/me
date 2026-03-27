@@ -1,9 +1,11 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
 type Props = {
   date: Date;
   locales?: Intl.LocalesArgument;
   options?: Intl.DateTimeFormatOptions;
-};
+} & Omit<HTMLAttributes<"time">, "datetime">;
 
 const {
   date,

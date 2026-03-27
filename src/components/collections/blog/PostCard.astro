@@ -4,50 +4,49 @@ import { Time } from "@/components/ui";
 import type { BlogPost } from "@/lib/collections/blog";
 import PostTags from "./PostTags.astro";
 
-type Props = {
-  entry: BlogPost;
-};
+interface Props {
+  post: BlogPost;
+  dateFormatOptions?: Intl.DateTimeFormatOptions;
+}
 
-const cardClass = cx([
-  "relative flex flex-col cursor-pointer rounded-xl p-4 outline-none",
-  "ring ring-inset ring-foreground/15",
-  "bg-surface/15",
-  "motion-safe:(transition duration-300 ease-in-out)",
-  "@hover:(bg-foreground/5 ring-foreground/20)",
-  "focus-visible:(bg-foreground/5 ring-foreground/20)",
-  "active:(!bg-foreground/10 !ring-foreground/25)",
-]);
-
-const { entry } = Astro.props;
+const {
+  post,
+  dateFormatOptions = { day: "numeric", month: "short", year: "numeric" },
+} = Astro.props;
 ---
 
 <a
-  class={cardClass}
-  href={`/${Astro.currentLocale}/${entry.collection}/${entry.id.replace(`${Astro.currentLocale}/`, "")}`}
-  aria-label={entry.data.title}
-  transition:name={`post-${entry.id}-card`}
+  class={cx([
+    "relative flex flex-col cursor-pointer rounded-2xl p-4 outline-none",
+    "ring ring-inset ring-foreground/5",
+    "bg-surface/25",
+    "motion-safe:transition",
+    "@hover:(bg-surface/30 ring-foreground/10)",
+    "focus-visible:(bg-surface/30 ring-foreground/10)",
+    "active:(!bg-surface/35 !ring-foreground/15)",
+  ])}
+  href={`/${Astro.currentLocale}/${post.collection}/${post.id.replace(`${Astro.currentLocale}/`, "")}`}
+  aria-label={post.data.title}
+  transition:name={`post-${post.id}-card`}
 >
-  <div class={"flex grow flex-col flex-nowrap"}>
-    <span
-      class="text-xl font-serif leading-normal font-semibold text-balance"
-      transition:name={`post-${entry.id}-title`}
-    >
-      {entry.data.title}
-    </span>
+  <hgroup class="text-pretty">
+    <h3 class="font-(serif medium)" transition:name={`post-${post.id}-title`}>
+      {post.data.title}
+    </h3>
     <p
-      class={"mt-1 mb-2 text-current/75 first-letter:uppercase text-pretty"}
-      transition:name={`post-${entry.id}-description`}
+      class="text-(sm current/60) line-clamp-2"
+      transition:name={`post-${post.id}-description`}
     >
-      {entry.data.description}
+      {post.data.description}
     </p>
-
-    {entry.data.tags && <PostTags tags={entry.data.tags} transitionId={`post-${entry.id}-tags`} />}
-  </div>
-  <p class="absolute right-3 top-3 font-mono text-sm text-current/75">
+  </hgroup>
+  <footer class="mt-2 flex items-center">
+    {post.data.tags && <PostTags tags={post.data.tags} transitionId={`post-${post.id}-tags`} />}
     <Time
-      date={entry.data.date}
-      options={{}}
-      transition:name={`post-${entry.id}-date`}
+      date={post.data.date}
+      class="ms-auto text-(xs current/40) font-mono"
+      options={dateFormatOptions}
+      transition:name={`post-${post.id}-date`}
     />
-  </p>
+  </footer>
 </a>

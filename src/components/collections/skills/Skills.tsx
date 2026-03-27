@@ -103,7 +103,7 @@ export default function Skills({
         key={selectedCategory}
         value={selectedCategory}
         tabIndex={-1}
-        className="grid grid-cols-2 gap-4 max-sm:gap-2 mt-4"
+        className="grid grid-cols-2 gap-4 max-sm:gap-x-2 mt-4"
       >
         {Object.entries(groupedSkills).map(([group, skills]) => (
           <section key={group}>
@@ -116,7 +116,7 @@ export default function Skills({
                   <a
                     title={skill.data.name}
                     className={cx(
-                      "flex size-8! focus-visible:scale-110 @hover:scale-110 active:opacity-75 motion-safe:transition outline-none",
+                      "flex size-7! focus-visible:scale-110 @hover:scale-110 active:opacity-75 motion-safe:transition outline-none",
                       skill.data.icon,
                     )}
                     rel="noopener noreferrer"

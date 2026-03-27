@@ -19,7 +19,7 @@ const { class: className, pattern, ...props } = Astro.props;
   />
 
   <Container
-    class={cx("py-8 relative overflow-hidden flex flex-col min-w-0 w-full border-b border-foreground/5 group-last:border-b-0", className)}
+    class={cx("sm:py-8 py-4 relative overflow-hidden flex flex-col min-w-0 w-full border-b border-foreground/5 group-last:border-b-0", className)}
   >
     {pattern === "grid" && (
       <div

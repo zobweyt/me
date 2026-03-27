@@ -1,89 +1,81 @@
 ---
 import { Image } from "astro:assets";
 import { cx } from "class-variance-authority";
+import { Time } from "@/components/ui";
 import type { ProjectWithStats } from "@/lib/collections/projects";
-import { getTranslator } from "@/lib/i18n";
 
-type Props = {
-  entry: ProjectWithStats;
-};
+interface Props {
+  project: ProjectWithStats;
+  dateFormatOptions?: Intl.DateTimeFormatOptions;
+}
 
-const { entry } = Astro.props;
+const {
+  project,
+  dateFormatOptions = { day: "numeric", month: "short", year: "numeric" },
+} = Astro.props;
 
-const formatter = new Intl.DateTimeFormat(Astro.currentLocale, {
-  year: "numeric",
-  month: "short",
-});
-
-const cardClass = cx([
-  "relative flex flex-col cursor-pointer rounded-xl p-4 outline-none",
-  "ring ring-inset ring-[var(--project-card-color)]/15",
-  "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 ",
-  "motion-safe:(transition duration-300 ease-in-out)",
-  "@hover:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
-  "focus-visible:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
-  "active:(!bg-[var(--project-card-color)]/20 !ring-[var(--project-card-color)]/50)",
-]);
-
-const cardStyle = { "--project-card-color": entry.data.color };
-
-const t = getTranslator(Astro.currentLocale);
+const style = { "--project-card-color": project.data.color };
 ---
 
 <a
-  href={entry.data.href}
+  href={project.data.href}
   target="_blank"
   rel="noopener noreferrer"
-  class={cardClass}
-  style={cardStyle}
-  aria-label={entry.data.title}
-  transition:name={`project-${entry.id}-card`}
+  class={cx([
+    "relative flex flex-col cursor-pointer rounded-2xl p-4 outline-none",
+    "ring ring-inset ring-[var(--project-card-color)]/15",
+    "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 ",
+    "motion-safe:(transition duration-300 ease-in-out)",
+    "@hover:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
+    "focus-visible:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
+    "active:(!bg-[var(--project-card-color)]/20 !ring-[var(--project-card-color)]/50)",
+  ])}
+  style={style}
+  aria-label={project.data.title}
+  transition:name={`project-${project.id}-card`}
 >
   <div class="mb-1 flex items-center gap-2">
     <Image
-      src={entry.data.logo}
-      alt={entry.data.title}
-      width={24}
-      height={24}
+      src={project.data.logo}
+      alt={project.data.title}
+      width={20}
+      height={20}
       class="rounded-full"
       loading="eager"
       draggable="false"
     />
-    <span class="text-xl leading-normal font-semibold">
-      {entry.data.title}
-    </span>
+    <h3 class="font-medium">{project.data.title}</h3>
   </div>
-  <p class="text-current/85 text-pretty">{entry.data.description}</p>
-  {!!entry.stats && (
-    <div class="flex gap-3 font-medium items-center text-[var(--project-card-color)] font-mono text-sm mt-2">
+  <p class="text-(sm current/70) text-pretty">{project.data.description}</p>
+  {!!project.stats && (
+    <div class="flex gap-2 font-medium items-center text-[var(--project-card-color)] font-mono text-xs mt-2">
       <p class="flex items-center gap-1">
         <span
-          class="block size-4 ring ring-foreground/15 ring-inset bg-[var(--bg)]/75 rounded-full"
-          style={{"--bg": entry.stats.primaryLanguage.color}}
+          class="block size-4 ring ring-foreground/5 ring-inset bg-[var(--bg)]/50 rounded-full"
+          style={{"--bg": project.stats.primaryLanguage.color}}
         />
         <span class="tabular-nums leading-none -mb-0.5">
-          {entry.stats.primaryLanguage.name}
+          {project.stats.primaryLanguage.name}
         </span>
       </p>
       <p class="flex items-center gap-1">
         <span class="i-lucide:star text-base" />
         <span class="tabular-nums leading-none -mb-0.5">
-          {entry.stats.stargazerCount}
+          {project.stats.stargazerCount}
         </span>
       </p>
       <p class="flex items-center gap-1">
         <span class="i-lucide:git-fork text-base" />
         <span class="tabular-nums leading-none -mb-0.5">
-          {entry.stats.forkCount}
+          {project.stats.forkCount}
         </span>
       </p>
+      <Time
+        date={project.data.dateStart}
+        class="ms-auto text-(xs current/75) font-mono"
+        options={dateFormatOptions}
+        transition:name={`post-${project.id}-date`}
+      />
     </div>
   )}
-  <p
-    class="first-letter:uppercase absolute right-3 top-3 font-mono text-sm text-[var(--project-card-color)]"
-  >
-    {entry.data.dateEnd
-        ? formatter.formatRange(entry.data.dateStart, entry.data.dateEnd)
-        : `${formatter.format(entry.data.dateStart)} – ${t("now")}`}
-  </p>
 </a>
