@@ -21,10 +21,8 @@ const { projects, years } = await getProjectsWithStatsByYears({
 
 <BaseLayout title={t("projects.title")} description={t("projects.description")}>
   <Section pattern="grid">
-    <h1 class="mb-3 text-3xl font-semibold">{t("projects.title")}</h1>
-    <p class="font-serif text-pretty text-current/75">
-      {t("projects.description")}
-    </p>
+    <h1 class="mb-3 text-3xl font-(serif semibold)">{t("projects.title")}</h1>
+    <p class="text-(pretty current/75)">{t("projects.description")}</p>
   </Section>
   <Section class="space-y-4">
     {years.map((year) => (

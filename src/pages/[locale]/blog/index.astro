@@ -22,7 +22,7 @@ const { posts, years } = await getBlogPostsByYears({
   <Section pattern="grid">
     <div class="flex justify-between items-center mb-3">
       <h1
-        class="text-3xl font-semibold font-serif"
+        class="text-3xl font-(serif semibold)"
         transition:name="blog-page-title"
       >
         {t("blog.title")}
@@ -35,7 +35,7 @@ const { posts, years } = await getBlogPostsByYears({
         RSS
       </a>
     </div>
-    <p class="text-pretty text-current/75">{t("blog.description")}</p>
+    <p class="text-(pretty current/75)">{t("blog.description")}</p>
   </Section>
 
   <Section>

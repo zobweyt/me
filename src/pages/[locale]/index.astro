@@ -39,12 +39,12 @@ const skills = await getSkills();
 
 <BaseLayout title={t("home.title")} description={t("home.description")}>
   <Section pattern="grid">
-    <h1 class="mb-3 text-3xl font-semibold font-serif">{t("home.title")}</h1>
-    <p class="text-pretty text-current/75">{t("home.description")}</p>
+    <h1 class="mb-3 text-3xl font-(serif semibold)">{t("home.title")}</h1>
+    <p class="text-(pretty current/75)">{t("home.description")}</p>
   </Section>
 
   <Section>
-    <h2 class="text-xl font-semibold font-serif mb-1.5">{t("skills.title")}</h2>
+    <h2 class="mb-1.5 text-xl font-(serif medium)">{t("skills.title")}</h2>
     <Skills client:idle skills={skills} locale={Astro.currentLocale} />
   </Section>
 
@@ -58,9 +58,9 @@ const skills = await getSkills();
     <ul
       class={cx("grid gap-4", projects.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-1")}
     >
-      {projects.map((entry) => (
+      {projects.map((project) => (
         <li>
-          <ProjectCard project={entry} />
+          <ProjectCard project={project} />
         </li>
       ))}
     </ul>
@@ -69,12 +69,12 @@ const skills = await getSkills();
   <Section>
     <header class="mb-3 flex items-center justify-between">
       <h2 class="text-xl font-(serif medium)">{t("blog.latest")}</h2>
-      <Link href={`/${Astro.currentLocale}/blog`}> {t("blog.all")} </Link>
+      <Link href={`/${Astro.currentLocale}/blog`}>{t("blog.all")}</Link>
     </header>
     <ul class="space-y-4">
-      {blog.map((entry) => (
+      {blog.map((post) => (
         <li>
-          <PostCard post={entry} />
+          <PostCard post={post} />
         </li>
       ))}
     </ul>
