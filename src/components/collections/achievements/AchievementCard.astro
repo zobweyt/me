@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import type { HTMLAttributes } from "astro/types";
+import { cva, cx } from "class-variance-authority";
+import type { AchievementWithLocalization } from "@/lib/collections/achievements";
+
+interface Props extends HTMLAttributes<"div"> {
+  achievement: AchievementWithLocalization;
+}
+
+const { achievement, class: className, ...props } = Astro.props;
+
+const styles = cva(
+  ["flex flex-col items-center justify-center size-full gap-1 px-2 py-4"],
+  {
+    variants: {
+      color: {
+        gold: "bg-yellow-500/10 text-yellow-700 dark:text-orange-300 dark:bg-yellow-500/5",
+        silver:
+          "bg-slate-400/10 text-slate-700 dark:text-slate-400 dark:bg-slate-400/5",
+        bronze:
+          "bg-orange-700/10 text-orange-800 dark:text-orange-500 dark:bg-orange-700/5",
+      },
+    },
+  },
+);
+---
+
+<div class={styles({ className, color: achievement.data.color })} {...props}>
+  <Image
+    src={achievement.data.image}
+    alt={achievement.data.title}
+    width={48}
+    height={48}
+    class="size-12 mb-1 rounded-lg"
+    loading="eager"
+    draggable="false"
+  />
+  <h3 class="font-(serif medium) text-center">{achievement.data.title}</h3>
+  <p class="text-(sm center pretty current/60)">
+    {achievement.data.description}
+  </p>
+</div>

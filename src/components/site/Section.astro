@@ -10,11 +10,11 @@ const { class: className, pattern, ...props } = Astro.props;
 
 <section class="group flex last:grow" {...props}>
   <span
-    class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-r lg:border-r-0 border-foreground/5 border-b group-last:border-b-0"
+    class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-r md:border-r-0 border-foreground/5 border-b group-last:border-b-0"
     transition:animate="none"
   />
   <span
-    class="hidden flex-1 border-x border-foreground/5 lg:block border-b group-last:border-b-0"
+    class="hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
     transition:animate="none"
   />
 
@@ -42,11 +42,11 @@ const { class: className, pattern, ...props } = Astro.props;
   </Container>
 
   <span
-    class="hidden flex-1 border-x border-foreground/5 lg:block border-b group-last:border-b-0"
+    class="hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
     transition:animate="none"
   />
   <span
-    class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-l lg:border-l-0 border-foreground/5 border-b group-last:border-b-0"
+    class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-l md:border-l-0 border-foreground/5 border-b group-last:border-b-0"
     transition:animate="none"
   />
 </section>

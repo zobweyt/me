@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cx } from "class-variance-authority";
+import type { Social } from "@/lib/collections/socials";
+
+interface Props extends HTMLAttributes<"a"> {
+  social: Social;
+}
+
+const { social, class: className, ...props } = Astro.props;
+---
+
+<a
+  href={social.data.href}
+  rel="noopener noreferrer"
+  target="_blank"
+  class={cx(
+    "size-full outline-none @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition",
+    "px-4 sm:px-8 py-4",
+    className,
+  )}
+  aria-label={social.data.name}
+>
+  <h3 class="font-serif text-blue-700 dark:text-blue-300">
+    {social.data.name}
+  </h3>
+  <p class="text-(sm current/60)">{social.data.href.replace("https://", "")}</p>
+</a>

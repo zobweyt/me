@@ -58,17 +58,19 @@ const socials = defineCollection({
 
 const achievements = defineCollection({
   loader: file("./src/content/achievements/data.json"),
-  schema: z.object({
-    id: z.string(),
-    image: z.string(),
-    i18n: z.partialRecord(
-      z.enum(LOCALES),
-      z.object({
-        title: z.string().optional(),
-        description: z.string().optional(),
-      }),
-    ),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      id: z.string(),
+      color: z.enum(["gold", "silver", "bronze"]),
+      image: image(),
+      i18n: z.partialRecord(
+        z.enum(LOCALES),
+        z.object({
+          title: z.string().optional(),
+          description: z.string().optional(),
+        }),
+      ),
+    }),
 });
 
 export const collections = { blog, projects, skills, socials, achievements };

@@ -1,7 +1,7 @@
 [
   {
     "id": "textcase",
-    "logo": "./logos/textcase.svg",
+    "logo": "./assets/textcase.svg",
     "repo": "https://github.com/zobweyt/textcase",
     "color": "#795649",
     "dateStart": "Mar 30 2025",

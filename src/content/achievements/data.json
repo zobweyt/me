@@ -1,43 +1,61 @@
 [
   {
-    "id": "hse-vibe-hack-2025-moscow",
-    "image": "https://www.hse.ru/mirror/pubs/share/522217657",
+    "id": "cs-hse-vibe-hack-2025-moscow",
+    "color": "gold",
+    "image": "./assets/cs-hse-hack-club-logo.jpg",
     "i18n": {
       "en": {
         "title": "Best Team",
-        "description": "HSE VIBE HACK 2025 Moscow"
+        "description": "HSE VIBE HACK '25, Moscow"
       },
       "ru": {
         "title": "Лучшая команда",
-        "description": "HSE VIBE HACK 2025 Москва"
+        "description": "HSE VIBE HACK '25, Москва"
       }
     }
   },
   {
     "id": "prod-content-2025-hackathon-moscow",
-    "image": "https://avatars.githubusercontent.com/u/188264976?s=200&v=4",
+    "color": "gold",
+    "image": "./assets/prod-logo.png",
     "i18n": {
       "en": {
         "title": "Best Team",
-        "description": "PROD Contest 2025 Hackathon Moscow"
+        "description": "PROD Contest '25 Hackathon, Moscow"
       },
       "ru": {
         "title": "Лучшая команда",
-        "description": "Хакатон PROD Contest 2025 Москва"
+        "description": "Хакатон PROD '25, Москва"
+      }
+    }
+  },
+  {
+    "id": "nto-abp-2025-moscow",
+    "color": "silver",
+    "image": "./assets/nto-logo.png",
+    "i18n": {
+      "en": {
+        "title": "Prize Winner",
+        "description": "NTO ABP '25 Final, Moscow"
+      },
+      "ru": {
+        "title": "Призёр",
+        "description": "Финал НТО АБП '25, Москва"
       }
     }
   },
   {
     "id": "prod-content-2025-final-moscow",
-    "image": "https://avatars.githubusercontent.com/u/188264976?s=200&v=4",
+    "color": "gold",
+    "image": "./assets/prod-logo.png",
     "i18n": {
       "en": {
         "title": "Winner & Best Team",
-        "description": "PROD Contest 2025 Final Moscow"
+        "description": "PROD Contest '25 Final, Moscow"
       },
       "ru": {
         "title": "Победитель и лучшая команда",
-        "description": "Финал PROD Contest 2025 Москва"
+        "description": "Финал PROD '25, Москва"
       }
     }
   }

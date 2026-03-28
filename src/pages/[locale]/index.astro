@@ -4,9 +4,11 @@ import {
   CONTENT_RECENT_PROJECTS_COUNT,
 } from "astro:env/server";
 import { cx } from "class-variance-authority";
+import { AchievementCard } from "@/components/collections/achievements";
 import { PostCard } from "@/components/collections/blog";
 import { ProjectCard } from "@/components/collections/projects";
 import { Skills } from "@/components/collections/skills";
+import { SocialCard } from "@/components/collections/socials";
 import { Section } from "@/components/site";
 import { Link } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -76,19 +78,15 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     <h2 class="text-xl font-(serif medium) mb-4 sm:-mt-2 sm:mb-5">
       {t("achievements.heading")}
     </h2>
-    <div
-      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid sm:grid-cols-3 divide-foreground/5 sm:divide-x max-sm:divide-y border-(t foreground/5)"
+    <ul
+      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 lg:grid-cols-4 divide-foreground/5 divide-(x y) border-(t foreground/5)"
     >
       {achievements.map((achievement) => (
-        <div
-          class="outline-none relative overflow-hidden flex flex-col items-center justify-center bg-yellow/5 dark:bg-orange/2 gap-1 px-2 py-4 @hover:bg-yellow/10 focus-visible:bg-yellow/10 active:bg-yellow/15! @hover:dark:bg-orange/5 focus-visible:dark:bg-orange/5 active:dark:bg-orange/8! motion-safe:transition"
-        >
-          <img src={achievement.data.image} alt="logo" class="size-12 mb-1 rounded-lg" />
-          <h3 class="font-(serif medium) text-center text-yellow-700 dark:text-orange-300">{achievement.data.title}</h3>
-          <p class="text-(sm center pretty current/60)">{achievement.data.description}</p>
-        </div>
+        <li>
+          <AchievementCard achievement={achievement} />
+        </li>
       ))}
-    </div>
+    </ul>
   </Section>
 
   <Section>
@@ -109,21 +107,14 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     <h2 class="text-xl font-(serif medium) mb-4 sm:-mt-2 sm:mb-5">
       {t("socials.heading")}
     </h2>
-    <div
-      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 divide-(x foreground/5) border-(t foreground/5)"
+    <ul
+      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 divide-(x foreground/5) border-(y foreground/5)"
     >
       {socials.map(social => (
-        <a
-          href={social.data.href}
-          rel="noopener noreferrer"
-          target="_blank"
-          class="px-4 sm:px-8 py-4 @hover:bg-surface/25 outline-none focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition"
-          aria-label={social.data.name}
-        >
-          <h3 class="font-serif text-blue-700 dark:text-blue-300">{social.data.name}</h3>
-          <p class="text-(sm current/60)">{social.data.href.replace("https://", "")}</p>
-        </a>
+        <li class="flex">
+          <SocialCard social={social} />
+        </li>
       ))}
-    </div>
+    </ul>
   </Section>
 </BaseLayout>
