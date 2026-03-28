@@ -68,6 +68,16 @@ export default function Skills({
     return orderedGroups;
   }, [skills, locale, selectedCategory]);
 
+  const entries = useMemo(() => {
+    const entries = Object.entries(groupedSkills);
+
+    if (entries.length % 2 !== 0) {
+      entries.push(["", []]);
+    }
+
+    return entries;
+  }, [groupedSkills]);
+
   return (
     <Tabs.Root value={selectedCategory} onValueChange={setSelectedCategory}>
       <Tabs.List className="relative z-0 flex gap-1.5 overflow-x-auto [scrollbar-width:none] -mx-4 px-4 lg:-mx-8 lg:px-8 scroll-smooth">
@@ -103,10 +113,13 @@ export default function Skills({
         key={selectedCategory}
         value={selectedCategory}
         tabIndex={-1}
-        className="grid grid-cols-2 gap-4 max-sm:gap-x-2 mt-4"
+        className="grid grid-cols-2 mt-4 -mx-4 sm:-mx-8 -mb-4 sm:-mb-8"
       >
-        {Object.entries(groupedSkills).map(([group, skills]) => (
-          <section key={group}>
+        {entries.map(([group, skills]) => (
+          <section
+            key={group}
+            className="p-4 sm:px-8 border-t border-l border-foreground/5"
+          >
             <h3 className="text-xs font-medium uppercase tracking-wider text-current/50 mb-1.5">
               {group}
             </h3>

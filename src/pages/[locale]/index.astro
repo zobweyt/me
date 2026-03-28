@@ -52,7 +52,9 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
   </Section>
 
   <Section>
-    <h2 class="mb-1.5 text-xl font-(serif medium)">{t("skills.title")}</h2>
+    <h2 class="mb-1.5 text-xl font-(serif medium) sm:-mt-4">
+      {t("skills.title")}
+    </h2>
     <Skills client:idle skills={skills} locale={Astro.currentLocale} />
   </Section>
 
