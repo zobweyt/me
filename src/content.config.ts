@@ -56,4 +56,19 @@ const socials = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, skills, socials };
+const achievements = defineCollection({
+  loader: file("./src/content/achievements/data.json"),
+  schema: z.object({
+    id: z.string(),
+    image: z.string(),
+    i18n: z.partialRecord(
+      z.enum(LOCALES),
+      z.object({
+        title: z.string().optional(),
+        description: z.string().optional(),
+      }),
+    ),
+  }),
+});
+
+export const collections = { blog, projects, skills, socials, achievements };

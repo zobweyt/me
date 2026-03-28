@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import { cx } from "class-variance-authority";
 import { Container } from "../ui";
 
-type Props = HTMLAttributes<"section"> & { pattern?: "grid" };
+type Props = HTMLAttributes<"section"> & { pattern?: "grid" | "dot" };
 
 const { class: className, pattern, ...props } = Astro.props;
 ---
@@ -25,6 +25,16 @@ const { class: className, pattern, ...props } = Astro.props;
       <div
         class="absolute inset-0 -z-10 pointer-events-none opacity-[0.1] dark:opacity-[0.05]"
         style="background-image: linear-gradient(to right, var(--colors-foreground) 1px, transparent 1px), linear-gradient(var(--colors-foreground) 1px, transparent 1px); background-size: 20px 20px; mask-image: repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px), repeating-linear-gradient(black 0px, black 3px, transparent 3px, transparent 8px), radial-gradient(60% 60%, black 30%, transparent 70%); mask-composite: intersect; -webkit-mask-composite: source-in;"
+      />
+    )}
+    {pattern === "dot" && (
+      <div
+        class="absolute inset-0 -z-10 pointer-events-none opacity-10"
+        style="
+          background-image: radial-gradient(var(--colors-foreground) 1px, transparent 1px);
+          background-size: 20px 20px;
+          mask-image: radial-gradient(60% 60%, black 30%, transparent 70%);
+        "
       />
     )}
 

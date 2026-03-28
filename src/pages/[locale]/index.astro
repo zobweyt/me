@@ -10,9 +10,11 @@ import { Skills } from "@/components/collections/skills";
 import { Section } from "@/components/site";
 import { Link } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getAchievements } from "@/lib/collections/achievements";
 import { getBlogPosts } from "@/lib/collections/blog";
 import { getProjectsWithStats } from "@/lib/collections/projects";
 import { getSkills } from "@/lib/collections/skills";
+import { getSocials } from "@/lib/collections/socials";
 import { getTranslator } from "@/lib/i18n";
 
 export const prerender = false;
@@ -35,6 +37,10 @@ const projects = await getProjectsWithStats({
 });
 
 const skills = await getSkills();
+
+const socials = await getSocials();
+
+const achievements = await getAchievements({ locale: Astro.currentLocale });
 ---
 
 <BaseLayout title={t("home.title")} description={t("home.description")}>
@@ -48,7 +54,7 @@ const skills = await getSkills();
     <Skills client:idle skills={skills} locale={Astro.currentLocale} />
   </Section>
 
-  <Section>
+  <Section pattern="dot">
     <header class="mb-3 flex items-center justify-between">
       <h2 class="text-xl font-(serif medium)">{t("projects.recent")}</h2>
       <Link href={`/${Astro.currentLocale}/projects`}>
@@ -67,6 +73,25 @@ const skills = await getSkills();
   </Section>
 
   <Section>
+    <h2 class="text-xl font-(serif medium) mb-4 sm:-mt-2 sm:mb-5">
+      {t("achievements.heading")}
+    </h2>
+    <div
+      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid sm:grid-cols-3 divide-foreground/5 sm:divide-x max-sm:divide-y border-(t foreground/5)"
+    >
+      {achievements.map((achievement) => (
+        <div
+          class="outline-none relative overflow-hidden flex flex-col items-center justify-center bg-yellow/5 dark:bg-orange/2 gap-1 px-2 py-4 @hover:bg-yellow/10 focus-visible:bg-yellow/10 active:bg-yellow/15! @hover:dark:bg-orange/5 focus-visible:dark:bg-orange/5 active:dark:bg-orange/8! motion-safe:transition"
+        >
+          <img src={achievement.data.image} alt="logo" class="size-12 mb-1 rounded-lg" />
+          <h3 class="font-(serif medium) text-center text-yellow-700 dark:text-orange-300">{achievement.data.title}</h3>
+          <p class="text-(sm center pretty current/60)">{achievement.data.description}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section>
     <header class="mb-3 flex items-center justify-between">
       <h2 class="text-xl font-(serif medium)">{t("blog.latest")}</h2>
       <Link href={`/${Astro.currentLocale}/blog`}>{t("blog.all")}</Link>
@@ -78,5 +103,27 @@ const skills = await getSkills();
         </li>
       ))}
     </ul>
+  </Section>
+
+  <Section>
+    <h2 class="text-xl font-(serif medium) mb-4 sm:-mt-2 sm:mb-5">
+      {t("socials.heading")}
+    </h2>
+    <div
+      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 divide-(x foreground/5) border-(t foreground/5)"
+    >
+      {socials.map(social => (
+        <a
+          href={social.data.href}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="px-4 sm:px-8 py-4 @hover:bg-surface/25 outline-none focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition"
+          aria-label={social.data.name}
+        >
+          <h3 class="font-serif text-blue-700 dark:text-blue-300">{social.data.name}</h3>
+          <p class="text-(sm current/60)">{social.data.href.replace("https://", "")}</p>
+        </a>
+      ))}
+    </div>
   </Section>
 </BaseLayout>
