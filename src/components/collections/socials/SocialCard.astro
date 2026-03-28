@@ -20,6 +20,7 @@ const { social, class: className, ...props } = Astro.props;
     className,
   )}
   aria-label={social.data.name}
+  {...props}
 >
   <h3 class="font-serif text-blue-700 dark:text-blue-300">
     {social.data.name}
