@@ -1,4 +1,4 @@
-import { ScrollArea } from "@base-ui/react";
+import { ScrollArea } from "@base-ui/react/scroll-area";
 import { Tabs } from "@base-ui/react/tabs";
 import { cx } from "class-variance-authority";
 import { useMemo, useState } from "react";
