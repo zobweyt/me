@@ -135,7 +135,7 @@ export default function Skills({
               index % 2 !== 0 && "border-l",
             )}
           >
-            <h3 className="text-xs font-medium uppercase tracking-wider text-current/50 mb-1.5">
+            <h3 className="text-xs font-mono light:font-medium uppercase tracking-widest text-current/50 mb-1.5">
               {group}
             </h3>
             <ul className="flex flex-wrap gap-2 max-sm:gap-1">

@@ -17,29 +17,30 @@ const {
 
 <a
   class={cx([
-    "relative flex flex-col cursor-pointer rounded-xl p-4 outline-none",
-    "ring ring-inset ring-foreground/5",
+    "flex flex-col rounded-2xl p-3.5",
+    "border border-foreground/5",
     "bg-surface/25",
     "motion-safe:transition",
-    "@hover:(bg-surface/30 ring-foreground/10)",
-    "focus-visible:(bg-surface/30 ring-foreground/10)",
-    "active:(!bg-surface/35 !ring-foreground/15)",
+    "@hover:(bg-surface/50 border-foreground/15)",
+    "focus-visible:(outline-3 outline-offset-2 outline-selection)",
+    "active:(translate-y-px bg-surface/50 border-foreground/15)",
+    "[box-shadow:var(--colors-body)_0_0_0_3px_inset]",
   ])}
   href={`/${Astro.currentLocale}/${post.collection}/${post.id.replace(`${Astro.currentLocale}/`, "")}`}
   aria-label={post.data.title}
   transition:name={`post-${post.id}-card`}
 >
-  <hgroup class="text-pretty">
-    <h3 class="font-(serif medium)" transition:name={`post-${post.id}-title`}>
+  <div class="text-pretty">
+    <h3 class="font-serif mb-0.5" transition:name={`post-${post.id}-title`}>
       {post.data.title}
     </h3>
     <p
-      class="text-(sm current/60) line-clamp-2"
+      class="text-([0.9375rem] current/60) line-clamp-2"
       transition:name={`post-${post.id}-description`}
     >
       {post.data.description}
     </p>
-  </hgroup>
+  </div>
   <footer class="mt-2 flex items-center">
     {post.data.tags && <PostTags tags={post.data.tags} transitionId={`post-${post.id}-tags`} />}
     <Time

@@ -58,7 +58,7 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     <Skills client:idle skills={skills} locale={Astro.currentLocale} />
   </Section>
 
-  <Section pattern="dot">
+  <Section>
     <header class="mb-2 flex items-center justify-between">
       <h2 class="text-xl font-(serif medium)">{t("projects.recent")}</h2>
       <Link href={`/${Astro.currentLocale}/projects`}>

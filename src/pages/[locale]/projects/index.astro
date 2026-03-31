@@ -27,7 +27,7 @@ const { projects, years } = await getProjectsWithStatsByYears({
   <Section class="space-y-4">
     {years.map((year) => (
       <section>
-        <div class="py-2 text-lg font-semibold">{year}</div>
+        <div class="mb-2 text-xl font-(serif medium)">{year}</div>
         <div>
           <ul class="flex flex-col gap-4">
             {projects[year].map((project) => (

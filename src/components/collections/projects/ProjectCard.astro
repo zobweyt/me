@@ -22,13 +22,14 @@ const style = { "--project-card-color": project.data.color };
   target="_blank"
   rel="noopener noreferrer"
   class={cx([
-    "relative flex flex-col cursor-pointer rounded-xl p-4 outline-none",
-    "ring ring-inset ring-[var(--project-card-color)]/15",
-    "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10 ",
+    "flex flex-col rounded-2xl p-3.5",
+    "border border-[var(--project-card-color)]/15",
+    "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10",
     "motion-safe:(transition duration-300 ease-in-out)",
-    "@hover:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
-    "focus-visible:(bg-[var(--project-card-color)]/15 ring-[var(--project-card-color)]/30)",
-    "active:(!bg-[var(--project-card-color)]/20 !ring-[var(--project-card-color)]/50)",
+    "@hover:(bg-[var(--project-card-color)]/10 border-[var(--project-card-color)]/30)",
+    "focus-visible:(outline-3 outline-offset-2 outline-selection)",
+    "active:(translate-y-px bg-[var(--project-card-color)]/10 border-[var(--project-card-color)]/30)",
+    "[box-shadow:var(--colors-body)_0_0_0_3px_inset]",
   ])}
   style={style}
   aria-label={project.data.title}
@@ -38,15 +39,17 @@ const style = { "--project-card-color": project.data.color };
     <Image
       src={project.data.logo}
       alt={project.data.title}
-      width={20}
-      height={20}
+      width={22}
+      height={22}
       class="rounded-full"
       loading="eager"
       draggable="false"
     />
     <h3 class="font-medium">{project.data.title}</h3>
   </div>
-  <p class="text-(sm current/70) text-pretty">{project.data.description}</p>
+  <p class="text-([0.9375rem] current/70) text-pretty">
+    {project.data.description}
+  </p>
   {!!project.stats && (
     <div class="flex gap-2 font-medium items-center text-[var(--project-card-color)] font-mono text-xs mt-2">
       <p class="flex items-center gap-1">
@@ -72,7 +75,7 @@ const style = { "--project-card-color": project.data.color };
       </p>
       <Time
         date={project.data.dateStart}
-        class="ms-auto text-(xs current/75) font-mono"
+        class="ms-auto text-current/75 font-mono"
         options={dateFormatOptions}
         transition:name={`post-${project.id}-date`}
       />

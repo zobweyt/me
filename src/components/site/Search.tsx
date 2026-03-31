@@ -219,7 +219,7 @@ export default function Search({
         description={t("search.description")}
         initialFocus={inputRef}
       >
-        <div className="flex items-center justify-center border-b border-foreground/15 px-3 py-2">
+        <div className="flex items-center justify-center border-b border-foreground/5 px-3 py-2">
           <Command.Input
             value={query}
             ref={inputRef}
@@ -302,7 +302,7 @@ export default function Search({
           ))}
         </Command.List>
 
-        <div className="flex gap-4 border-t border-foreground/15 px-5 py-2 text-sm text-current/75 select-none max-sm:hidden">
+        <div className="flex gap-4 border-t border-foreground/5 px-5 py-2 text-sm text-current/75 select-none max-sm:hidden">
           <div className="flex items-center gap-2">
             <kbd className="flex min-w-6 justify-center rounded-sm bg-foreground/5 px-1 py-0.5 text-center font-mono text-xs leading-3.5 ring ring-foreground/15">
               ↩

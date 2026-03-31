@@ -9,7 +9,7 @@ const { tags, transitionId, ...props } = Astro.props;
 
 <ul class="m-0 flex list-none flex-wrap gap-2 p-0" {...props}>
   {tags.map((tag) => (
-    <li class="rounded-full bg-body px-2 py-0.5 font-mono text-xs text-foreground/75 ring ring-foreground/15" transition:name={`${transitionId}-${tag}`}>
+    <li class="rounded-full bg-body px-1.5 py-0.5 font-mono text-xs text-foreground/75 ring ring-foreground/15" transition:name={`${transitionId}-${tag}`}>
       {tag}
     </li>
   ))}

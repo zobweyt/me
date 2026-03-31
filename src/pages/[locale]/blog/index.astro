@@ -42,7 +42,7 @@ const { posts, years } = await getBlogPostsByYears({
     <div class="space-y-4">
       {years.map((year) => (
         <section>
-          <div class="py-2 text-lg font-semibold">{year}</div>
+          <h2 class="mb-2 text-xl font-(serif medium)">{year}</h2>
           <div>
             <ul class="flex flex-col gap-4">
               {posts[year].map((post) => (
