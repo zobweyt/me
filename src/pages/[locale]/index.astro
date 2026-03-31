@@ -51,15 +51,15 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     <p class="text-(pretty current/75)">{t("home.description")}</p>
   </Section>
 
-  <Section>
-    <h2 class="mb-1.5 text-xl font-(serif medium) sm:-mt-4">
+  <Section class="!p-0">
+    <h2 class="mb-1.5 text-xl font-(serif medium) mt-4 sm:mt-6 px-4 md:px-8">
       {t("skills.title")}
     </h2>
     <Skills client:idle skills={skills} locale={Astro.currentLocale} />
   </Section>
 
   <Section pattern="dot">
-    <header class="mb-3 flex items-center justify-between">
+    <header class="mb-2 flex items-center justify-between">
       <h2 class="text-xl font-(serif medium)">{t("projects.recent")}</h2>
       <Link href={`/${Astro.currentLocale}/projects`}>
         {t("projects.all")}
@@ -77,14 +77,12 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
   </Section>
 
   <Section>
-    <h2 class="text-xl font-(serif medium) mb-4 sm:-mt-2 sm:mb-5">
+    <h2 class="text-xl font-(serif medium) mb-3 sm:-mt-2">
       {t("achievements.heading")}
     </h2>
-    <ul
-      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 lg:grid-cols-4 divide-foreground/5 divide-(x y) border-(t foreground/5)"
-    >
-      {achievements.map((achievement) => (
-        <li>
+    <ul class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 lg:grid-cols-4">
+      {achievements.map((achievement, index) => (
+        <li class={cx("border-foreground/5 border-t", index !== 0 && "sm:border-l", index % 2 !== 0 && "max-sm:border-l")}>
           <AchievementCard achievement={achievement} />
         </li>
       ))}
@@ -106,7 +104,7 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
   </Section>
 
   <Section>
-    <h2 class="text-xl font-(serif medium) mb-4 sm:-mt-2 sm:mb-5">
+    <h2 class="text-xl font-(serif medium) mb-3 sm:-mt-2">
       {t("socials.heading")}
     </h2>
     <ul
