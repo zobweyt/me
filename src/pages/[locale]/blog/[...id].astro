@@ -47,7 +47,7 @@ const { Content, headings } = await render(post);
         <span transition:name="blog-page-title">{t("blog.title")}</span>
       </Link>
       <Link
-        href={`${Astro.url.pathname}.md`}
+        href={`${Astro.url.pathname.replace(/\/+$/, "")}.md`}
         class="text-sm flex items-center @hover:bg-surface/75 focus-visible:bg-surface/75 px-1.5 py-0.5 rounded-sm active:bg-surface! justify-center gap-1.5"
         underline={false}
       >
