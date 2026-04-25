@@ -44,7 +44,7 @@ const { Content, headings } = await render(post);
         underline={false}
       >
         <span class="i-f7:chevron-left text-2xl" />
-        <span transition:name="blog-page-title"> {t("blog.title")} </span>
+        <span transition:name="blog-page-title">{t("blog.title")}</span>
       </Link>
       <Link
         href={`${Astro.url.pathname}.md`}
@@ -52,7 +52,7 @@ const { Content, headings } = await render(post);
         underline={false}
       >
         <span class="i-simple-icons:markdown text-xl" />
-        <span transition:name="blog-page-title"> {t("view.markdown")} </span>
+        <span>{t("view.markdown")}</span>
       </Link>
     </nav>
 
