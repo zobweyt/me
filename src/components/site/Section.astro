@@ -16,7 +16,9 @@ const { class: className, pattern, ...props } = Astro.props;
   <span
     class="hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
     transition:animate="none"
-  />
+  >
+    <slot name="left" />
+  </span>
 
   <Container
     class={cx("sm:py-8 py-4 relative overflow-hidden flex flex-col min-w-0 w-full border-b border-foreground/5 group-last:border-b-0", className)}
@@ -44,7 +46,9 @@ const { class: className, pattern, ...props } = Astro.props;
   <span
     class="hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
     transition:animate="none"
-  />
+  >
+    <slot name="right" />
+  </span>
   <span
     class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-l md:border-l-0 border-foreground/5 border-b group-last:border-b-0"
     transition:animate="none"

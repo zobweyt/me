@@ -2,7 +2,7 @@
 import { render } from "astro:content";
 import { PostTags } from "@/components/collections/blog";
 import { components } from "@/components/mdx";
-import { Section } from "@/components/site";
+import { Section, Toc } from "@/components/site";
 import { Article, Link, Prose, Time } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { type BlogPost, getBlogPosts } from "@/lib/collections/blog";
@@ -29,7 +29,7 @@ interface Props {
 
 const { post } = Astro.props;
 const t = getTranslator(Astro.currentLocale);
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
 <meta property="article:author" content={t("name")}>
@@ -37,14 +37,24 @@ const { Content } = await render(post);
 
 <BaseLayout title={post.data.title} description={post.data.description}>
   <Section pattern="grid">
-    <Link
-      href={`/${Astro.currentLocale}/blog`}
-      class="mb-6 text-base flex items-center justify-center gap-1 me-auto"
-      underline={false}
-    >
-      <span class="i-f7:chevron-left text-2xl" />
-      <span transition:name="blog-page-title"> {t("blog.title")} </span>
-    </Link>
+    <nav class="flex justify-between items-center mb-6">
+      <Link
+        href={`/${Astro.currentLocale}/blog`}
+        class="text-base flex items-center justify-center gap-1"
+        underline={false}
+      >
+        <span class="i-f7:chevron-left text-2xl" />
+        <span transition:name="blog-page-title"> {t("blog.title")} </span>
+      </Link>
+      <Link
+        href={`${Astro.url.pathname}.md`}
+        class="text-sm flex items-center @hover:bg-surface/75 focus-visible:bg-surface/75 px-1.5 py-0.5 rounded-sm active:bg-surface! justify-center gap-1.5"
+        underline={false}
+      >
+        <span class="i-simple-icons:markdown text-xl" />
+        <span transition:name="blog-page-title"> {t("view.markdown")} </span>
+      </Link>
+    </nav>
 
     <Prose>
       <h1 class="mb-4" transition:name={`post-${post.id}-title`}>
@@ -69,5 +79,8 @@ const { Content } = await render(post);
   </Section>
   <Section>
     <Article><Content components={components} /></Article>
+    {!!headings.length && (
+      <Toc headings={headings} slot="right" />
+    )}
   </Section>
 </BaseLayout>
