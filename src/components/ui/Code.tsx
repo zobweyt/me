@@ -83,7 +83,9 @@ export default function Code({
               )}
             />
           </span>
-          <TextMorph>{copied ? t("copied") : t("copy")}</TextMorph>
+          <TextMorph locale={currentLocale}>
+            {copied ? t("copied") : t("copy")}
+          </TextMorph>
         </button>
       </div>
       <ScrollArea.Root className="bg-body">
