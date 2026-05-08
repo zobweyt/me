@@ -81,16 +81,12 @@ export default function Skills({
 
   return (
     <Tabs.Root value={selectedCategory} onValueChange={setSelectedCategory}>
-      <Tabs.List render={<ScrollArea.Root />} className="px-4 md:px-8">
+      <Tabs.List render={<ScrollArea.Root />} className="px-4 lg:px-8">
         <ScrollArea.Viewport
-          className={cx(
-            "[--mask-start:black] data-[overflow-x-start]:[--mask-start:transparent]",
-            "[--mask-end:black] data-[overflow-x-end]:[--mask-end:transparent]",
-            "[mask-image:linear-gradient(to_right,var(--mask-start)_0%,black_15%,black_85%,var(--mask-end)_100%)]",
-          )}
+          className="px-4 -mx-4 lg:px-8 lg:-mx-8 py-2 -my-2"
           tabIndex={-1}
         >
-          <ScrollArea.Content className="flex gap-1.5">
+          <ScrollArea.Content className="flex gap-1.5 py-2 -my-2 px-4 -mx-4">
             {SKILLS_CATEGORIES.map((category) => (
               <Tabs.Tab
                 key={category.id}
@@ -113,7 +109,7 @@ export default function Skills({
                     inline: "center",
                   });
                 }}
-                className="flex cursor-pointer items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:bg-foreground/15 hover:active:bg-foreground/15 rounded-full outline-hidden select-none focus-visible:ring-foreground ring ring-inset ring-transparent motion-safe:transition data-[active]:focus-visible:opacity-75 data-[active]:(text-body! bg-foreground!)"
+                className="flex cursor-pointer items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:bg-foreground/15 hover:active:bg-foreground/15 rounded-full select-none focus-visible:(outline-2 outline-offset-2 outline-selection) motion-safe:transition data-[active]:(text-body! bg-foreground!)"
               >
                 {category.i18n[locale as keyof typeof category.i18n].name}
               </Tabs.Tab>
@@ -131,7 +127,7 @@ export default function Skills({
           <section
             key={group}
             className={cx(
-              "p-4 sm:px-4 md:px-8 border-t border-foreground/5",
+              "p-4 sm:px-4 lg:px-8 border-t border-foreground/5",
               index % 2 !== 0 && "border-l",
             )}
           >

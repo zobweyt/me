@@ -112,14 +112,6 @@
     "categories": ["frontend"]
   },
   {
-    "id": "vite",
-    "name": "Vite",
-    "href": "https://vitejs.dev",
-    "icon": "i-skill-icons:vite-light dark:i-skill-icons:vite-dark",
-    "group": "libraries",
-    "categories": ["frontend"]
-  },
-  {
     "id": "vitest",
     "name": "Vitest",
     "href": "https://vitest.dev",
@@ -133,14 +125,6 @@
     "href": "https://playwright.dev",
     "icon": "i-logos:playwright",
     "group": "testing",
-    "categories": ["frontend"]
-  },
-  {
-    "id": "zod",
-    "name": "Zod",
-    "href": "https://github.com/colinhacks/zod",
-    "icon": "i-logos:zod",
-    "group": "libraries",
     "categories": ["frontend"]
   },
   {

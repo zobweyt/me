@@ -46,4 +46,41 @@ const { title, description } = Astro.props;
     opacity: 1 !important;
   }
 }
+
+@property --mask-start {
+  syntax: "<color>";
+  initial-value: black;
+  inherits: false;
+}
+
+@property --mask-end {
+  syntax: "<color>";
+  initial-value: black;
+  inherits: false;
+}
+
+[data-overflow-x-start] {
+  --mask-start: transparent;
+}
+
+[data-overflow-x-end] {
+  --mask-end: transparent;
+}
+
+[data-has-overflow-x] {
+  --size-start: min(var(--scroll-area-overflow-x-start), 10%);
+  --size-end: min(var(--scroll-area-overflow-x-end), 10%);
+
+  mask-image: linear-gradient(
+    to right,
+    var(--mask-start) 0%,
+    color-mix(in srgb, var(--mask-start), black 80%)
+      calc(var(--size-start) * 0.7),
+    black var(--size-start),
+    black calc(100% - var(--size-end)),
+    color-mix(in srgb, var(--mask-end), black 80%)
+      calc(100% - var(--size-end) * 0.7),
+    var(--mask-end) 100%
+  );
+}
 </style>
