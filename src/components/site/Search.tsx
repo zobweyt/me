@@ -223,6 +223,7 @@ export default function Search({
           <Command.Input
             value={query}
             ref={inputRef}
+            autoFocus
             onInput={(e) => setQuery(e.currentTarget.value)}
             placeholder={t("search.input.placeholder")}
             className={cx("ps-10", query && "pe-10")}

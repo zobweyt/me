@@ -2,6 +2,7 @@ import { ScrollArea } from "@base-ui/react/scroll-area";
 import { Tabs } from "@base-ui/react/tabs";
 import { cx } from "class-variance-authority";
 import { useMemo, useState } from "react";
+import { useWebHaptics } from "web-haptics/react";
 import SKILLS_CATEGORIES from "@/content/skills/categories.json";
 import SKILLS_GROUPS from "@/content/skills/groups.json";
 import type { Skill } from "@/lib/collections/skills";
@@ -13,6 +14,7 @@ export default function Skills({
   skills: Skill[];
   locale: string | undefined;
 }) {
+  const haptics = useWebHaptics();
   const [selectedCategory, setSelectedCategory] = useState(
     SKILLS_CATEGORIES[0].id,
   );
@@ -103,6 +105,7 @@ export default function Skills({
                   setTabFocusSource(null);
                 }}
                 onClick={(event) => {
+                  haptics.trigger("selection");
                   event.currentTarget.scrollIntoView({
                     behavior: "smooth",
                     block: "nearest",
