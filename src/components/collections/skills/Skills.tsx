@@ -212,7 +212,7 @@ export default function Skills({
                     inline: "center",
                   });
                 }}
-                className="flex cursor-pointer items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:bg-foreground/15 hover:active:bg-foreground/15 rounded-full select-none focus-visible:(outline-2 outline-offset-2 outline-selection) motion-safe:transition data-[active]:(text-body! bg-foreground!)"
+                className="flex cursor-pointer items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:(text-foreground bg-foreground/15 translate-y-px scale-[0.99]) hover:active:(text-foreground bg-foreground/15 translate-y-px scale-[0.99]) rounded-full select-none focus-visible:(outline-2 outline-offset-2 outline-selection) motion-safe:transition data-[active]:(text-body! bg-foreground!)"
               >
                 {category.i18n[locale as keyof typeof category.i18n].name}
               </Tabs.Tab>

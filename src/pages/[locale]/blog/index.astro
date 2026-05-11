@@ -38,7 +38,7 @@ const { posts, years } = await getBlogPostsByYears({
       </h1>
       <a
         href={`${Astro.site}${Astro.currentLocale}/rss.xml`}
-        class="flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border bg-surface/50 px-2.5 py-1.5 text-sm leading-none border-[#FF6600]/25 motion-safe:transition outline-none active:bg-surface @hover:bg-surface focus-visible:bg-surface text-[#FF6600]"
+        class="flex w-fit cursor-pointer select-none items-center justify-center gap-1 rounded-full border bg-surface/50 px-2.5 py-1.5 text-sm leading-none border-[#FF6600]/25 motion-safe:transition outline-none @hover:bg-surface focus-visible:bg-surface text-[#FF6600] active:(translate-y-px scale-[0.99] bg-surface)"
       >
         <span class="i-lucide:rss text-lg" />
         RSS
