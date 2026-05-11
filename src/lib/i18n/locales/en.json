@@ -20,7 +20,7 @@
   "achievements.heading": "Achievements",
   "search.title": "Search",
   "search.description": "Search across the website.",
-  "search.input.placeholder": "Type a command or search…",
+  "search.input.placeholder": "Search",
   "search.groups.pages.title": "Pages",
   "search.groups.pages.items.home": "Home",
   "search.groups.pages.items.blog": "Blog",
@@ -39,5 +39,6 @@
   "search.footer.previous": "Previous",
   "search.footer.next": "Next",
   "search.footer.exit": "Close",
-  "search.empty": "No results found."
+  "search.empty.title": "No Results for \"{query}\"",
+  "search.empty.description": "Check the spelling or try a new search."
 }

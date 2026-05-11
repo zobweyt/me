@@ -20,7 +20,7 @@
   "achievements.heading": "Достижения",
   "search.title": "Поиск",
   "search.description": "Поиск по всему сайту.",
-  "search.input.placeholder": "Команда или поиск…",
+  "search.input.placeholder": "Поиск",
   "search.groups.pages.title": "Страницы",
   "search.groups.pages.items.home": "Главная",
   "search.groups.pages.items.blog": "Блог",
@@ -39,5 +39,6 @@
   "search.footer.previous": "Предыдущий",
   "search.footer.next": "Следующий",
   "search.footer.exit": "Закрыть",
-  "search.empty": "Результаты не найдены."
+  "search.empty.title": "Нет результатов для «{query}»",
+  "search.empty.description": "Проверьте запрос или попробуйте новый поиск."
 }

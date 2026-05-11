@@ -64,7 +64,7 @@ export const Input = ({
   after?: React.ReactNode;
 }) => {
   return (
-    <div className="relative flex h-9 w-full items-center justify-center rounded-lg select-none">
+    <div className="relative max-sm:rounded-full max-sm:bg-surface bg-transparent flex h-10 sm:h-9 w-full items-center justify-center select-none">
       {before}
 
       <Command.Input
@@ -102,7 +102,7 @@ export const Empty = ({
   return (
     <Command.Empty
       className={cx(
-        "flex h-18.25 items-end justify-center pb-1.5 text-current/75",
+        "flex items-center justify-center text-center px-4 py-8 sm:py-6",
         className,
       )}
       {...props}

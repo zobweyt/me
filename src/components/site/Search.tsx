@@ -219,7 +219,7 @@ export default function Search({
         description={t("search.description")}
         initialFocus={inputRef}
       >
-        <div className="flex items-center justify-center border-b border-foreground/5 px-3 py-2">
+        <div className="flex items-center justify-center pt-3 px-3 sm:py-2 sm:border-b sm:border-foreground/5">
           <Command.Input
             value={query}
             ref={inputRef}
@@ -252,9 +252,14 @@ export default function Search({
         </div>
 
         <Command.List>
-          <Command.Empty className="flex-col items-center justify-center p-0! gap-2">
-            <span className="i-f7:skew text-2xl text-current/75" />
-            <span className="mt-0.5">{t("search.empty")}</span>
+          <Command.Empty className="flex-col items-center justify-center">
+            <span className="i-f7:search text-5xl text-current/50 mb-1.5" />
+            <span className="text-xl font-medium mb-0.5">
+              {t("search.empty.title").replace("{query}", query)}
+            </span>
+            <span className="text-sm text-current/50">
+              {t("search.empty.description")}
+            </span>
           </Command.Empty>
 
           {groups.map((group) => (
