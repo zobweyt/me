@@ -1,5 +1,5 @@
 ---
-import { Head, Header } from "@/components/site";
+import { Footer, Head, Header } from "@/components/site";
 
 type Props = {
   title: string;
@@ -27,5 +27,6 @@ const { title, description } = Astro.props;
     />
     <Header transition:name="header" transition:animate="none" />
     <main class="grow flex flex-col" transition:animate="fade"><slot /></main>
+    <Footer transition:name="footer" transition:animate="none" />
   </body>
 </html>

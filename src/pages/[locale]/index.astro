@@ -8,7 +8,6 @@ import { AchievementCard } from "@/components/collections/achievements";
 import { PostCard } from "@/components/collections/blog";
 import { ProjectCard } from "@/components/collections/projects";
 import { Skills } from "@/components/collections/skills";
-import { SocialCard } from "@/components/collections/socials";
 import { Section } from "@/components/site";
 import { Link } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -16,7 +15,6 @@ import { getAchievements } from "@/lib/collections/achievements";
 import { getBlogPosts } from "@/lib/collections/blog";
 import { getProjectsWithStats } from "@/lib/collections/projects";
 import { getSkills } from "@/lib/collections/skills";
-import { getSocials } from "@/lib/collections/socials";
 import { getTranslator } from "@/lib/i18n";
 
 export const prerender = false;
@@ -39,8 +37,6 @@ const projects = await getProjectsWithStats({
 });
 
 const skills = await getSkills();
-
-const socials = await getSocials();
 
 const achievements = await getAchievements({ locale: Astro.currentLocale });
 ---
@@ -98,21 +94,6 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
       {blog.map((post) => (
         <li>
           <PostCard post={post} />
-        </li>
-      ))}
-    </ul>
-  </Section>
-
-  <Section>
-    <h2 class="text-xl font-(serif medium) mb-3 sm:-mt-2">
-      {t("socials.heading")}
-    </h2>
-    <ul
-      class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 divide-(x foreground/5) border-(y foreground/5)"
-    >
-      {socials.map(social => (
-        <li class="flex">
-          <SocialCard social={social} />
         </li>
       ))}
     </ul>

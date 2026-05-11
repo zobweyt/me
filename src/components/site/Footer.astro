@@ -1,0 +1,60 @@
+---
+import { getSocials } from "@/lib/collections/socials";
+import { LOCALES, getTranslator } from "@/lib/i18n";
+import { Link } from "../ui";
+import Section from "./Section.astro";
+
+const t = getTranslator(Astro.currentLocale);
+const socials = await getSocials();
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-body border-t border-foreground/5">
+  <Section
+    class="flex flex-col md:flex-row justify-between gap-8 pt-12! pb-14!"
+  >
+    <div class="flex flex-col gap-2">
+      <span class="text-sm font-medium">{t("name")}</span>
+      <span class="text-xs text-current/50">&copy; {currentYear}</span>
+    </div>
+
+    <div class="grid grid-cols-2 md:gap-24 md:px-8">
+      <div class="flex flex-col md:min-w-32">
+        <h3
+          class="text-xs font-mono light:font-medium uppercase tracking-widest text-current/50 mb-1.5"
+        >
+          {t("search.groups.locales.title")}
+        </h3>
+        <ul class="flex flex-col gap-1">
+          {LOCALES.map((locale) => {
+            const href = Astro.url.pathname.replace(/^\/[^/]+/, `/${locale}`);
+            return (
+              <li>
+                <Link href={href} class="text-sm">
+                  {t(`search.groups.locales.items.${locale}`)}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <div class="flex flex-col md:min-w-32">
+        <h3
+          class="text-xs font-mono light:font-medium uppercase tracking-widest text-current/50 mb-1.5"
+        >
+          {t("search.groups.socials.title")}
+        </h3>
+        <ul class="flex flex-col gap-1">
+          {socials.map((social) => (
+            <li>
+              <Link href={social.data.href} class="text-sm">
+                {social.data.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+</footer>
