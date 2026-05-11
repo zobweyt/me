@@ -5,11 +5,14 @@ import {
 } from "astro:env/server";
 import { cx } from "class-variance-authority";
 import { AchievementCard } from "@/components/collections/achievements";
-import { PostCard } from "@/components/collections/blog";
-import { ProjectCard } from "@/components/collections/projects";
+import { BlogSection, PostCard } from "@/components/collections/blog";
+import {
+  ProjectCard,
+  ProjectsSection,
+} from "@/components/collections/projects";
 import { Skills } from "@/components/collections/skills";
 import { Section } from "@/components/site";
-import { Link } from "@/components/ui";
+import { Button, Link } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getAchievements } from "@/lib/collections/achievements";
 import { getBlogPosts } from "@/lib/collections/blog";
@@ -42,41 +45,51 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
 ---
 
 <BaseLayout title={t("home.title")} description={t("home.description")}>
-  <Section pattern="grid">
-    <h1 class="mb-3 text-3xl font-(serif semibold)">{t("home.title")}</h1>
+  <Section class="sm:py-8 py-4 px-4 lg:px-8" pattern="grid">
+    <h1 class="mb-3 text-3xl font-(serif semibold)">
+      <span transition:name="home-page-title">{t("home.title")}</span>
+    </h1>
     <p class="text-(pretty current/75)">{t("home.description")}</p>
   </Section>
 
-  <Section class="!p-0">
-    <h2 class="mb-1.5 text-xl font-(serif medium) mt-4 sm:mt-6 px-4 lg:px-8">
-      {t("skills.title")}
-    </h2>
+  <Section>
+    <div
+      class="w-full flex max-sm:flex-col sm:items-center gap-2 justify-between sm:py-6 py-4 px-4 lg:px-8 border-b border-foreground/5"
+    >
+      <hgroup>
+        <h2 class="text-xl font-(serif medium)">{t("skills.title")}</h2>
+        <p class="text-current/75 mt-1">{t("skills.description")}</p>
+      </hgroup>
+    </div>
+
     <Skills client:idle skills={skills} locale={Astro.currentLocale} />
   </Section>
 
   <Section>
-    <header class="mb-2 flex items-center justify-between">
-      <h2 class="text-xl font-(serif medium)">{t("projects.recent")}</h2>
-      <Link href={`/${Astro.currentLocale}/projects`}>
-        {t("projects.all")}
-      </Link>
-    </header>
-    <ul
-      class={cx("grid gap-4", projects.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-1")}
-    >
-      {projects.map((project) => (
-        <li>
-          <ProjectCard project={project} />
-        </li>
-      ))}
-    </ul>
+    <ProjectsSection locale={Astro.currentLocale}>
+      <ul
+        class={cx("grid gap-4 sm:py-8 py-4 px-4 lg:px-8", projects.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-1")}
+      >
+        {projects.map((project) => (
+          <li>
+            <ProjectCard project={project} />
+          </li>
+        ))}
+      </ul>
+    </ProjectsSection>
   </Section>
 
   <Section>
-    <h2 class="text-xl font-(serif medium) mb-3 sm:-mt-2">
-      {t("achievements.heading")}
-    </h2>
-    <ul class="-mb-4 sm:-mb-8 -mx-4 sm:-mx-8 grid grid-cols-2 lg:grid-cols-4">
+    <div
+      class="w-full flex max-sm:flex-col sm:items-center gap-2 justify-between sm:py-6 py-4 px-4 lg:px-8"
+    >
+      <hgroup>
+        <h2 class="text-xl font-(serif medium)">{t("achievements.heading")}</h2>
+        <p class="text-current/75 mt-1">{t("achievements.description")}</p>
+      </hgroup>
+    </div>
+
+    <ul class="grid grid-cols-2 lg:grid-cols-4">
       {achievements.map((achievement, index) => (
         <li class={cx("border-foreground/5 border-t", index !== 0 && "sm:border-l", index % 2 !== 0 && "max-sm:border-l")}>
           <AchievementCard achievement={achievement} />
@@ -86,16 +99,14 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
   </Section>
 
   <Section>
-    <header class="mb-3 flex items-center justify-between">
-      <h2 class="text-xl font-(serif medium)">{t("blog.latest")}</h2>
-      <Link href={`/${Astro.currentLocale}/blog`}>{t("blog.all")}</Link>
-    </header>
-    <ul class="space-y-4">
-      {blog.map((post) => (
-        <li>
-          <PostCard post={post} />
-        </li>
-      ))}
-    </ul>
+    <BlogSection locale={Astro.currentLocale}>
+      <ul class="space-y-4 sm:py-6 py-4 px-4 lg:px-8">
+        {blog.map((post) => (
+          <li>
+            <PostCard post={post} />
+          </li>
+        ))}
+      </ul>
+    </BlogSection>
   </Section>
 </BaseLayout>

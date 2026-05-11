@@ -185,7 +185,7 @@ export default function Skills({
     <Tabs.Root value={selectedCategory} onValueChange={setSelectedCategory}>
       <Tabs.List render={<ScrollArea.Root />} className="px-4 lg:px-8">
         <ScrollArea.Viewport
-          className="px-4 -mx-4 lg:px-8 lg:-mx-8 py-2 -my-2"
+          className="px-4 -mx-4 lg:px-8 lg:-mx-8 py-2 md:py-3"
           tabIndex={-1}
         >
           <ScrollArea.Content className="flex gap-1.5 py-2 -my-2 px-4 -mx-4">
@@ -225,7 +225,7 @@ export default function Skills({
           key={selectedCategory}
           value={selectedCategory}
           tabIndex={-1}
-          className="grid grid-cols-2 pt-4"
+          className="grid grid-cols-2"
         >
           {entries.map(([group, skills], index) => (
             <section

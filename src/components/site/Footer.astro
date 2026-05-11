@@ -10,51 +10,49 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-body border-t border-foreground/5 max-sm:border-b">
-  <Section
-    class="flex flex-col md:flex-row justify-between gap-8 pt-12! pb-14!"
-  >
-    <div class="flex flex-col gap-2">
-      <span class="text-sm font-medium">{t("name")}</span>
-      <span class="text-xs text-current/50">&copy; {currentYear}</span>
+  <Section class="grid grid-cols-2 md:grid-cols-4 divide-foreground/5">
+    <div
+      class="flex flex-col px-4 py-4 sm:py-6 lg:px-8 col-span-2 max-md:border-b md:border-r border-foreground/5"
+    >
+      <span class="text-sm font-serif font-medium mb-1.5">{t("name")}</span>
+      <span class="text-xs text-current/75">&copy; {currentYear}</span>
     </div>
 
-    <div class="grid grid-cols-2 md:gap-24 md:px-8">
-      <div class="flex flex-col md:min-w-32">
-        <h3
-          class="text-xs font-mono light:font-medium uppercase tracking-widest text-current/50 mb-1.5"
-        >
-          {t("search.groups.locales.title")}
-        </h3>
-        <ul class="flex flex-col gap-1">
-          {LOCALES.map((locale) => {
-            const href = Astro.url.pathname.replace(/^\/[^/]+/, `/${locale}`);
-            return (
-              <li>
-                <Link href={href} class="text-sm">
-                  {t(`search.groups.locales.items.${locale}`)}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
-      <div class="flex flex-col md:min-w-32">
-        <h3
-          class="text-xs font-mono light:font-medium uppercase tracking-widest text-current/50 mb-1.5"
-        >
-          {t("search.groups.socials.title")}
-        </h3>
-        <ul class="flex flex-col gap-1">
-          {socials.map((social) => (
+    <div
+      class="flex flex-col px-4 py-4 sm:py-6 lg:px-8 border-r border-foreground/5"
+    >
+      <h3 class="text-sm font-serif font-medium mb-1.5">
+        {t("search.groups.locales.title")}
+      </h3>
+      <ul class="flex flex-col gap-1">
+        {LOCALES.map((locale) => {
+          const href = Astro.url.pathname.replace(/^\/[^/]+/, `/${locale}`);
+          return (
             <li>
-              <Link href={social.data.href} class="text-sm">
-                {social.data.name}
+              <Link href={href} class="text-sm">
+                {t(`search.groups.locales.items.${locale}`)}
               </Link>
             </li>
-          ))}
-        </ul>
-      </div>
+          );
+        })}
+      </ul>
+    </div>
+
+    <div class="flex flex-col px-4 py-4 sm:py-6 lg:px-8">
+      <h3 class="text-sm font-serif font-medium mb-1.5">
+        {t("search.groups.socials.title")}
+      </h3>
+      <ul class="flex flex-col gap-1">
+        {socials.map((social) => (
+          <li>
+            <Link href={social.data.href} class="text-sm">
+              {social.data.name}
+              <span class="i-f7:arrow-up-right ms-0.5 text-current/50"/>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   </Section>
+  <Section class="p-2 md:p-6" />
 </footer>

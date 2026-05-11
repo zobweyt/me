@@ -1,4 +1,5 @@
 export { default as Article } from "./Article.astro";
+export { Button } from "./Button";
 export { default as Code } from "./Code";
 export * as Command from "./Command";
 export { default as Container } from "./Container.astro";

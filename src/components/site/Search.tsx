@@ -2,7 +2,7 @@ import { navigate } from "astro:transitions/client";
 import { cx } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
-import { Command } from "@/components/ui";
+import { Button, Command } from "@/components/ui";
 import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
 
 const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
@@ -20,7 +20,6 @@ export default function Search({
   posts,
   projects,
   socials,
-  className,
   url,
   site,
   locale,
@@ -204,15 +203,12 @@ export default function Search({
       }}
     >
       <Command.Trigger
-        className={cx(
-          "flex w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2 py-1.5 text-sm leading-none motion-safe:transition outline-none @hover:bg-surface active:!bg-surface focus-visible:bg-surface",
-          className,
-        )}
+        render={<Button />}
         title={`${t("search.title")} (Ctrl+K)`}
         {...props}
       >
         <span className="i-f7:search text-foreground/75 text-base -m-0.5" />
-        <span>{t("search.title")}</span>
+        {t("search.title")}
       </Command.Trigger>
       <Command.Popup
         title={t("search.title")}

@@ -66,6 +66,7 @@
       "linter": {
         "rules": {
           "a11y": {
+            "useAnchorContent": "off",
             "noSvgWithoutTitle": "off"
           },
           "style": {
@@ -89,6 +90,7 @@
       "linter": {
         "rules": {
           "a11y": {
+            "useAnchorContent": "off",
             "noSvgWithoutTitle": "off"
           }
         }

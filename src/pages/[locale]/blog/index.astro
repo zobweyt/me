@@ -1,6 +1,7 @@
 ---
 import { PostCard } from "@/components/collections/blog";
 import { Section } from "@/components/site";
+import { Link } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getBlogPostsByYears } from "@/lib/collections/blog";
 import { LOCALES, getTranslator } from "@/lib/i18n";
@@ -19,7 +20,15 @@ const { posts, years } = await getBlogPostsByYears({
 ---
 
 <BaseLayout title={t("blog.title")} description={t("blog.description")}>
-  <Section pattern="grid">
+  <Section class="sm:py-8 py-4 px-4 lg:px-8" pattern="grid">
+    <Link
+      href={`/${Astro.currentLocale}`}
+      class="text-base flex items-center justify-center gap-1 me-auto mb-5"
+      underline={false}
+    >
+      <span class="i-f7:chevron-left text-2xl" />
+      <span transition:name="home-page-title">{t("home.title")}</span>
+    </Link>
     <div class="flex justify-between items-center mb-3">
       <h1
         class="text-3xl font-(serif semibold)"
@@ -38,7 +47,7 @@ const { posts, years } = await getBlogPostsByYears({
     <p class="text-(pretty current/75)">{t("blog.description")}</p>
   </Section>
 
-  <Section>
+  <Section class="sm:py-8 py-4 px-4 lg:px-8">
     <div class="space-y-4">
       {years.map((year) => (
         <section>
