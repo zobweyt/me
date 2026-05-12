@@ -5,19 +5,21 @@ import { Container } from "../ui";
 
 type Props = HTMLAttributes<"section"> & {
   pattern?: "grid" | "dot";
-  variant?: "default" | "body";
+  variant?: "default" | "body" | "grid";
+  dots?: boolean;
 };
 
 const {
   class: className,
   pattern,
+  dots = true,
   variant = "default",
   ...props
 } = Astro.props;
 ---
 
 <section
-  class={cx("group flex last:grow", variant === "body" && "bg-body")}
+  class={cx("relative group flex last:grow", variant === "body" && "bg-body")}
   {...props}
 >
   <span
@@ -25,15 +27,29 @@ const {
     transition:animate="none"
   />
   <span
-    class="hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
+    class="relative hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
     transition:animate="none"
   >
     <slot name="left" />
+    {dots && (
+      <>
+        <div class="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -left-[3.5px]" />
+        <div class="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -right-[3.5px]" />	  
+      </>
+    )}
+    {variant === "grid" && <svg data-texture="grid" class="pointer-events-none absolute inset-0" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><pattern id="_S_2n_" width="10" height="10" patternUnits="userSpaceOnUse" class="text-foreground/5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0V-1H-1V0H0ZM0 0V1H24V0V-1H0V0ZM0 24H1V0H0H-1V24H0Z" fill="currentColor"></path></svg></pattern><rect width="100%" height="100%" fill="url(#_S_2n_)"></rect></svg>}
   </span>
+  {variant === "body" && <svg class="pb-px pointer-events-none absolute inset-0 size-full select-none text-foreground/5 z-1"><defs><pattern id="_S_u_" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4" stroke="currentColor" stroke-width="1.5"></line></pattern></defs><rect width="100%" height="100%" fill="url(#_S_u_)"></rect></svg>}
 
   <Container
-    class={cx("relative overflow-hidden flex flex-col min-w-0 w-full border-b border-foreground/5 group-last:border-b-0", className)}
+    class={cx("relative flex flex-col min-w-0 w-full border-b border-foreground/5 group-last:border-b-0", className)}
   >
+    {dots && (
+      <>
+        <div class="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -left-[3.5px]" />
+        <div class="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -right-[3.5px]" />	  
+      </>
+    )}
     {pattern === "grid" && (
       <div
         class="absolute inset-0 -z-10 pointer-events-none opacity-[0.1] dark:opacity-[0.05]"
@@ -55,13 +71,20 @@ const {
   </Container>
 
   <span
-    class="hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
+    class="relative hidden flex-1 border-x border-foreground/5 md:block border-b group-last:border-b-0"
     transition:animate="none"
   >
     <slot name="right" />
+    {dots && (
+      <>
+        <div class="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -left-[3.5px]" />
+        <div class="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -right-[3.5px]" />	  
+      </>
+    )}
+    {variant === "grid" && <svg data-texture="grid" class="pointer-events-none absolute inset-0" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><pattern id="_S_2n_" width="10" height="10" patternUnits="userSpaceOnUse" class="text-foreground/5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0V-1H-1V0H0ZM0 0V1H24V0V-1H0V0ZM0 24H1V0H0H-1V24H0Z" fill="currentColor"></path></svg></pattern><rect width="100%" height="100%" fill="url(#_S_2n_)"></rect></svg>}
   </span>
   <span
-    class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-l md:border-l-0 border-foreground/5 border-b group-last:border-b-0"
+    class="relative w-4 sm:w-6 md:w-12 bg-body shrink-0 border-l md:border-l-0 border-foreground/5 border-b group-last:border-b-0"
     transition:animate="none"
   />
 </section>

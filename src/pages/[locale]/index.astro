@@ -52,7 +52,7 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     <p class="text-(pretty current/75)">{t("home.description")}</p>
   </Section>
   <Section class="h-3.5" variant="body" />
-  <Section>
+  <Section variant="grid">
     <div
       class="w-full flex max-sm:flex-col sm:items-center gap-2 justify-between sm:py-6 py-4 px-4 lg:px-8 border-b border-foreground/5"
     >
@@ -79,7 +79,7 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     </ProjectsSection>
   </Section>
   <Section class="h-3.5" variant="body" />
-  <Section>
+  <Section variant="grid">
     <div
       class="w-full flex max-sm:flex-col sm:items-center gap-2 justify-between sm:py-6 py-4 px-4 lg:px-8"
     >
