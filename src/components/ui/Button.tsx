@@ -5,7 +5,7 @@ const buttonStyles = cva("", {
   variants: {
     variant: {
       default:
-        "flex select-none w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2 py-1.5 text-sm leading-none motion-safe:transition outline-none @hover:bg-surface focus-visible:bg-surface active:(translate-y-px scale-[0.99] !bg-surface)",
+        "flex select-none w-fit cursor-pointer items-center justify-center gap-1 rounded-full border border-foreground/15 bg-surface/50 px-2 py-1.5 text-sm leading-none motion-safe:transition @hover:bg-surface focus-visible:(outline-3 outline-offset-2 outline-selection bg-surface) active:(translate-y-px scale-[0.99] !bg-surface)",
     },
   },
   defaultVariants: {

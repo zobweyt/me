@@ -3,12 +3,23 @@ import type { HTMLAttributes } from "astro/types";
 import { cx } from "class-variance-authority";
 import { Container } from "../ui";
 
-type Props = HTMLAttributes<"section"> & { pattern?: "grid" | "dot" };
+type Props = HTMLAttributes<"section"> & {
+  pattern?: "grid" | "dot";
+  variant?: "default" | "body";
+};
 
-const { class: className, pattern, ...props } = Astro.props;
+const {
+  class: className,
+  pattern,
+  variant = "default",
+  ...props
+} = Astro.props;
 ---
 
-<section class="group flex last:grow" {...props}>
+<section
+  class={cx("group flex last:grow", variant === "body" && "bg-body")}
+  {...props}
+>
   <span
     class="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-r md:border-r-0 border-foreground/5 border-b group-last:border-b-0"
     transition:animate="none"
