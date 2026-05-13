@@ -24,7 +24,7 @@ export const prerender = false;
 
 Astro.response.headers.set(
   "Cache-Control",
-  "public, s-maxage=3600, stale-while-revalidate=60",
+  "private, no-cache, no-store, must-revalidate",
 );
 
 const t = getTranslator(Astro.currentLocale);
