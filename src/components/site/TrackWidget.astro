@@ -1,0 +1,8 @@
+---
+import { getCurrentTrack } from "@/lib/last-fm";
+import TrackPlayer from "./TrackPlayer";
+
+const track = await getCurrentTrack();
+---
+
+<TrackPlayer initialData={track} client:load />

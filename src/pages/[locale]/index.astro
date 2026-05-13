@@ -12,7 +12,7 @@ import {
 } from "@/components/collections/projects";
 import { Skills } from "@/components/collections/skills";
 import { Section } from "@/components/site";
-import { Button, Link } from "@/components/ui";
+import TrackWidget from "@/components/site/TrackWidget.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getAchievements } from "@/lib/collections/achievements";
 import { getBlogPosts } from "@/lib/collections/blog";
@@ -51,6 +51,7 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     </h1>
     <p class="text-(pretty current/75)">{t("home.description")}</p>
   </Section>
+  <TrackWidget />
   <Section class="h-3.5" variant="body" />
   <Section variant="grid">
     <div
