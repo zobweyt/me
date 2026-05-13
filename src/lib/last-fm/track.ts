@@ -22,7 +22,9 @@ async function getDominantColorFromUrl(
   if (!imageUrl) return null;
 
   try {
-    const response = await fetch(imageUrl);
+    const response = await fetch(imageUrl, {
+      cache: "no-store",
+    });
     const buffer = await response.arrayBuffer();
 
     const { dominant } = await sharp(Buffer.from(buffer)).stats();
@@ -45,7 +47,9 @@ export async function getCurrentTrack() {
     url.searchParams.append("format", "json");
     url.searchParams.append("limit", "1");
 
-    const response = await fetch(url.toString());
+    const response = await fetch(url.toString(), {
+      cache: "no-store",
+    });
 
     if (!response.ok) {
       return { error: `Last.fm API error: ${response.status}` };

@@ -53,9 +53,7 @@ export default defineConfig({
     },
   ],
   output: "server",
-  adapter: vercel({
-    isr: true,
-  }),
+  adapter: vercel(),
   markdown: {
     shikiConfig: {
       themes: {
