@@ -1,8 +1,18 @@
 ---
-import { getCurrentTrack } from "@/lib/last-fm";
 import TrackPlayer from "./TrackPlayer";
 
-const track = await getCurrentTrack();
+const id = "621276641166884867";
+
+const response = await fetch(`https://api.lanyard.rest/v1/users/${id}`, {
+  cache: "no-store",
+});
+
+const { data: initialPresence } = await response.json();
 ---
 
-<TrackPlayer initialData={track} client:load />
+<TrackPlayer
+  id={id}
+  locale={Astro.currentLocale}
+  initialPresence={initialPresence}
+  client:idle
+/>
