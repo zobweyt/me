@@ -83,4 +83,26 @@ const { title, description } = Astro.props;
     var(--mask-end) 100%
   );
 }
+
+@keyframes flipOut {
+  0% {
+    transform: rotateX(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(90deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes flipIn {
+  0% {
+    transform: rotateX(-90deg) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg) scale(1);
+    opacity: 1;
+  }
+}
 </style>

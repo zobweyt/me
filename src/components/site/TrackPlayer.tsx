@@ -1,6 +1,7 @@
 import { prominent } from "color.js";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TextMorph } from "torph/react";
+import { getTranslator } from "@/lib/i18n";
 
 interface LanyardSpotify {
   track_id: string;
@@ -79,6 +80,9 @@ export default function TrackPlayer({ id, locale, initialPresence }: Props) {
   const heartbeatRef = useRef<NodeJS.Timeout | null>(null);
   const animationRef = useRef<number | null>(null);
   const paletteCacheRef = useRef<Map<string, string[]>>(new Map());
+  const [isChanging, setIsChanging] = useState(false);
+  const [prevAlbumArt, setPrevAlbumArt] = useState<string | null>(null);
+  const t = getTranslator(locale);
 
   useEffect(() => {
     setIsClient(true);
@@ -160,6 +164,13 @@ export default function TrackPlayer({ id, locale, initialPresence }: Props) {
     if (presence.listening_to_spotify && presence.spotify) {
       setTrack((prev: LanyardSpotify | null) => {
         if (prev?.track_id === presence.spotify?.track_id) return prev;
+
+        if (prev?.album_art_url) {
+          setPrevAlbumArt(prev.album_art_url);
+          setIsChanging(true);
+          setTimeout(() => setIsChanging(false), 600);
+        }
+
         return presence.spotify as LanyardSpotify;
       });
     } else {
@@ -189,7 +200,7 @@ export default function TrackPlayer({ id, locale, initialPresence }: Props) {
     };
 
     updateProgress();
-    const interval = setInterval(updateProgress, 1000);
+    const interval = setInterval(updateProgress, 300);
 
     return () => clearInterval(interval);
   }, [track, isClient]);
@@ -262,16 +273,16 @@ export default function TrackPlayer({ id, locale, initialPresence }: Props) {
     const seconds = Math.floor(ms / 1000);
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
-  const currentTime =
-    track?.timestamps?.start && progress
-      ? Date.now() - track.timestamps.start
-      : 0;
   const duration =
     track?.timestamps?.start && track?.timestamps?.end
       ? track.timestamps.end - track.timestamps.start
+      : 0;
+  const currentTime =
+    track?.timestamps?.start && progress
+      ? Math.min(Math.max(Date.now() - track.timestamps.start, 0), duration)
       : 0;
 
   if (!track) {
@@ -289,54 +300,94 @@ export default function TrackPlayer({ id, locale, initialPresence }: Props) {
           href={trackUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="py-2 px-4 flex gap-3 items-center justify-center lg:px-8 overflow-hidden @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none"
+          className="py-2 px-4 lg:px-8 flex flex-col gap-1.5 overflow-hidden @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none"
         >
-          {track.album_art_url && (
-            <img
-              src={track.album_art_url}
-              alt={track.album}
-              width={56}
-              height={56}
-              className="rounded-lg shrink-0"
-              draggable={false}
-              loading="eager"
-            />
-          )}
-          <div className="min-w-0 flex-1 me-2 -mb-1">
-            <div className="font-serif leading-none font-medium text-sm mb-1.5 truncate">
-              <TextMorph locale={locale}>{track.song}</TextMorph>
-            </div>
-            <div className="text-xs leading-none font-mono text-current/50 truncate">
-              <TextMorph locale={locale}>{track.artist}</TextMorph>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <TextMorph className="text-xs leading-loose text-current/40 tabular-nums">
-                {formatTime(currentTime)}
-              </TextMorph>
-              <div className="relative flex-1 w-full h-1.5 rounded-full bg-foreground/10 overflow-hidden">
-                <div
-                  className="absolute inset-y-0 left-0 bg-foreground/40 transition-all duration-300 ease-linear"
-                  style={{ width: `${progress?.progress || 0}%` }}
-                />
-              </div>
-              <TextMorph className="text-xs leading-loose text-current/40 tabular-nums">
-                {formatTime(duration)}
-              </TextMorph>
-            </div>
-          </div>
-          <div className="ms-auto relative shrink-0">
-            <div className="flex items-center gap-0.5">
-              {heights.map((height, i) => (
-                <div
-                  key={i}
-                  className="w-0.5 rounded-full transition-all duration-100 ease-out"
+          <p className="text-current/75 text-xs flex items-center gap-1.5">
+            {t("spotify.listening")}
+            <span className="i-logos:spotify-icon grayscale-100"></span>
+          </p>
+
+          <div className="flex gap-3 items-center justify-center">
+            {track.album_art_url && (
+              <div
+                className="relative shrink-0"
+                style={{ width: 56, height: 56 }}
+              >
+                {prevAlbumArt && isChanging && (
+                  <img
+                    src={prevAlbumArt}
+                    alt=""
+                    width={56}
+                    height={56}
+                    className="absolute inset-0 rounded-lg object-cover shadow-2xl"
+                    style={{
+                      animation:
+                        "flipOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards",
+                    }}
+                    draggable={false}
+                  />
+                )}
+
+                <img
+                  src={track.album_art_url}
+                  alt={track.album}
+                  width={56}
+                  height={56}
+                  className="rounded-lg shrink-0 shadow-2xl"
                   style={{
-                    height: `${height}px`,
-                    backgroundColor: palette[i] || "currentColor",
-                    opacity: 0.42 + height / 67,
+                    animation: isChanging
+                      ? "flipIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards"
+                      : "none",
+                  }}
+                  draggable={false}
+                  loading="eager"
+                  onAnimationEnd={() => {
+                    if (isChanging) {
+                      setPrevAlbumArt(null);
+                    }
                   }}
                 />
-              ))}
+              </div>
+            )}
+            <div className="min-w-0 grow -mb-1">
+              <div className="flex justify-between grow">
+                <div className="flex flex-col">
+                  <div className="font-serif leading-none font-medium text-sm mb-1.5 truncate">
+                    <TextMorph locale={locale}>{track.song}</TextMorph>
+                  </div>
+                  <div className="text-xs leading-none text-current/75 truncate">
+                    <TextMorph locale={locale}>{track.artist}</TextMorph>
+                  </div>
+                </div>
+
+                <div className="ms-auto relative shrink-0 flex items-center gap-0.5">
+                  {heights.map((height, i) => (
+                    <div
+                      key={i}
+                      className="w-0.5 rounded-full transition-all duration-100 ease-out"
+                      style={{
+                        height: `${height}px`,
+                        backgroundColor: palette[i] || "currentColor",
+                        opacity: 0.42 + height / 67,
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <TextMorph className="text-xs font-mono leading-loose text-current/40 tabular-nums">
+                  {formatTime(currentTime)}
+                </TextMorph>
+                <div className="relative flex-1 w-full h-1.5 rounded-full bg-foreground/10 overflow-hidden">
+                  <div
+                    className="absolute inset-y-0 left-0 bg-foreground/40 transition-all duration-100 ease-linear"
+                    style={{ width: `${progress?.progress || 0}%` }}
+                  />
+                </div>
+                <TextMorph className="text-xs font-mono leading-loose text-current/40 tabular-nums">
+                  {formatTime(duration)}
+                </TextMorph>
+              </div>
             </div>
           </div>
         </a>
