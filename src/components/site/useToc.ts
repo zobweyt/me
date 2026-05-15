@@ -6,33 +6,9 @@ interface Heading {
 }
 
 export function useToc(headings: Heading[]) {
-  const [open, setOpen] = useState(false);
   const [text, setCurrentText] = useState("");
   const [slug, setActiveSlug] = useState("");
   const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const checkScroll = () => {
-      if (window.innerWidth >= 1536 && open) {
-        setOpen(false);
-        document.body.style.overflow = "";
-        return;
-      }
-
-      if (open) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
-      }
-    };
-
-    checkScroll();
-    window.addEventListener("resize", checkScroll);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("resize", checkScroll);
-    };
-  }, [open]);
 
   useEffect(() => {
     let frameId: number;
@@ -77,10 +53,8 @@ export function useToc(headings: Heading[]) {
     targets.forEach((el) => {
       observer.observe(el);
     });
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [headings]);
 
-  return { open, setOpen, text, slug, progress };
+  return { text, slug, progress };
 }

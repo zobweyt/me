@@ -1,6 +1,5 @@
-import { Collapsible } from "@base-ui/react";
+import { Menu } from "@base-ui/react";
 import { cva, cx } from "class-variance-authority";
-import { useEffect, useRef } from "react";
 import { Link } from "../ui";
 import { useToc } from "./useToc";
 
@@ -12,21 +11,22 @@ interface Heading {
 
 interface TocProps extends React.ComponentPropsWithoutRef<"nav"> {
   headings: Heading[];
-  translations?: {
-    toc: string;
-  };
+  translations?: { toc: string };
   variant?: "desktop" | "mobile";
 }
 
-const linkStyles = cva("py-0.5 block text-sm transition-colors", {
+const linkStyles = cva("", {
   variants: {
     depth: {
-      1: "ps-0",
-      2: "ps-0",
-      3: "ps-2.5",
-      4: "ps-4.5",
-      5: "ps-6.5",
-      6: "ps-8.5",
+      1: "2xl:ps-0 gap-2.5",
+      2: "2xl:ps-0 gap-2.5",
+      3: "2xl:ps-2.5 gap-6.5",
+      4: "2xl:ps-4.5 gap-10.5",
+      5: "2xl:ps-6.5 gap-12.5",
+      6: "2xl:ps-8.5 gap-14.5",
+    },
+    variant: {
+      mobile: "",
     },
   },
 });
@@ -38,99 +38,7 @@ export default function Toc({
   variant = "mobile",
   ...props
 }: TocProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const { open, setOpen, text, slug, progress } = useToc(headings);
-
-  useEffect(() => {
-    if (!open || variant !== "mobile") return;
-
-    const frameId = requestAnimationFrame(() => {
-      const container = containerRef.current;
-      if (!container) return;
-
-      const activeLink = container.querySelector<HTMLAnchorElement>(
-        'a[data-current="true"]',
-      );
-      const fallbackLink =
-        container.querySelector<HTMLAnchorElement>('a[href^="#"]');
-
-      const targetLink = activeLink || fallbackLink;
-      targetLink?.focus();
-    });
-
-    return () => cancelAnimationFrame(frameId);
-  }, [open, variant]);
-
-  useEffect(() => {
-    if (!open || variant !== "mobile") return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        triggerRef.current?.focus();
-        return;
-      }
-
-      const isTab = e.key === "Tab";
-      const isArrowDown = e.key === "ArrowDown";
-      const isArrowUp = e.key === "ArrowUp";
-
-      if (!isTab && !isArrowDown && !isArrowUp) return;
-
-      const container = containerRef.current;
-      if (!container) return;
-
-      const trigger = triggerRef.current;
-      const links = Array.from(
-        container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
-      );
-
-      if (!trigger || links.length === 0) return;
-
-      const focusableElements = [trigger, ...links];
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-      const currentIndex = focusableElements.indexOf(
-        document.activeElement as HTMLAnchorElement | HTMLButtonElement,
-      );
-
-      if (isTab) {
-        if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            lastElement.focus();
-            e.preventDefault();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            firstElement.focus();
-            e.preventDefault();
-          }
-        }
-      }
-
-      if (isArrowDown) {
-        e.preventDefault();
-        if (currentIndex === -1 || document.activeElement === lastElement) {
-          firstElement.focus();
-        } else {
-          focusableElements[currentIndex + 1].focus();
-        }
-      }
-
-      if (isArrowUp) {
-        e.preventDefault();
-        if (currentIndex === -1 || document.activeElement === firstElement) {
-          lastElement.focus();
-        } else {
-          focusableElements[currentIndex - 1].focus();
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, variant, setOpen]);
+  const { text, slug, progress } = useToc(headings);
 
   const radius = 9;
   const circumference = 2 * Math.PI * radius;
@@ -148,12 +56,14 @@ export default function Toc({
         <h2 className="text-sm font-serif font-medium mb-1.5">
           {translations?.toc}
         </h2>
-        <ul id="toc" className="2xl:overflow-y-auto">
+        <ul id="toc" className="2xl:overflow-y-auto space-y-1">
           {headings.map((heading) => (
             <li
               key={heading.slug}
               className={linkStyles({
                 depth: heading.depth as 1 | 2 | 3 | 4 | 5 | 6,
+                className:
+                  "py-0.5 block text-sm transition-colors outline-none",
               })}
             >
               <Link
@@ -177,18 +87,8 @@ export default function Toc({
       )}
       {...props}
     >
-      <Collapsible.Root
-        open={open}
-        onOpenChange={setOpen}
-        ref={containerRef}
-        className="left-0 right-0 w-full"
-        {...props}
-      >
-        <Collapsible.Trigger
-          ref={triggerRef}
-          onClick={() => setOpen(!open)}
-          className="flex cursor-pointer items-center border-b border-foreground/5 justify-between w-full py-3 text-sm font-medium px-4 lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none"
-        >
+      <Menu.Root>
+        <Menu.Trigger className="flex cursor-pointer items-center border-b border-foreground/5 justify-between w-full py-3 text-sm font-medium px-4 lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none">
           <div className="flex items-center gap-2 overflow-hidden pr-4 min-w-0 w-full">
             <svg
               className="w-5 h-5 transform -rotate-90 shrink-0"
@@ -204,7 +104,7 @@ export default function Toc({
                 cy="12"
               />
               <circle
-                className="text-current transition-[stroke-dashoffset] duration-300 ease-out"
+                className="text-current/50 transition-[stroke-dashoffset] duration-300 ease-out"
                 strokeWidth="2.5"
                 strokeDasharray={circumference}
                 strokeDashoffset={strokeDashoffset}
@@ -216,65 +116,45 @@ export default function Toc({
                 cy="12"
               />
             </svg>
-            {text && !open ? (
+            {text ? (
               <span className="truncate">{text}</span>
             ) : (
               <span className="text-current/75">{translations?.toc}</span>
             )}
           </div>
-          <span
-            className={cx(
-              "i-f7:chevron-down text-current/50 ms-4 text-lg motion-safe:transition-transform shrink-0",
-              open && "rotate-180",
-            )}
-          />
-          <div
-            className={cx(
-              "absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[2.5px] -left-[3.5px]",
-              open && "hidden",
-            )}
-          />
-          <div
-            className={cx(
-              "absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[2.5px] -right-[3.5px]",
-              open && "hidden",
-            )}
-          />
-        </Collapsible.Trigger>
+          <span className="i-f7:chevron-down text-current/50 ms-4 text-lg motion-safe:transition-transform shrink-0 menu-open:rotate-180" />
+        </Menu.Trigger>
 
-        <Collapsible.Panel
-          className="sticky bg-body w-full border-b border-foreground/5 z-10 -mb-8"
-          tabIndex={-1}
-        >
-          <div className="px-4 lg:px-8 py-3 h-[calc(100dvh-6.25rem)] overflow-y-auto w-full">
-            <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -top-[3.5px] -left-[3.5px]" />
-            <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -top-[3.5px] -right-[3.5px]" />
-            <ul id="toc" className="space-y-1">
+        <Menu.Portal>
+          <Menu.Positioner
+            align="center"
+            className="sticky border-b border-foreground/5 z-10"
+          >
+            <Menu.Popup
+              id="toc"
+              className="bg-body outline-none w-[var(--anchor-width)] max-h-[calc(100dvh-6.25rem)] flex divide-y divide-foreground/5 overflow-y-auto flex grow flex-col"
+            >
               {headings.map((heading) => (
-                <li
+                <Menu.LinkItem
                   key={heading.slug}
+                  href={`#${heading.slug}`}
                   className={linkStyles({
                     depth: heading.depth as 1 | 2 | 3 | 4 | 5 | 6,
+                    className: cx(
+                      "py-2.5 px-4 text-sm flex items-center lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none",
+                      slug === heading.slug && "bg-surface/20",
+                    ),
                   })}
+                  closeOnClick
                 >
-                  <Link
-                    href={`#${heading.slug}`}
-                    data-current={slug === heading.slug ? "true" : undefined}
-                    onClick={() => {
-                      setOpen(false);
-                      requestAnimationFrame(() => {
-                        triggerRef.current?.focus();
-                      });
-                    }}
-                  >
-                    {heading.text}
-                  </Link>
-                </li>
+                  <span className="i-f7:text-alignleft shrink-0 text-lg text-current/50" />
+                  {heading.text}
+                </Menu.LinkItem>
               ))}
-            </ul>
-          </div>
-        </Collapsible.Panel>
-      </Collapsible.Root>
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
     </nav>
   );
 }
