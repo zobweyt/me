@@ -5,7 +5,7 @@ export * as Command from "./Command";
 export { default as Container } from "./Container.astro";
 export * as Dialog from "./Dialog";
 export { Elastic } from "./Elastic";
-export { default as Link } from "./Link.astro";
+export { default as Link } from "./Link";
 export { default as Prose } from "./Prose.astro";
 export * as Tabs from "./Tabs";
 export { default as Time } from "./Time.astro";

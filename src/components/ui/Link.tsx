@@ -1,6 +1,4 @@
----
-import type { HTMLAttributes } from "astro/types";
-import { cva } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 
 const styles = cva(
   [
@@ -17,14 +15,25 @@ const styles = cva(
         true: "underline underline-offset-4",
       },
     },
+    defaultVariants: {
+      underline: true,
+    },
   },
 );
 
-export type Props = HTMLAttributes<"a"> & {
-  underline?: boolean;
-};
+export interface LinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    VariantProps<typeof styles> {}
 
-const { underline = true, class: className, ...props } = Astro.props;
----
-
-<a class={styles({ underline, className })} {...props}><slot /></a>
+export default function Link({
+  underline,
+  className,
+  children,
+  ...props
+}: LinkProps) {
+  return (
+    <a className={styles({ underline, className })} {...props}>
+      {children}
+    </a>
+  );
+}

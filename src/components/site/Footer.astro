@@ -29,7 +29,7 @@ const currentYear = new Date().getFullYear();
           const href = Astro.url.pathname.replace(/^\/[^/]+/, `/${locale}`);
           return (
             <li>
-              <Link href={href} class="text-sm">
+              <Link href={href} className="text-sm">
                 {t(`search.groups.locales.items.${locale}`)}
               </Link>
             </li>
@@ -45,7 +45,7 @@ const currentYear = new Date().getFullYear();
       <ul class="flex flex-col gap-1">
         {socials.map((social) => (
           <li>
-            <Link href={social.data.href} class="text-sm">
+            <Link href={social.data.href} className="text-sm">
               {social.data.name}
               <span class="i-f7:arrow-up-right ms-0.5 text-current/50"/>
             </Link>
