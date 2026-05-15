@@ -43,6 +43,16 @@ export default function Toc({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (isOpen) {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null;
     let lastScrollTime = 0;
     const delay = 150;
@@ -207,11 +217,24 @@ export default function Toc({
               isOpen && "rotate-180",
             )}
           />
-          <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3px] -left-[3.5px]" />
-          <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3px] -right-[3.5px]" />
+          <div
+            className={cx(
+              "absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[2.5px] -left-[3.5px]",
+              isOpen && "hidden",
+            )}
+          />
+          <div
+            className={cx(
+              "absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[2.5px] -right-[3.5px]",
+              isOpen && "hidden",
+            )}
+          />
         </Collapsible.Trigger>
 
-        <Collapsible.Panel className="sticky bg-body w-full border-b border-foreground/5 z-10 -mb-8">
+        <Collapsible.Panel
+          className="sticky bg-body w-full border-b border-foreground/5 z-10 -mb-8"
+          tabIndex={-1}
+        >
           <div className="px-4 lg:px-8 py-3 h-[calc(100dvh-6.25rem)] overflow-y-auto w-full">
             <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -top-[3.5px] -left-[3.5px]" />
             <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -top-[3.5px] -right-[3.5px]" />
