@@ -105,4 +105,18 @@ const { title, description } = Astro.props;
     opacity: 1;
   }
 }
+
+@keyframes sync-progress {
+  from {
+    stroke-dashoffset: var(--circumference);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.svg-scroll-progress {
+  animation: sync-progress linear both;
+  animation-timeline: scroll(root);
+}
 </style>
