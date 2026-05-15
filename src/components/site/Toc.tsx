@@ -1,7 +1,8 @@
 import { Collapsible } from "@base-ui/react";
 import { cva, cx } from "class-variance-authority";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "../ui";
+import { useToc } from "./useToc";
 
 interface Heading {
   depth: number;
@@ -14,7 +15,7 @@ interface TocProps extends React.ComponentPropsWithoutRef<"nav"> {
   translations?: {
     toc: string;
   };
-  slot?: string;
+  variant?: "desktop" | "mobile";
 }
 
 const linkStyles = cva("py-0.5 block text-sm transition-colors", {
@@ -34,117 +35,116 @@ export default function Toc({
   headings = [],
   translations,
   className,
+  variant = "mobile",
   ...props
 }: TocProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentText, setCurrentText] = useState("");
-  const [activeSlug, setActiveSlug] = useState("");
-  const [progress, setProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const { open, setOpen, text, slug, progress } = useToc(headings);
 
   useEffect(() => {
-    if (isOpen) {
-      const originalStyle = window.getComputedStyle(document.body).overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = originalStyle;
-      };
-    }
-  }, [isOpen]);
+    if (!open || variant !== "mobile") return;
 
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout | null = null;
-    let lastScrollTime = 0;
-    const delay = 150;
+    const frameId = requestAnimationFrame(() => {
+      const container = containerRef.current;
+      if (!container) return;
 
-    const handleScroll = () => {
-      const now = performance.now();
+      const activeLink = container.querySelector<HTMLAnchorElement>(
+        'a[data-current="true"]',
+      );
+      const fallbackLink =
+        container.querySelector<HTMLAnchorElement>('a[href^="#"]');
 
-      if (timeoutId) clearTimeout(timeoutId);
-
-      const updateProgress = () => {
-        const totalHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-        if (totalHeight <= 0) return;
-        const currentScroll = window.scrollY;
-        setProgress(Math.min(Math.max(currentScroll / totalHeight, 0), 1));
-        lastScrollTime = now;
-      };
-
-      if (now - lastScrollTime >= delay) {
-        updateProgress();
-      } else {
-        timeoutId = setTimeout(updateProgress, delay - (now - lastScrollTime));
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    const targetElements = document.querySelectorAll(
-      "h1, h2[id], h3[id], h4[id], h5[id], h6[id]",
-    );
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (entry.target.tagName === "H1") {
-              setActiveSlug("");
-              setCurrentText("");
-            } else {
-              const id = entry.target.id;
-              setActiveSlug(id);
-              const matchingHeading = headings.find((h) => h.slug === id);
-              if (matchingHeading) {
-                setCurrentText(matchingHeading.text);
-              }
-            }
-          }
-        });
-      },
-      { rootMargin: "0px 0px -80% 0px" },
-    );
-
-    targetElements.forEach((el) => {
-      observer.observe(el);
+      const targetLink = activeLink || fallbackLink;
+      targetLink?.focus();
     });
-    return () => observer.disconnect();
-  }, [headings]);
+
+    return () => cancelAnimationFrame(frameId);
+  }, [open, variant]);
+
+  useEffect(() => {
+    if (!open || variant !== "mobile") return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+        return;
+      }
+
+      const isTab = e.key === "Tab";
+      const isArrowDown = e.key === "ArrowDown";
+      const isArrowUp = e.key === "ArrowUp";
+
+      if (!isTab && !isArrowDown && !isArrowUp) return;
+
+      const container = containerRef.current;
+      if (!container) return;
+
+      const trigger = triggerRef.current;
+      const links = Array.from(
+        container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
+      );
+
+      if (!trigger || links.length === 0) return;
+
+      const focusableElements = [trigger, ...links];
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const currentIndex = focusableElements.indexOf(
+        document.activeElement as HTMLAnchorElement | HTMLButtonElement,
+      );
+
+      if (isTab) {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+
+      if (isArrowDown) {
+        e.preventDefault();
+        if (currentIndex === -1 || document.activeElement === lastElement) {
+          firstElement.focus();
+        } else {
+          focusableElements[currentIndex + 1].focus();
+        }
+      }
+
+      if (isArrowUp) {
+        e.preventDefault();
+        if (currentIndex === -1 || document.activeElement === firstElement) {
+          lastElement.focus();
+        } else {
+          focusableElements[currentIndex - 1].focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, variant, setOpen]);
 
   const radius = 9;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - progress * circumference;
 
-  return (
-    <nav
-      className={cx(
-        "2xl:sticky 2xl:top-14  2xl:p-8  2xl:bg-transparent 2xl:m-0 2xl:z-auto",
-        "-mx-4 -mt-4  lg:-mx-8 sm:-mt-8 sticky top-14 bg-body mb-4 z-1",
-        className,
-      )}
-    >
-      <div className="max-2xl:hidden">
+  if (variant === "desktop") {
+    return (
+      <nav
+        className={cx(
+          "max-2xl:hidden 2xl:sticky 2xl:top-14 2xl:p-8 2xl:bg-transparent 2xl:m-0 2xl:z-auto",
+          className,
+        )}
+        {...props}
+      >
         <h2 className="text-sm font-serif font-medium mb-1.5">
           {translations?.toc}
         </h2>
@@ -158,24 +158,35 @@ export default function Toc({
             >
               <Link
                 href={`#${heading.slug}`}
-                data-current={activeSlug === heading.slug ? "true" : undefined}
+                data-current={slug === heading.slug ? "true" : undefined}
               >
                 {heading.text}
               </Link>
             </li>
           ))}
         </ul>
-      </div>
+      </nav>
+    );
+  }
 
+  return (
+    <nav
+      className={cx(
+        "2xl:hidden -mx-4 -mt-4 lg:-mx-8 sm:-mt-8 sticky top-14 bg-body mb-4 z-1",
+        className,
+      )}
+      {...props}
+    >
       <Collapsible.Root
-        open={isOpen}
-        onOpenChange={setIsOpen}
+        open={open}
+        onOpenChange={setOpen}
         ref={containerRef}
-        className={cx("left-0 right-0 w-full 2xl:hidden", className)}
+        className="left-0 right-0 w-full"
         {...props}
       >
         <Collapsible.Trigger
-          onClick={() => setIsOpen(!isOpen)}
+          ref={triggerRef}
+          onClick={() => setOpen(!open)}
           className="flex cursor-pointer items-center border-b border-foreground/5 justify-between w-full py-3 text-sm font-medium px-4 lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none"
         >
           <div className="flex items-center gap-2 overflow-hidden pr-4 min-w-0 w-full">
@@ -205,8 +216,8 @@ export default function Toc({
                 cy="12"
               />
             </svg>
-            {currentText && !isOpen ? (
-              <span className="truncate">{currentText}</span>
+            {text && !open ? (
+              <span className="truncate">{text}</span>
             ) : (
               <span className="text-current/75">{translations?.toc}</span>
             )}
@@ -214,19 +225,19 @@ export default function Toc({
           <span
             className={cx(
               "i-f7:chevron-down text-current/50 ms-4 text-lg motion-safe:transition-transform shrink-0",
-              isOpen && "rotate-180",
+              open && "rotate-180",
             )}
           />
           <div
             className={cx(
               "absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[2.5px] -left-[3.5px]",
-              isOpen && "hidden",
+              open && "hidden",
             )}
           />
           <div
             className={cx(
               "absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[2.5px] -right-[3.5px]",
-              isOpen && "hidden",
+              open && "hidden",
             )}
           />
         </Collapsible.Trigger>
@@ -248,10 +259,13 @@ export default function Toc({
                 >
                   <Link
                     href={`#${heading.slug}`}
-                    onClick={() => setIsOpen(false)}
-                    data-current={
-                      activeSlug === heading.slug ? "true" : undefined
-                    }
+                    data-current={slug === heading.slug ? "true" : undefined}
+                    onClick={() => {
+                      setOpen(false);
+                      requestAnimationFrame(() => {
+                        triggerRef.current?.focus();
+                      });
+                    }}
                   >
                     {heading.text}
                   </Link>

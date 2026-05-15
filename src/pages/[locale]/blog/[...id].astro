@@ -79,11 +79,13 @@ const { Content, headings } = await render(post);
   </Section>
   <Section class="sm:py-8 py-4 px-4 lg:px-8">
     {!!headings.length && (
-    <Toc headings={headings} translations={{toc: t("toc")}} className="2xl:hidden" client:load />
-  )}
+      <Toc headings={headings} translations={{toc: t("toc")}} variant="mobile" client:load />
+    )}
+
     <Article><Content components={components} /></Article>
+
     {!!headings.length && (
-    <Toc headings={headings} translations={{toc: t("toc")}} className="max-2xl:hidden" client:load slot="right" />
-  )}
+      <Toc headings={headings} translations={{toc: t("toc")}} variant="desktop" slot="right" client:load />
+    )}
   </Section>
 </BaseLayout>
