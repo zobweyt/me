@@ -294,8 +294,8 @@ export default function TrackPlayer({ id, locale, initialPresence }: Props) {
       <span className="w-4 sm:w-6 md:w-12 bg-body shrink-0 border-r md:border-r-0 border-foreground/5 border-b" />
       <span className="relative hidden flex-1 border-x border-foreground/5 md:block border-b" />
       <div className="mx-auto max-w-screen-md relative flex flex-col min-w-0 w-full border-b border-foreground/5">
-        <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -left-[3.5px]" />
-        <div className="absolute [z-index:9999] size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -right-[3.5px]" />
+        <div className="absolute z-1 size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -left-[3.5px]" />
+        <div className="absolute z-1 size-1.5 rotate-45 border border-foreground/5 bg-body -bottom-[3.5px] -right-[3.5px]" />
         <a
           href={trackUrl}
           target="_blank"
