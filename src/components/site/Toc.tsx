@@ -70,13 +70,13 @@ export default function Toc({
   return (
     <nav
       className={cx(
-        "2xl:hidden -mx-4 -mt-4 lg:-mx-8 sm:-mt-8 sticky top-14 bg-body mb-4",
+        "2xl:hidden -mx-4 -mt-4 lg:-mx-8 z-1 sm:-mt-8 sticky top-14 bg-body mb-4",
         className,
       )}
       {...props}
     >
       <Menu.Root open={open} onOpenChange={setOpen}>
-        <Menu.Trigger className="z-20 group flex cursor-pointer items-center border-b border-foreground/5 justify-between w-full py-3 text-sm font-medium px-4 lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none">
+        <Menu.Trigger className="group flex cursor-pointer items-center border-b border-foreground/5 justify-between w-full py-3 text-sm font-medium px-4 lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none">
           <div className="flex items-center gap-2 overflow-hidden pr-4 min-w-0 w-full">
             <svg
               className="w-5 h-5 transform -rotate-90 shrink-0"
