@@ -2,7 +2,12 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
-import { defineConfig, envField, fontProviders } from "astro/config";
+import {
+  defineConfig,
+  envField,
+  fontProviders,
+  memoryCache,
+} from "astro/config";
 import unocss from "unocss/astro";
 import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/lib/i18n";
 
@@ -81,4 +86,19 @@ export default defineConfig({
       },
     }),
   ],
+  experimental: {
+    clientPrerender: true,
+    contentIntellisense: true,
+    cache: {
+      provider: memoryCache(),
+    },
+    routeRules: {
+      "[locale]/blog": { maxAge: 300, swr: 60 },
+      "[locale]/blog/[...id]": { maxAge: 300, swr: 60 },
+    },
+    rustCompiler: true,
+    queuedRendering: {
+      enabled: true,
+    },
+  },
 });
