@@ -58,6 +58,10 @@ export default defineConfig({
       expiration: 60,
     },
   }),
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
   markdown: {
     shikiConfig: {
       themes: {
