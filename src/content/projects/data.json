@@ -15,5 +15,22 @@
         "href": "https://zobweyt.github.io/textcase/ru"
       }
     }
+  },
+  {
+    "id": "obsidian-charts",
+    "logo": "./assets/obsidian.svg",
+    "repo": "https://github.com/zobweyt/obsidian-charts",
+    "color": "#6C31E3",
+    "dateStart": "May 19 2026",
+    "i18n": {
+      "en": {
+        "title": "Obsidian Charts",
+        "description": "Adds interactive chart layouts to Obsidian Bases.",
+        "href": "https://community.obsidian.md/plugins/charts"
+      },
+      "ru": {
+        "description": "Добавляет в Obsidian Bases интерактивные макеты диаграмм."
+      }
+    }
   }
 ]
