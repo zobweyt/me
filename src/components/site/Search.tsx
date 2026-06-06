@@ -138,12 +138,27 @@ export default function Search({
     },
     {
       name: t("search.groups.socials.title"),
-      items: socials.map((social) => ({
-        icon: <span className={cx("size-6 shrink-0 text-xl", social.icon)} />,
-        name: social.name,
-        href: social.href,
-        external: true,
-      })),
+      items: [
+        ...socials.map((social) => ({
+          icon: <span className={cx("size-6 shrink-0 text-xl", social.icon)} />,
+          name: social.name,
+          href: social.href,
+          external: true,
+        })),
+        {
+          icon: (
+            <span
+              className={cx(
+                "size-6 shrink-0 text-xl",
+                "i-f7:doc-text opacity-50",
+              )}
+            />
+          ),
+          name: t("resume"),
+          href: "https://zobweyt.github.io/resume",
+          external: true,
+        },
+      ],
     },
     {
       name: t("search.groups.themes.title"),
