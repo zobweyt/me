@@ -32,6 +32,7 @@ const t = getTranslator(Astro.currentLocale);
 const blog = await getBlogPosts({
   count: CONTENT_RECENT_BLOG_POSTS_COUNT,
   locale: Astro.currentLocale,
+  status: "published",
 });
 
 const projects = await getProjectsWithStats({

@@ -12,7 +12,7 @@ const styles = cva(
   {
     variants: {
       underline: {
-        true: "underline underline-offset-4",
+        true: "underline underline-offset-3",
       },
     },
     defaultVariants: {

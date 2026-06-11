@@ -39,15 +39,13 @@ export default function Toc({
         )}
         {...props}
       >
-        <h2 className="text-sm font-serif font-medium mb-1.5">
-          {translations?.toc}
-        </h2>
+        <h2 className="font-serif font-medium mb-1.5">{translations?.toc}</h2>
         <ul className="2xl:overflow-y-auto space-y-1">
           {headings.map((heading) => (
             <li
               key={heading.slug}
               className={cx(
-                "py-0.5 block text-sm transition-colors outline-none",
+                "py-0.5 block transition-colors outline-none",
                 heading.depth === 3 && "ps-2.5",
                 heading.depth === 4 && "ps-4.5",
                 heading.depth === 5 && "ps-6.5",
@@ -76,7 +74,7 @@ export default function Toc({
       {...props}
     >
       <Menu.Root open={open} onOpenChange={setOpen}>
-        <Menu.Trigger className="group flex cursor-pointer items-center border-b border-foreground/5 justify-between w-full py-3 text-sm font-medium px-4 lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none">
+        <Menu.Trigger className="group flex cursor-pointer items-center border-b border-foreground/5 justify-between w-full py-3 text-sm font-medium px-4 lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none truncate">
           <div className="flex items-center gap-2 overflow-hidden pr-4 min-w-0 w-full">
             <svg
               className="w-5 h-5 transform -rotate-90 shrink-0"

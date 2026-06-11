@@ -11,9 +11,18 @@ const { as: Element = "div", class: className, ...props } = Astro.props;
 
 <Element
   class={cx([
-    "prose prose-zinc dark:prose-invert",
-    "prose-code:(font-normal bg-surface text-foreground rounded-md px-1 py-0.5 before:hidden after:hidden)",
-    "prose-headings:(first:mt-0 font-serif)",
+    "prose",
+    "prose-code:(font-normal bg-surface/50 text-foreground rounded-sm px-1 py-0.5 before:hidden after:hidden)",
+    "font-serif",
+    "text-justify text-justify-inter-word hyphens-auto [text-rendering:optimizeLegibility] [orphans:2] [widows:2]",
+    "prose-headings:(first:mt-0 text-foreground)",
+    "prose-a:(text-current/75 decoration-current/15 underline underline-offset-3)",
+    "motion-safe:prose-a:(transition duration-300 ease-in-out)",
+    "prose-img:rounded-xl",
+    "@hover:prose-a:(text-current decoration-current/50)",
+    "focus-visible:prose-a:(text-current decoration-current/50)",
+    "active:prose-a:(text-current! decoration-current/75!)",
+    "prose-h1:text-3xl!",
     "prose-h2:scroll-mt-28! prose-h2:2xl:scroll-mt-20!",
     "prose-h3:scroll-mt-28! prose-h3:2xl:scroll-mt-18!",
     "prose-h4:scroll-mt-28! prose-h4:2xl:scroll-mt-16!",
@@ -26,3 +35,41 @@ const { as: Element = "div", class: className, ...props } = Astro.props;
 >
   <slot />
 </Element>
+
+<style>
+:is(.prose) {
+  --un-prose-body: light-dark(
+    var(--colors-foreground),
+    color-mix(in oklab, var(--colors-foreground) 90%, transparent)
+  );
+  --un-prose-headings: var(--colors-foreground);
+  --un-prose-lead: oklch(44.6% 0.03 256.802);
+  --un-prose-links: unset;
+  --un-prose-bold: var(--colors-foreground);
+  --un-prose-counters: var(--colors-foreground);
+  --un-prose-bullets: var(--colors-foreground);
+  --un-prose-hr: color-mix(in oklab, var(--colors-foreground) 5%, transparent);
+  --un-prose-quotes: unset;
+  --un-prose-quote-borders: color-mix(
+    in oklab,
+    var(--colors-foreground) 25%,
+    transparent
+  );
+  --un-prose-captions: unset;
+  --un-prose-kbd: unset;
+  --un-prose-kbd-shadows: unset;
+  --un-prose-code: unset;
+  --un-prose-pre-code: unset;
+  --un-prose-pre-bg: unset;
+  --un-prose-th-borders: color-mix(
+    in oklab,
+    var(--colors-foreground) 5%,
+    transparent
+  );
+  --un-prose-td-borders: color-mix(
+    in oklab,
+    var(--colors-foreground) 5%,
+    transparent
+  );
+}
+</style>

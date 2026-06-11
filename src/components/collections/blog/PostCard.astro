@@ -25,6 +25,7 @@ const {
     "focus-visible:(outline-3 outline-offset-2 outline-selection)",
     "active:(translate-y-px scale-[0.99] bg-surface/50 border-foreground/15)",
     "[box-shadow:var(--colors-body)_0_0_0_3px_inset]",
+    post.data.status !== "published" && "opacity-75 hover:opacity-100",
   ])}
   href={`/${Astro.currentLocale}/${post.collection}/${post.id.replace(`${Astro.currentLocale}/`, "")}`}
   aria-label={post.data.title}

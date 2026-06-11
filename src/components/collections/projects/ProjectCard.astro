@@ -53,10 +53,10 @@ const style = { "--project-card-color": project.data.color };
   {!!project.stats && (
     <div class="flex gap-2 font-medium items-center text-[var(--project-card-color)] font-mono text-xs mt-2">
       <p class="flex items-center gap-1">
-        <span
+        { /* <span
           class="block size-4 ring ring-foreground/5 ring-inset bg-[var(--bg)]/50 rounded-full"
           style={{"--bg": project.stats.primaryLanguage.color}}
-        />
+        /> */ }
         <span class="tabular-nums leading-none -mb-0.5">
           {project.stats.primaryLanguage.name}
         </span>

@@ -4,6 +4,7 @@ import type { BlogPost } from "./types";
 export type GetBlogPostsProps = {
   count?: number | undefined;
   locale?: string | undefined;
+  status?: BlogPost["data"]["status"];
 };
 
 export const getBlogPosts = async (props?: GetBlogPostsProps) => {
@@ -13,7 +14,13 @@ export const getBlogPosts = async (props?: GetBlogPostsProps) => {
     props?.locale != null
       ? blog.filter((entry) => entry.id.split("/")[0] === props.locale)
       : blog
-  ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  )
+    .filter((p) =>
+      props?.status != null
+        ? p.data.status === props.status
+        : p.data.status === "published" || import.meta.env.DEV,
+    )
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
   return props?.count !== undefined ? entries.slice(0, props.count) : entries;
 };
