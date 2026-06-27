@@ -1,0 +1,163 @@
+---
+title: "How to Fix Layout Shift Caused by the Vertical Scrollbar"
+description: "A breakdown of CSS approaches to prevent layout shifting when the vertical scrollbar appears or disappears."
+date: "06/27/26"
+tags:
+  - css
+---
+
+The appearance or disappearance of the vertical scrollbar is one of the most common causes of unexpected layout shifts in web interfaces. This is especially noticeable when opening modals, navigating between pages with different heights, or dynamically loading content.
+
+In this article, we will go through the main CSS-based approaches, analyze their advantages and drawbacks, and then see which solutions are best suited for common layout patterns.
+
+If your project uses third-party modal libraries (such as Base UI, Radix UI, Mantine, and others), keep in mind that many of them already handle scrollbar compensation internally. When using custom CSS solutions, this behavior often needs to be disabled, otherwise it may result in double offsets or conflicting layout shifts.
+
+## Solutions Overview
+
+JavaScript allows for the most universal scrollbar width compensation and gives full control over its behavior. However, such solutions are more complex to maintain, interfere with native browser behavior, and are not suitable for every project. Therefore, only CSS-based approaches are covered below.
+
+### Viewport Width
+
+By default, the root element width (`100%`) does not include the vertical scrollbar, which causes the layout to shrink when it appears. Here, `100vw` is used instead, which always includes the full viewport width, including the scrollbar. As a result, the scrollbar overlaps the content, mimicking the behavior of most mobile browsers where it does not affect layout width.
+
+```css
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
+```
+
+**Drawbacks:**
+
+- The vertical scrollbar overlaps the right edge of the page.
+- Elements aligned to the right edge may be covered by the scrollbar.
+
+### Scrollbar Gutter
+
+By default, space for the vertical scrollbar is only reserved when it appears. The `scrollbar-gutter: stable` rule forces the browser to reserve this space in advance, preventing layout shifts.
+
+```css
+html {
+  scrollbar-gutter: stable;
+}
+```
+
+**Drawbacks:**
+
+- Not supported in older browsers.
+- On pages without scrolling, a blank space appears on the right.
+- The visual center of the page is slightly shifted to the left.
+
+### Persistent Scrollbar
+
+By default, the vertical scrollbar is only shown when needed. Here, it is always visible, so the browser consistently accounts for its width when calculating layout.
+
+```css
+html {
+  overflow-y: scroll;
+}
+```
+
+**Drawbacks:**
+
+- A scrollbar track is always visible, even on short pages.
+- Does not prevent layout shifts when scroll is disabled via `overflow: hidden` (e.g., modals).
+- The appearance of the scrollbar depends on the operating system and may not match the design.
+
+### Scrollbar Compensation
+
+By default, when the vertical scrollbar appears, the content shifts to the left. This method calculates the difference between the full viewport width (`100vw`) and the document width (`100%`), and applies it as a left margin to maintain visual alignment.
+
+```css
+html {
+  margin-left: calc(100vw - 100%);
+}
+```
+
+**Drawbacks:**
+
+- Shifts elements that are strictly aligned to the left edge of the window.
+- Often requires media query restrictions to avoid issues on small screens.
+
+---
+
+## Behavior in Common Layouts
+
+There is no universal solution. Each approach has its own limitations and is suitable only for specific layout types. Let’s examine the most common scenarios.
+
+### Full-Width Header with Centered Content Container
+
+The header spans the full width of the browser window, while its content is constrained to a centered container.
+
+<iframe height="350" style="width: 100%;" scrolling="no" title="Scrollbar Jump Fix: Fullwidth Header with Centered Content Container" src="https://codepen.io/zobweyt/embed/PwWKPJB?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true">
+  See the Pen <a href="https://codepen.io/zobweyt/pen/PwWKPJB">
+  Scrollbar Jump Fix: Fullwidth Header with Centered Content Container</a> by zobweyt (<a href="https://codepen.io/zobweyt">@zobweyt</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+**Best solution:** [**Viewport Width**](#viewport-width).
+
+Horizontal scrolling is not used in this layout, so overlapping the scrollbar on the right edge does not cause issues. The full-width header background remains stable regardless of scrollbar visibility.
+
+At first glance, Scrollbar Compensation might seem applicable, but it produces the opposite effect here. The centered container remains stable, while the full-width header background shifts relative to the viewport, creating the same visual “jump” but in the opposite direction.
+
+### Centered Header
+
+Both the header and main content are constrained to a fixed-width container (e.g., `max-width: 1280px`) and centered on the page.
+
+<iframe height="350" style="width: 100%;" scrolling="no" title="Scrollbar Jump Fix: Centered Header" src="https://codepen.io/zobweyt/embed/RNKZgbV?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true">
+  See the Pen <a href="https://codepen.io/zobweyt/pen/RNKZgbV">
+  Scrollbar Jump Fix: Centered Header</a> by zobweyt (<a href="https://codepen.io/zobweyt">@zobweyt</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+**Best solution:** [**Scrollbar Compensation**](#scrollbar-compensation).
+
+In this layout, preserving the central alignment is essential. Scrollbar Compensation adds a left offset equal to the scrollbar width, keeping centered elements stable regardless of scrollbar appearance.
+
+Using Viewport Width Fix is generally not recommended here, as it also prevents layout shifts but causes the scrollbar to overlap the right side of the page, which is unnecessary in this case.
+
+### Left Sidebar
+
+The sidebar is aligned to the left edge of the browser window, while only the main content scrolls.
+
+<iframe height="350" style="width: 100%;" scrolling="no" title="Scrollbar Jump Fix: Left Sidebar" src="https://codepen.io/zobweyt/embed/LExjLVZ?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true">
+  See the Pen <a href="https://codepen.io/zobweyt/pen/LExjLVZ">
+  Scrollbar Jump Fix: Left Sidebar</a> by zobweyt (<a href="https://codepen.io/zobweyt">@zobweyt</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+**Best solution:** [**Viewport Width**](#viewport-width).
+
+Since the browser always calculates layout width including the scrollbar, the sidebar position remains stable and anchored to the left edge of the viewport.
+
+Using Scrollbar Compensation in this case is not recommended, as the added offset shifts the entire layout, breaking the sidebar’s alignment with the viewport edge, as seen in the first example.
+
+### Centered Sidebar
+
+The sidebar and main content are placed inside a shared centered container.
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="Scrollbar Jump Fix: Centered Sidebar" src="https://codepen.io/zobweyt/embed/NPdvgNL?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true">
+  See the Pen <a href="https://codepen.io/zobweyt/pen/NPdvgNL">
+  Untitled</a> by zobweyt (<a href="https://codepen.io/zobweyt">@zobweyt</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+**Best solution:** [**Scrollbar Compensation**](#scrollbar-compensation).
+
+This approach preserves the centered layout when the page height changes. Since the sidebar is not anchored to the viewport edge, the additional offset does not break the layout geometry.
+
+---
+
+## Conclusion
+
+There is no universal solution for eliminating scrollbar-induced layout shifts. Each approach solves the problem in its own way and comes with trade-offs.
+
+When choosing a solution, it is important to consider not only the absence of layout shifts, but also layout structure, presence of fixed elements, browser support, and interaction with third-party libraries.
+
+If the project architecture allows it, it is best to choose a single approach and apply it consistently across all pages. This helps avoid conflicts between different methods and ensures predictable interface behavior.
+
+Additional resources:
+
+- https://aykevl.nl/2014/09/fix-jumping-scrollbar/
+- https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter
