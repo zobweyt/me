@@ -57,7 +57,10 @@ const { Content, headings } = await render(post);
     </nav>
 
     <Prose>
-      <h1 class="mb-3 text-3xl" transition:name={`post-${post.id}-title`}>
+      <h1
+        class="mb-3 text-3xl text-left"
+        transition:name={`post-${post.id}-title`}
+      >
         {post.data.title}
       </h1>
 

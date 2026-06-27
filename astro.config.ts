@@ -8,6 +8,7 @@ import {
   fontProviders,
   memoryCache,
 } from "astro/config";
+import rehypeExternalLinks from "rehype-external-links";
 import unocss from "unocss/astro";
 import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/lib/i18n";
 
@@ -76,7 +77,14 @@ export default defineConfig({
     },
   },
   integrations: [
-    mdx(),
+    mdx({
+      rehypePlugins: [
+        [
+          rehypeExternalLinks,
+          { target: "_blank", rel: ["noopener", "noreferrer"] },
+        ],
+      ],
+    }),
     react(),
     unocss(),
     sitemap({

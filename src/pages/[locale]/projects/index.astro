@@ -1,6 +1,6 @@
 ---
 import { ProjectCard } from "@/components/collections/projects";
-import { Section } from "@/components/site";
+import { Section, Toc } from "@/components/site";
 import { Link } from "@/components/ui";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getProjectsWithStatsByYears } from "@/lib/collections/projects";
@@ -18,6 +18,8 @@ const t = getTranslator(Astro.currentLocale);
 const { projects, years } = await getProjectsWithStatsByYears({
   locale: Astro.currentLocale,
 });
+
+const headings = years.map((year) => ({ text: year, slug: year, depth: 2 }));
 ---
 
 <BaseLayout title={t("projects.title")} description={t("projects.description")}>
@@ -34,9 +36,13 @@ const { projects, years } = await getProjectsWithStatsByYears({
     <p class="text-(pretty current/75)">{t("projects.description")}</p>
   </Section>
   <Section class="space-y-4 sm:py-8 py-4 px-4 lg:px-8">
+    {!!headings.length && (
+      <Toc headings={headings} translations={{toc: t("toc")}} variant="mobile" client:load />
+    )}
+
     {years.map((year) => (
       <section>
-        <div class="mb-2 text-xl font-(serif medium)">{year}</div>
+        <h2 class="mb-2 text-xl font-(serif medium) scroll-mt-28! 2xl:scroll-mt-18!" id={year}>{year}</h2>
         <div>
           <ul class="flex flex-col gap-4">
             {projects[year].map((project) => (
@@ -48,5 +54,9 @@ const { projects, years } = await getProjectsWithStatsByYears({
         </div>
       </section>
     ))}
+
+    {!!headings.length && (
+      <Toc headings={headings} translations={{toc: t("toc")}} variant="desktop" slot="right" client:load />
+    )}
   </Section>
 </BaseLayout>
