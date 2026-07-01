@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import { cx } from "class-variance-authority";
 import { Time } from "@/components/ui";
 import type { ProjectWithStats } from "@/lib/collections/projects";
 
@@ -21,7 +20,7 @@ const style = { "--project-card-color": project.data.color };
   href={project.data.href}
   target="_blank"
   rel="noopener noreferrer"
-  class={cx([
+  class:list={[
     "flex flex-col rounded-2xl p-3.5 select-none",
     "border border-[var(--project-card-color)]/15",
     "bg-[var(--project-card-color)]/5 dark:bg-[var(--project-card-color)]/10",
@@ -30,7 +29,7 @@ const style = { "--project-card-color": project.data.color };
     "focus-visible:(outline-3 outline-offset-2 outline-selection)",
     "active:(translate-y-px scale-[0.99] bg-[var(--project-card-color)]/10 border-[var(--project-card-color)]/30)",
     "[box-shadow:var(--colors-body)_0_0_0_3px_inset]",
-  ])}
+  ]}
   style={style}
   aria-label={project.data.title}
   transition:name={`project-${project.id}-card`}

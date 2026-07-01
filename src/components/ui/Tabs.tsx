@@ -1,6 +1,5 @@
 import { Tabs as BaseTabs, mergeProps } from "@base-ui/react";
 import { useState } from "react";
-import { useWebHaptics } from "web-haptics/react";
 
 export const Root = BaseTabs.Root;
 export const List = BaseTabs.List;
@@ -10,7 +9,6 @@ export const Indicator = BaseTabs.Indicator;
 export interface TabsTabProps extends BaseTabs.Tab.Props {}
 
 export function Tab(props: TabsTabProps) {
-  const haptics = useWebHaptics();
   const [tabFocusSource, setTabFocusSource] = useState<"mouse" | null>(null);
 
   const mergedProps = mergeProps<typeof Tab>(
@@ -30,7 +28,6 @@ export function Tab(props: TabsTabProps) {
         setTabFocusSource(null);
       },
       onClick: (event) => {
-        haptics.trigger("selection");
         event.currentTarget.scrollIntoView({
           behavior: "smooth",
           block: "nearest",

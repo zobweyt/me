@@ -1,10 +1,11 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { cx } from "class-variance-authority";
 
 type Props = HTMLAttributes<"div">;
 
 const { class: className, ...props } = Astro.props;
 ---
 
-<div class={cx("mx-auto max-w-screen-md", className)} {...props}><slot /></div>
+<div class:list={["mx-auto max-w-screen-md", className]} {...props}>
+  <slot />
+</div>

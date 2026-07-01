@@ -1,5 +1,4 @@
 import { ScrollArea } from "@base-ui/react";
-import { cx } from "class-variance-authority";
 import { useRef } from "react";
 
 export type CodeProps = React.ComponentProps<"pre"> & {
@@ -15,14 +14,7 @@ export default function Code({ tabindex, className, ...props }: CodeProps) {
         <ScrollArea.Viewport
           render={<pre ref={ref} {...props} />}
           tabIndex={tabindex}
-          className={cx(
-            [
-              "p-4 text-sm rounded-inherit outline-none",
-              "bg-body! [&_span]:bg-body!",
-              "dark:text-[var(--shiki-dark)]! dark:[&_span]:text-[var(--shiki-dark)]!",
-            ],
-            className,
-          )}
+          className="p-4 text-sm rounded-inherit outline-none bg-body! [&_span]:bg-body! dark:text-[var(--shiki-dark)]! dark:[&_span]:text-[var(--shiki-dark)]!"
         />
       </ScrollArea.Root>
     </div>

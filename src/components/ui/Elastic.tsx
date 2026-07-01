@@ -1,4 +1,3 @@
-import { cx } from "class-variance-authority";
 import { useRef } from "react";
 import { useElementSize } from "@/lib/dom/react/useElementSize";
 import { useMounted } from "@/lib/dom/react/useMounted";
@@ -33,7 +32,9 @@ export const Elastic = ({
         transitionTimingFunction: "cubic-bezier(0.19, 1, 0.22, 1)",
         transitionProperty,
       }}
-      className={cx(className, "motion-reduce:duration-0!")}
+      className={[className, "motion-reduce:duration-0!"]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
     >
       <div ref={ref}>{children}</div>

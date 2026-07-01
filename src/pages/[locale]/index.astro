@@ -3,7 +3,6 @@ import {
   CONTENT_RECENT_BLOG_POSTS_COUNT,
   CONTENT_RECENT_PROJECTS_COUNT,
 } from "astro:env/server";
-import { cx } from "class-variance-authority";
 import { AchievementCard } from "@/components/collections/achievements";
 import { BlogSection, PostCard } from "@/components/collections/blog";
 import {
@@ -12,7 +11,6 @@ import {
 } from "@/components/collections/projects";
 import { Skills } from "@/components/collections/skills";
 import { Section } from "@/components/site";
-import TrackWidget from "@/components/site/TrackWidget.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getAchievements } from "@/lib/collections/achievements";
 import { getBlogPosts } from "@/lib/collections/blog";
@@ -52,7 +50,6 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
     </h1>
     <p class="text-(pretty current/75)">{t("home.description")}</p>
   </Section>
-  <TrackWidget />
   <Section class="h-3.5" variant="body" />
   <Section variant="grid">
     <div
@@ -70,7 +67,7 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
   <Section>
     <ProjectsSection locale={Astro.currentLocale}>
       <ul
-        class={cx("grid gap-4 sm:py-8 py-4 px-4 lg:px-8", projects.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-1")}
+        class:list={["grid gap-4 sm:py-8 py-4 px-4 lg:px-8", projects.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-1"]}
       >
         {projects.map((project) => (
           <li>
@@ -93,7 +90,7 @@ const achievements = await getAchievements({ locale: Astro.currentLocale });
 
     <ul class="grid grid-cols-2 lg:grid-cols-4">
       {achievements.map((achievement, index) => (
-        <li class={cx("border-foreground/5 border-t", index !== 0 && "sm:border-l", index % 2 !== 0 && "max-sm:border-l")}>
+        <li class:list={["border-foreground/5 border-t", index !== 0 && "sm:border-l", index % 2 !== 0 && "max-sm:border-l"]}>
           <AchievementCard achievement={achievement} />
         </li>
       ))}

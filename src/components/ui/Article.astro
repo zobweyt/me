@@ -1,5 +1,4 @@
 ---
-import { cx } from "class-variance-authority";
 import Prose from "./Prose.astro";
 
 const { class: className, ...props } = Astro.props;
@@ -8,7 +7,7 @@ const { class: className, ...props } = Astro.props;
 <div class="article">
   <Prose
     as="article"
-    class={cx("article__content max-w-max", className)}
+    class:list={["article__content max-w-max", className]}
     {...props}
   >
     <slot />

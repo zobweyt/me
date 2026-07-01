@@ -8,8 +8,7 @@ import {
   fontProviders,
   memoryCache,
 } from "astro/config";
-import rehypeExternalLinks from "rehype-external-links";
-import unocss from "unocss/astro";
+import unocss from "unocss/vite";
 import { DEFAULT_LOCALE, LOCALES, SITEMAP_LOCALES } from "./src/lib/i18n";
 
 export default defineConfig({
@@ -27,9 +26,17 @@ export default defineConfig({
       }),
     },
   },
+  vite: {
+    plugins: [unocss()],
+  },
   i18n: {
     locales: Array.from(LOCALES),
     defaultLocale: DEFAULT_LOCALE,
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: false,
+      fallbackType: "rewrite",
+    },
   },
   fonts: [
     {
@@ -64,9 +71,16 @@ export default defineConfig({
       expiration: 60,
     },
   }),
+  cache: {
+    provider: memoryCache(),
+  },
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
+  },
+  routeRules: {
+    "[locale]/blog": { maxAge: 300, swr: 60 },
+    "[locale]/blog/[...id]": { maxAge: 300, swr: 60 },
   },
   markdown: {
     shikiConfig: {
@@ -77,16 +91,8 @@ export default defineConfig({
     },
   },
   integrations: [
-    mdx({
-      rehypePlugins: [
-        [
-          rehypeExternalLinks,
-          { target: "_blank", rel: ["noopener", "noreferrer"] },
-        ],
-      ],
-    }),
+    mdx(),
     react(),
-    unocss(),
     sitemap({
       i18n: {
         locales: SITEMAP_LOCALES,
@@ -97,16 +103,5 @@ export default defineConfig({
   experimental: {
     clientPrerender: true,
     contentIntellisense: true,
-    cache: {
-      provider: memoryCache(),
-    },
-    routeRules: {
-      "[locale]/blog": { maxAge: 300, swr: 60 },
-      "[locale]/blog/[...id]": { maxAge: 300, swr: 60 },
-    },
-    rustCompiler: true,
-    queuedRendering: {
-      enabled: true,
-    },
   },
 });

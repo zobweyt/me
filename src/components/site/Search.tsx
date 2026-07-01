@@ -1,7 +1,5 @@
 import { navigate } from "astro:transitions/client";
-import { cx } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
-import Highlighter from "react-highlight-words";
 import { Button, Command } from "@/components/ui";
 import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
 
@@ -128,7 +126,7 @@ export default function Search({
           <img
             src={project.logo}
             alt={project.title}
-            className={cx("size-6 shrink-0 rounded-full")}
+            className="size-6 shrink-0 rounded-full"
           />
         ),
         name: project.title,
@@ -140,19 +138,18 @@ export default function Search({
       name: t("search.groups.socials.title"),
       items: [
         ...socials.map((social) => ({
-          icon: <span className={cx("size-6 shrink-0 text-xl", social.icon)} />,
+          icon: (
+            <span
+              className={["size-6 shrink-0 text-xl", social.icon].join(" ")}
+            />
+          ),
           name: social.name,
           href: social.href,
           external: true,
         })),
         {
           icon: (
-            <span
-              className={cx(
-                "size-6 shrink-0 text-xl",
-                "i-f7:doc-text opacity-50",
-              )}
-            />
+            <span className="size-6 shrink-0 text-xl i-f7:doc-text opacity-50" />
           ),
           name: t("resume"),
           href: "https://zobweyt.github.io/resume",
@@ -166,10 +163,10 @@ export default function Search({
         ...(["light", "dark", "system"] as const).map((theme) => ({
           icon: (
             <span
-              className={cx(
+              className={[
                 "size-6 shrink-0 text-2xl opacity-50",
                 THEME_ICON_CLASS_NAMES[theme],
-              )}
+              ].join(" ")}
             />
           ),
           name: t(`search.groups.themes.items.${theme}`),
@@ -237,7 +234,7 @@ export default function Search({
             autoFocus
             onInput={(e) => setQuery(e.currentTarget.value)}
             placeholder={t("search.input.placeholder")}
-            className={cx("ps-10", query && "pe-10")}
+            className={["ps-10", query ? "pe-10" : ""].join(" ")}
             before={
               <span className="i-f7:search absolute left-2 shrink-0 text-2xl text-current/50" />
             }
@@ -295,23 +292,14 @@ export default function Search({
                   keywords={item.keywords}
                 >
                   {item.icon}
-                  <Highlighter
-                    autoEscape
-                    searchWords={[query]}
-                    textToHighlight={item.name}
-                    highlightClassName="bg-selection text-selection-foreground"
-                  />
+                  <span>{item.name}</span>
                   {item.action !== true && (
-                    <Highlighter
-                      autoEscape
-                      searchWords={[query]}
-                      textToHighlight={item.href
+                    <span className="min-w-0 truncate text-current/50">
+                      {item.href
                         .replace(new RegExp(`^/${locale}`), "")
                         .replace("https://", "")
                         .replace(/\/+$/, "")}
-                      className="min-w-0 truncate text-current/50"
-                      highlightClassName="bg-selection text-selection-foreground"
-                    />
+                    </span>
                   )}
                 </Command.Item>
               ))}

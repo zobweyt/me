@@ -1,6 +1,5 @@
 ---
 import type { HTMLTag } from "astro/types";
-import { cx } from "class-variance-authority";
 
 export interface Props {
   as?: HTMLTag;
@@ -10,7 +9,7 @@ const { as: Element = "div", class: className, ...props } = Astro.props;
 ---
 
 <Element
-  class={cx([
+  class:list={[
     "prose",
     "prose-code:(font-normal bg-surface/50 text-foreground rounded-sm px-1 py-0.5 before:hidden after:hidden)",
     "font-serif",
@@ -30,7 +29,7 @@ const { as: Element = "div", class: className, ...props } = Astro.props;
     "prose-h6:scroll-mt-26! prose-h6:2xl:scroll-mt-14!",
     "prose-hr:border-foreground/5",
     className
-  ])}
+  ]}
   {...props}
 >
   <slot />

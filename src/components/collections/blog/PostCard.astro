@@ -1,5 +1,4 @@
 ---
-import { cx } from "class-variance-authority";
 import { Time } from "@/components/ui";
 import type { BlogPost } from "@/lib/collections/blog";
 import PostTags from "./PostTags.astro";
@@ -16,7 +15,7 @@ const {
 ---
 
 <a
-  class={cx([
+  class:list={[
     "flex flex-col rounded-2xl p-3.5 select-none",
     "border border-foreground/5",
     "bg-surface/25",
@@ -26,7 +25,7 @@ const {
     "active:(translate-y-px scale-[0.99] bg-surface/50 border-foreground/15)",
     "[box-shadow:var(--colors-body)_0_0_0_3px_inset]",
     post.data.status !== "published" && "opacity-75 hover:opacity-100",
-  ])}
+  ]}
   href={`/${Astro.currentLocale}/${post.collection}/${post.id.replace(`${Astro.currentLocale}/`, "")}`}
   aria-label={post.data.title}
   transition:name={`post-${post.id}-card`}

@@ -6,10 +6,6 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from "unocss";
-import {
-  presetFunctionCompletion,
-  presetObjectCompletion,
-} from "unocss-preset-completion";
 
 export default defineConfig({
   theme: {
@@ -48,12 +44,10 @@ export default defineConfig({
         dark: "[data-theme=dark]",
       },
     }),
-    presetIcons(),
-    presetTypography(),
-    presetFunctionCompletion({
-      autocompleteFunctions: ["cx", "cva"],
+    presetIcons({
+      cdn: "https://esm.sh/",
     }),
-    presetObjectCompletion(),
+    presetTypography(),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
 });

@@ -1,5 +1,4 @@
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { cx } from "class-variance-authority";
 import { useMemo, useState } from "react";
 import { Elastic, Tabs } from "@/components/ui";
 import SKILLS_CATEGORIES from "@/content/skills/categories.json";
@@ -104,10 +103,10 @@ export default function Skills({
           {entries.map(([group, skills], index) => (
             <section
               key={group}
-              className={cx(
+              className={[
                 "p-4 sm:px-4 lg:px-8 border-t border-foreground/5",
-                index % 2 !== 0 && "border-l",
-              )}
+                index % 2 !== 0 ? "border-l" : "",
+              ].join(" ")}
             >
               <h3 className="text-xs font-mono light:font-medium uppercase tracking-widest text-current/50 mb-1.5">
                 {group}
@@ -117,10 +116,10 @@ export default function Skills({
                   <li key={skill.id}>
                     <a
                       title={skill.data.name}
-                      className={cx(
+                      className={[
                         "flex size-7! focus-visible:scale-110 @hover:scale-110 active:opacity-75 motion-safe:transition outline-none",
                         skill.data.icon,
-                      )}
+                      ].join(" ")}
                       rel="noopener noreferrer"
                       target="_blank"
                       href={skill.data.href}

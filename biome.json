@@ -8,7 +8,24 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
+      "a11y": {
+        "useAnchorContent": "off",
+        "noSvgWithoutTitle": "off"
+      },
+      "complexity": {
+        "noUselessLoneBlockStatements": "off",
+        "noImportantStyles": "off"
+      },
+      "correctness": {
+        "noUnusedVariables": "off",
+        "noUnusedImports": "off",
+        "useJsxKeyInIterable": "off"
+      },
+      "style": {
+        "useConst": "off",
+        "useImportType": "off"
+      },
       "suspicious": {
         "noArrayIndexKey": "off"
       }
@@ -59,42 +76,5 @@
       "enabled": true
     },
     "experimentalFullSupportEnabled": true
-  },
-  "overrides": [
-    {
-      "includes": ["**/*.astro"],
-      "linter": {
-        "rules": {
-          "a11y": {
-            "useAnchorContent": "off",
-            "noSvgWithoutTitle": "off"
-          },
-          "style": {
-            "useConst": "off",
-            "useImportType": "off"
-          },
-          "correctness": {
-            "noUnusedVariables": "off",
-            "noUnusedImports": "off",
-            "useJsxKeyInIterable": "off"
-          },
-          "complexity": {
-            "noUselessLoneBlockStatements": "off",
-            "noImportantStyles": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["**/*.tsx"],
-      "linter": {
-        "rules": {
-          "a11y": {
-            "useAnchorContent": "off",
-            "noSvgWithoutTitle": "off"
-          }
-        }
-      }
-    }
-  ]
+  }
 }
