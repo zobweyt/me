@@ -89,6 +89,8 @@ export default defineConfig({
         dark: "github-dark-default",
       },
     },
+    // TODO: custom pre tag in astro v7 broke, setting this to false helps now
+    syntaxHighlight: false,
   },
   integrations: [
     mdx(),

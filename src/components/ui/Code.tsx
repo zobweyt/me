@@ -14,7 +14,12 @@ export default function Code({ tabindex, className, ...props }: CodeProps) {
         <ScrollArea.Viewport
           render={<pre ref={ref} {...props} />}
           tabIndex={tabindex}
-          className="p-4 text-sm rounded-inherit outline-none bg-body! [&_span]:bg-body! dark:text-[var(--shiki-dark)]! dark:[&_span]:text-[var(--shiki-dark)]!"
+          className={[
+            "p-4 text-sm rounded-inherit outline-none bg-body! [&_span]:bg-body! dark:text-[var(--shiki-dark)]! dark:[&_span]:text-[var(--shiki-dark)]!",
+            className,
+          ]
+            .filter(Boolean)
+            .join(" ")}
         />
       </ScrollArea.Root>
     </div>
