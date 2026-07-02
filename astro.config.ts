@@ -16,7 +16,7 @@ export default defineConfig({
   env: {
     schema: {
       GITHUB_TOKEN: envField.string({ context: "server", access: "secret" }),
-      CONTENT_RECENT_BLOG_POSTS_COUNT: envField.number({
+      CONTENT_RECENT_POSTS_COUNT: envField.number({
         context: "server",
         access: "public",
       }),
@@ -64,6 +64,7 @@ export default defineConfig({
       subsets: ["cyrillic", "latin"],
     },
   ],
+
   output: "server",
   adapter: vercel({
     isr: {

@@ -121,7 +121,7 @@ export default function Toc({
                   className={[
                     "border-b border-foreground/5 py-2.5 px-4 text-sm flex items-center lg:px-8 @hover:bg-surface/25 focus-visible:bg-surface/25 active:bg-surface/30! motion-safe:transition outline-none",
                     slug === heading.slug &&
-                      "bg-selection/25! @hover:bg-selection/30! focus-visible:bg-selection/30! active:bg-selection/35!",
+                      "bg-accent/25! @hover:bg-accent/30! focus-visible:bg-accent/30! active:bg-accent/35!",
                     heading.depth === 3 ? "ps-8 lg:ps-12" : "",
                     heading.depth === 4 ? "ps-12 lg:ps-16" : "",
                     heading.depth === 5 ? "ps-16 lg:ps-20" : "",

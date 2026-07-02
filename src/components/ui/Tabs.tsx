@@ -35,7 +35,7 @@ export function Tab(props: TabsTabProps) {
         });
       },
       className:
-        "flex cursor-pointer items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:(text-foreground bg-foreground/15 translate-y-px scale-[0.99]) hover:active:(text-foreground bg-foreground/15 translate-y-px scale-[0.99]) rounded-full select-none focus-visible:(outline-3 outline-offset-2 outline-selection) motion-safe:transition data-[active]:(text-body! bg-foreground!)",
+        "flex cursor-pointer items-center text-sm justify-center px-2.5 py-1 font-medium text-foreground/75 bg-surface @hover:(text-foreground bg-foreground/10) active:(text-foreground bg-foreground/15 translate-y-px scale-[0.99]) hover:active:(text-foreground bg-foreground/15 translate-y-px scale-[0.99]) rounded-full select-none focus-visible:(outline-3 outline-offset-2 outline-accent) motion-safe:transition data-[active]:(text-body! bg-foreground!)",
     },
     props,
   );

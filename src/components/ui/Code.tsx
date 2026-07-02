@@ -9,7 +9,7 @@ export default function Code({ tabindex, className, ...props }: CodeProps) {
   const ref = useRef<HTMLPreElement>(null);
 
   return (
-    <div className="not-prose rounded-xl border border-foreground/5 bg-body motion-safe:transition has-focus-visible:(outline-3 outline-offset-2 outline-selection)">
+    <div className="not-prose rounded-xl border border-foreground/5 bg-body motion-safe:transition has-focus-visible:(outline-3 outline-offset-2 outline-accent)">
       <ScrollArea.Root className="w-full h-full rounded-[inherit]">
         <ScrollArea.Viewport
           render={<pre ref={ref} {...props} />}

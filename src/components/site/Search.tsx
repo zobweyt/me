@@ -1,6 +1,7 @@
 import { navigate } from "astro:transitions/client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Command } from "@/components/ui";
+import type { GitHubRepoStats } from "@/lib/github";
 import { LOCALES, type Locale, getTranslator } from "@/lib/i18n";
 
 const THEME_ICON_CLASS_NAMES: Record<"light" | "dark" | "system", string> = {
@@ -28,6 +29,7 @@ export default function Search({
     title: string;
     description: string;
     tags: string[] | undefined;
+    date: Date;
   }[];
   projects: {
     id: string;
@@ -36,6 +38,7 @@ export default function Search({
     logo: string;
     href: string | undefined;
     repo: string | undefined;
+    stats: GitHubRepoStats | undefined;
   }[];
   socials: {
     id: string;
@@ -73,6 +76,7 @@ export default function Search({
       icon: React.ReactNode;
       name: string;
       href: string;
+      extra?: React.ReactNode;
       onClick?: VoidFunction;
       keywords?: string[];
       action?: boolean;
@@ -103,6 +107,17 @@ export default function Search({
           name: t("search.groups.pages.items.projects"),
           href: `/${locale}/projects`,
         },
+        {
+          icon: (
+            <span className="size-6 shrink-0 text-xl i-f7:doc-text opacity-50" />
+          ),
+          name: t("resume"),
+          href: "https://zobweyt.github.io/resume",
+          extra: (
+            <span className="text-current/50">zobweyt.github.io/resume</span>
+          ),
+          external: true,
+        },
       ],
     },
     {
@@ -117,6 +132,14 @@ export default function Search({
           ...post.description.replace(".", "").split(" "),
         ],
         href: `/${locale}/blog/${post.id.split("/")[1]}`,
+        extra: (
+          <span className="text-current/50">
+            {post.date.toLocaleDateString(locale, {
+              day: "numeric",
+              month: "short",
+            })}
+          </span>
+        ),
       })),
     },
     {
@@ -131,31 +154,36 @@ export default function Search({
         ),
         name: project.title,
         href: project.href ?? project.repo ?? "#",
+        extra: project.stats && (
+          <div className="text-current/50">
+            <p className="flex items-center gap-1">
+              <span className="i-lucide:star text-base" />
+              <span className="tabular-nums leading-none">
+                {project.stats.stargazerCount}
+              </span>
+            </p>
+          </div>
+        ),
         external: true,
       })),
     },
     {
       name: t("search.groups.socials.title"),
-      items: [
-        ...socials.map((social) => ({
-          icon: (
-            <span
-              className={["size-6 shrink-0 text-xl", social.icon].join(" ")}
-            />
-          ),
-          name: social.name,
-          href: social.href,
-          external: true,
-        })),
-        {
-          icon: (
-            <span className="size-6 shrink-0 text-xl i-f7:doc-text opacity-50" />
-          ),
-          name: t("resume"),
-          href: "https://zobweyt.github.io/resume",
-          external: true,
-        },
-      ],
+      items: socials.map((social) => ({
+        icon: (
+          <span
+            className={["size-6 shrink-0 text-xl", social.icon].join(" ")}
+          />
+        ),
+        name: social.name,
+        href: social.href,
+        extra: (
+          <span className="text-current/50">
+            {social.href.replace("https://", "")}
+          </span>
+        ),
+        external: true,
+      })),
     },
     {
       name: t("search.groups.themes.title"),
@@ -227,7 +255,7 @@ export default function Search({
         description={t("search.description")}
         initialFocus={inputRef}
       >
-        <div className="flex items-center justify-center pt-3 px-3 sm:py-2 sm:border-b sm:border-foreground/5">
+        <div className="flex z-10 max-sm:fixed max-sm:inset-x-0 items-center justify-center pt-3 px-3 sm:py-2 sm:border-b sm:border-foreground/5">
           <Command.Input
             value={query}
             ref={inputRef}
@@ -254,12 +282,16 @@ export default function Search({
             }
           />
 
-          <Command.Close className="flex cursor-pointer motion-safe:(transition duration-300 ease-in-out) items-center px-3 py-1.5 no-underline text-current/75 focus-visible:text-current @hover:text-current active:!text-current sm:hidden -me-1 -mt-0.5">
-            {t("search.footer.exit")}
-          </Command.Close>
+          <Button
+            render={<Command.Close />}
+            className="ms-2.5 sm:hidden p-0! size-10 aspect-square"
+            aria-label={t("search.footer.exit")}
+          >
+            <span className="i-f7:xmark text-2xl text-current/75" />
+          </Button>
         </div>
 
-        <Command.List>
+        <Command.List className="max-sm:mt-6">
           <Command.Empty className="flex-col items-center justify-center">
             <span className="i-f7:search text-5xl text-current/50 mb-1.5" />
             <span className="text-xl font-medium mb-0.5">
@@ -292,15 +324,16 @@ export default function Search({
                   keywords={item.keywords}
                 >
                   {item.icon}
-                  <span>{item.name}</span>
-                  {item.action !== true && (
+                  <span className="min-w-0 truncate">{item.name}</span>
+                  {item.extra}
+                  {/* {item.external && (
                     <span className="min-w-0 truncate text-current/50">
                       {item.href
                         .replace(new RegExp(`^/${locale}`), "")
                         .replace("https://", "")
                         .replace(/\/+$/, "")}
                     </span>
-                  )}
+                  )} */}
                 </Command.Item>
               ))}
             </Command.Group>

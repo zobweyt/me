@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getBlogPosts } from "@/lib/collections/blog";
-import { getProjects } from "@/lib/collections/projects";
+import { getProjectsWithStats } from "@/lib/collections/projects";
 import { getSocials } from "@/lib/collections/socials";
 import { getTranslator } from "@/lib/i18n";
 import { Link } from "../ui";
@@ -17,9 +17,10 @@ const posts = postsEntries.map((post) => ({
   title: post.data.title,
   description: post.data.description,
   tags: post.data.tags,
+  date: post.data.date,
 }));
 
-const projectsEntries = await getProjects({
+const projectsEntries = await getProjectsWithStats({
   locale: Astro.currentLocale,
 });
 
@@ -30,6 +31,7 @@ const projects = projectsEntries.map((project) => ({
   href: project.data.href,
   repo: project.data.repo,
   logo: project.data.logo?.src || "",
+  stats: project.stats,
 }));
 
 const socialsEntries = await getSocials();
@@ -47,12 +49,12 @@ const props = Astro.props;
     <Link
       href={`/${Astro.currentLocale}`}
       underline={false}
-      className="font-medium text-current/75 gap-2 group/link"
+      className="font-medium text-foreground/85 font-serif gap-2"
     >
       <Image
         src="https://avatars.githubusercontent.com/u/98274273?v=4"
         alt={t("name")}
-        class="rounded-full opacity-75 [@media(pointer:fine)]:group-hover/link:opacity-100 motion-safe:transition"
+        class="rounded-full ring ring-foreground/5 motion-safe:transition"
         width={24}
         height={24}
         loading="eager"

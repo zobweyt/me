@@ -1,6 +1,6 @@
 ---
 import {
-  CONTENT_RECENT_BLOG_POSTS_COUNT,
+  CONTENT_RECENT_POSTS_COUNT,
   CONTENT_RECENT_PROJECTS_COUNT,
 } from "astro:env/server";
 import { AchievementCard } from "@/components/collections/achievements";
@@ -28,7 +28,7 @@ Astro.response.headers.set(
 const t = getTranslator(Astro.currentLocale);
 
 const blog = await getBlogPosts({
-  count: CONTENT_RECENT_BLOG_POSTS_COUNT,
+  count: CONTENT_RECENT_POSTS_COUNT,
   locale: Astro.currentLocale,
   status: "published",
 });

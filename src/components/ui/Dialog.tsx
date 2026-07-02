@@ -18,7 +18,7 @@ export const Popup = ({ className, children, ...props }: Base.Popup.Props) => {
       <Base.Backdrop className="fixed inset-0 min-h-dvh backdrop-blur-[1px] bg-black/25 dark:bg-black/50 motion-safe:transition-[background-color,backdrop-filter] motion-safe:duration-150 z-50 data-[ending-style]:backdrop-blur-[0px] data-[ending-style]:bg-black/0! data-[starting-style]:backdrop-blur-[0px] data-[starting-style]:bg-black/0! supports-[-webkit-touch-callout:none]:absolute max-sm:hidden" />
       <Base.Popup
         className={[
-          "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl bg-body/85 dark:bg-body/65 backdrop-blur-xl p-6 shadow-xl sm:max-w-lg sm:border sm:border-foreground/5 motion-safe:transition-all motion-safe:duration-150 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 max-sm:duration-0",
+          "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl sm:bg-body/85 sm:dark:bg-body/65 max-sm:bg-body sm:backdrop-blur-xl p-6 shadow-xl sm:max-w-lg sm:border sm:border-foreground/5 motion-safe:transition-all motion-safe:duration-150 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 max-sm:duration-0",
           className,
         ]
           .filter(Boolean)

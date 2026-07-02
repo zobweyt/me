@@ -67,7 +67,7 @@ export const Input = ({
   after?: React.ReactNode;
 }) => {
   return (
-    <div className="relative max-sm:rounded-full max-sm:bg-surface bg-transparent flex h-10 sm:h-9 w-full items-center justify-center select-none">
+    <div className="relative max-sm:rounded-full max-sm:bg-surface/50 bg-transparent flex h-10 sm:h-9 w-full items-center justify-center select-none max-sm:(border border-foreground/15 backdrop-blur-2xl) @hover:max-sm:bg-surface max-sm:active:!bg-surface max-sm:active:(translate-y-px scale-[0.99])">
       {before}
 
       <Command.Input
