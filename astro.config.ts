@@ -64,7 +64,6 @@ export default defineConfig({
       subsets: ["cyrillic", "latin"],
     },
   ],
-
   output: "server",
   adapter: vercel({
     isr: {
