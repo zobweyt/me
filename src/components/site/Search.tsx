@@ -291,7 +291,7 @@ export default function Search({
           </Button>
         </div>
 
-        <Command.List className="max-sm:mt-6">
+        <Command.List className="max-sm:mt-14">
           <Command.Empty className="flex-col items-center justify-center">
             <span className="i-f7:search text-5xl text-current/50 mb-1.5" />
             <span className="text-xl font-medium mb-0.5">
